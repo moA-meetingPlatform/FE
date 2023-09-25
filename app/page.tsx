@@ -1,7 +1,12 @@
-import Image from 'next/image'
+import React from 'react'
 
 export default function Home() {
   return (
-    <div>init</div>
+    <div>
+      <div className='content'>
+        <h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1>
+        <h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1><h1>Home</h1>
+      </div>
+    </div>
   )
 }
