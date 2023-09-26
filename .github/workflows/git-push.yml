@@ -21,7 +21,7 @@ jobs:
           API_TOKEN_GITHUB: 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
         with:
           source-directory: 'output'
-          destination-github-username: awdfaf
+          destination-github-username: park geonwoo
           destination-repository-name: meetingplatform-FE
           user-email: awdfaf@kakao.com
           commit-message: ${{ github.event.commits[0].message }}
