@@ -16,7 +16,7 @@
   }
 } */
 
-/* body {
+body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -24,8 +24,12 @@
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-} */
-.content {
-  /* height: 100vh; */
-  background-color: #dfefd6;
+
+    background-color: #dfefd6;
 }
+/* .content {
+  height: 100vh;
+  padding-top: 54px;
+  background-color: #e3f3dc;
+} */
+
