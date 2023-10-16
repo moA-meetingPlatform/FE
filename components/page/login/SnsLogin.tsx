@@ -28,9 +28,9 @@ export default function SnsLogin() {
           <span>카카오톡으로 5초만에 시작하기</span>
         </button>
         <Link href="/login/otherLogin">
-          <h3>
+          <div className='absolute right-28 font-semibold'>
             다른 방법으로 시작하기
-          </h3>
+          </div>
         </Link>
       </div>
     </div>
