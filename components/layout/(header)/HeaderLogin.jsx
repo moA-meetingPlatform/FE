@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Navbar, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
-import { Button } from "@nextui-org/button";
-import { Image } from "@nextui-org/image";
 import { Input } from "@nextui-org/input";
 import { SearchIcon } from "./SearchIcon.jsx";
 import {
@@ -13,23 +11,12 @@ import {
   DropdownItem
 } from "@nextui-org/dropdown";
 import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/avatar";
+import MoaLogo from '../(logo)/MoaLogo';
 
 
 export default function HeaderLogin() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
 
   return (
     <Navbar
@@ -45,7 +32,7 @@ export default function HeaderLogin() {
       <NavbarContent justify="center">
         <NavbarItem>
           <Link href="/">
-            <Image src="/images/moa.png" alt="moa Logo" width={70} height={100} />
+            <MoaLogo />
           </Link>
         </NavbarItem>
 
@@ -96,22 +83,7 @@ export default function HeaderLogin() {
         </Dropdown>
       </NavbarContent>
 
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              className="w-full"
-              color={
-                index === 2 ? "warning" : index === menuItems.length - 1 ? "danger" : "foreground"
-              }
-              href="#"
-              size="lg"
-            >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
+
     </Navbar>
   );
 }
