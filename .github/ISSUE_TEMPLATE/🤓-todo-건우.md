@@ -2,7 +2,7 @@
 name: "\U0001F913 TODO-건우"
 about: 할일 작성을 할때 이 템플릿을 사용해주세요.
 title: "[FE]"
-labels: todo
+labels: enhancement
 assignees: awdfaf
 
 ---
