@@ -5,25 +5,15 @@ import React, { useState } from 'react'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
 import { Button } from "@nextui-org/button";
-import { Image } from "@nextui-org/image";
+
+import Menu from '../(menu)/Menu';
+import MoaLogo from '../(logo)/MoaLogo';
 
 
 
 export default function HeaderDefault() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
 
   return (
     <Navbar
@@ -39,25 +29,9 @@ export default function HeaderDefault() {
       <NavbarContent justify="center">
         <NavbarItem>
           <Link href="/">
-            <Image src="/images/moa.png" alt="moa Logo" width={70} height={100} />
+            <MoaLogo />
           </Link>
         </NavbarItem>
-        {/* <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
-            <Image src="/images/moa.png" alt="Acme Logo" width={100} height={100} />
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Customers
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
-        </NavbarItem> */}
       </NavbarContent>
 
       <NavbarContent justify="end">
@@ -71,22 +45,8 @@ export default function HeaderDefault() {
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              className="w-full"
-              color={
-                index === 2 ? "warning" : index === menuItems.length - 1 ? "danger" : "foreground"
-              }
-              href="#"
-              size="lg"
-            >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
+      <Menu />
+
     </Navbar>
   );
 }
