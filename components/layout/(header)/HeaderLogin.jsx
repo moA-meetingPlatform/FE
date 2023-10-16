@@ -1,11 +1,21 @@
-'use client'
 import React, { useState } from 'react'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link, Button, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar } from "@nextui-org/react";
-import { AcmeLogo } from "./AcmeLogo.jsx";
+import { Navbar, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from "@nextui-org/navbar";
+import { Link } from "@nextui-org/link";
+import { Button } from "@nextui-org/button";
+import { Image } from "@nextui-org/image";
+import { Input } from "@nextui-org/input";
 import { SearchIcon } from "./SearchIcon.jsx";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownSection,
+  DropdownItem
+} from "@nextui-org/dropdown";
+import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/avatar";
+
 
 export default function HeaderLogin() {
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
@@ -20,44 +30,28 @@ export default function HeaderLogin() {
     "Help & Feedback",
     "Log Out",
   ];
+
   return (
     <Navbar
       isBordered
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
     >
-      <NavbarContent className="sm:hidden" justify="start">
+
+      <NavbarContent justify="start">
         <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} />
       </NavbarContent>
 
-      <NavbarContent className="sm:hidden pr-3" justify="center">
-        <NavbarBrand>
-          <AcmeLogo />
-          <p className="font-bold text-inherit">ACME</p>
-        </NavbarBrand>
+      <NavbarContent justify="center">
+        <NavbarItem>
+          <Link href="/">
+            <Image src="/images/moa.png" alt="moa Logo" width={70} height={100} />
+          </Link>
+        </NavbarItem>
+
       </NavbarContent>
 
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarBrand>
-          <AcmeLogo />
-          <p className="font-bold text-inherit">ACME</p>
-        </NavbarBrand>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Customers
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
+
 
       <NavbarContent as="div" className="items-center" justify="end">
         <Input
@@ -69,7 +63,7 @@ export default function HeaderLogin() {
           }}
           placeholder="Type to search..."
           size="sm"
-          startContent={<SearchIcon size={18} stroke="currentColor" />}
+          startContent={<SearchIcon size={18} />}
           type="search"
         />
         <Dropdown placement="bottom-end">
@@ -119,5 +113,5 @@ export default function HeaderLogin() {
         ))}
       </NavbarMenu>
     </Navbar>
-  )
+  );
 }

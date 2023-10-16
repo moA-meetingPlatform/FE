@@ -1,10 +1,11 @@
-'use client'
+
 
 
 import React, { useState } from 'react'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link, Button } from "@nextui-org/react";
-import { AcmeLogo } from "./AcmeLogo.jsx";
-import Image from 'next/image.js';
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from "@nextui-org/navbar";
+import { Link } from "@nextui-org/link";
+import { Button } from "@nextui-org/button";
+import { Image } from "@nextui-org/image";
 
 
 
@@ -30,24 +31,21 @@ export default function HeaderDefault() {
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
     >
-      <NavbarContent className="sm:hidden" justify="start">
+
+      <NavbarContent justify="start">
         <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} />
       </NavbarContent>
 
-      <NavbarContent className="sm:hidden pr-3" justify="center">
-        <NavbarBrand>
-          <Image src="/images/moa.png" alt="Acme Logo" width={100} height={100} />
-        </NavbarBrand>
-      </NavbarContent>
-
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarBrand>
-          <AcmeLogo />
-          <p className="font-bold text-inherit">ACME</p>
-        </NavbarBrand>
+      <NavbarContent justify="center">
         <NavbarItem>
+          <Link href="/">
+            <Image src="/images/moa.png" alt="moa Logo" width={70} height={100} />
+          </Link>
+        </NavbarItem>
+        {/* <NavbarItem>
           <Link color="foreground" href="#">
             Features
+            <Image src="/images/moa.png" alt="Acme Logo" width={100} height={100} />
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
@@ -59,15 +57,15 @@ export default function HeaderDefault() {
           <Link color="foreground" href="#">
             Integrations
           </Link>
-        </NavbarItem>
+        </NavbarItem> */}
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <NavbarItem className="lg:flex">
-          <Link href="#">Login</Link>
+        <NavbarItem>
+          <Link size="sm" href="#">Login</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
+          <Button size="sm" as={Link} color="primary" href="#" variant="flat">
             Sign Up
           </Button>
         </NavbarItem>
