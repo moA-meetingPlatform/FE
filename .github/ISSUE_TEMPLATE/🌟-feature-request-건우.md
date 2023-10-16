@@ -1,9 +1,9 @@
 ---
-name: "\U0001F31F Feature Request"
+name: "\U0001F31F Feature Request-건우"
 about: 새로운 기능 요청이 있다면 이 템플릿을 사용해주세요.
 title: "[FE-Feat]"
 labels: enhancement
-assignees: awdfaf, jskim4695
+assignees: awdfaf
 
 ---
 
