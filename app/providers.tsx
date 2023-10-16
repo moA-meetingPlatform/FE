@@ -8,7 +8,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextUIProvider>
       <SessionProvider>
-        <NextThemesProvider attribute="class" defaultTheme="light" themes={['light', 'dark', 'purple-dark']}>
+        <NextThemesProvider attribute="class" >
           {children}
         </NextThemesProvider>
       </SessionProvider>
