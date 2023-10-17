@@ -1,6 +1,8 @@
 
 
 
+import MainPageSwiper from '@/components/widget/swiper/MainPageSwiper'
+
 import React from 'react'
 
 
@@ -9,7 +11,8 @@ import React from 'react'
 export default function Home() {
   return (
     <>
-      <h1>adasd</h1>
+      <MainPageSwiper />
+      <h1> adasd</h1 >
       <h1>adasd</h1>
       <h1>adasd</h1>
       <h1>adasd</h1>

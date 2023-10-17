@@ -3,7 +3,7 @@
 import React from 'react'
 import { signIn, useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
-import LoginArea from '@components/page/LoginArea'
+import Loginarea from '@/components/page/login/LoginArea'
 
 function moaLogin() {
 
@@ -13,16 +13,16 @@ function moaLogin() {
 
 
   const handleLogin = async (provider: string) => {
-    
+
     const result = await signIn(provider, {
-        redirect: true,
-        callbackUrl: callBackUrl ? callBackUrl : '/'
+      redirect: true,
+      callbackUrl: callBackUrl ? callBackUrl : '/'
     })
-};
+  };
 
   return (
     <div>
-      <LoginArea />
+      <Loginarea />
     </div>
   )
 }
