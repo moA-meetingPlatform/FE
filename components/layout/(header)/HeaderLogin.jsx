@@ -12,6 +12,7 @@ import {
 } from "@nextui-org/dropdown";
 import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/avatar";
 import MoaLogo from '../(logo)/MoaLogo';
+import { signOut } from 'next-auth/react'
 
 
 export default function HeaderLogin() {
@@ -76,7 +77,7 @@ export default function HeaderLogin() {
             <DropdownItem key="system">System</DropdownItem>
             <DropdownItem key="configurations">Configurations</DropdownItem>
             <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-            <DropdownItem key="logout" color="danger">
+            <DropdownItem key="logout" color="danger" onClick={() => signOut()}>
               Log Out
             </DropdownItem>
           </DropdownMenu>
