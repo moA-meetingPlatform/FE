@@ -36,7 +36,7 @@ export default function HeaderDefault() {
 
       <NavbarContent justify="end">
         <NavbarItem>
-          <Link size="sm" href="#">Login</Link>
+          <Link size="sm" href="/login">Login</Link>
         </NavbarItem>
         <NavbarItem>
           <Button size="sm" as={Link} color="primary" href="#" variant="flat">
