@@ -1,3 +1,6 @@
+
+import BottomNav from '@/components/layout/(navigation)/(bottom)/BottomNav'
+import Header from '@/components/layout/(navigation)/(top)/Header'
 import CategoryMenu from '@/components/page/main/(menu)/CategoryMenu'
 import MainPageSwiper from '@/components/widget/swiper/MainPageSwiper'
 import React from 'react'
@@ -5,8 +8,9 @@ import React from 'react'
 export default function Home() {
   return (
     <>
+      <Header />
       <MainPageSwiper />
-      <h1> adasd</h1 >
+      <h1> adasd</h1>
       <h1>adasd</h1>
       <h1>adasd</h1>
       <CategoryMenu />
@@ -65,6 +69,7 @@ export default function Home() {
       <h1>adasd</h1>
       <h1>adasd</h1>
       <h1>adasd</h1>
+      <BottomNav />
     </>
   )
 }

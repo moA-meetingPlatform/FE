@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Navbar, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
 import { Input } from "@nextui-org/input";
-import { SearchIcon } from "./SearchIcon.jsx";
+import { SearchIcon } from "../../(logo & Icon)/SearchIcon.jsx";
 import {
   Dropdown,
   DropdownTrigger,
@@ -11,8 +11,12 @@ import {
   DropdownItem
 } from "@nextui-org/dropdown";
 import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/avatar";
-import MoaLogo from '../(logo)/MoaLogo';
+
 import { signOut } from 'next-auth/react'
+
+import Menu from '../../(menu)/Menu';
+import MoaLogo from '../../(logo & Icon)/MoaLogo';
+
 
 
 export default function HeaderLogin() {
@@ -84,7 +88,7 @@ export default function HeaderLogin() {
         </Dropdown>
       </NavbarContent>
 
-
+      <Menu />
     </Navbar>
   );
 }
