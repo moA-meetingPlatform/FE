@@ -1,9 +1,10 @@
-import Header from '@/components/layout/(header)/Header'
+import Header from '@/components/layout/(header)/Header.jsx'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Footer from '@/components/layout/(footer)/Footer'
-import AuthProvider from './context/AuthProvider'
+import { Providers } from "./providers";
+import { ThemeSwitcher } from '@/components/layout/(header)/ThemeSwitcher'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,14 +19,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className=''>
       <body className={inter.className}>
-        <AuthProvider>
-        <Header />
-        {children}
-        <Footer />
-        </AuthProvider>
-        </body>
+        <Providers>
+
+          <Header />
+          {children}
+          <ThemeSwitcher />
+          {/* <Footer /> */}
+
+        </Providers>
+      </body>
     </html>
   )
 }

@@ -2,10 +2,50 @@ import type {NextAuthOptions} from "next-auth";
 import NaverProvider from "next-auth/providers/naver"
 import KakaoProvider from "next-auth/providers/kakao"
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials"
+
 
 export const options: NextAuthOptions = {
 
   providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+          loginId: { label: "loginId", type: "text", placeholder: "SSGPOINT" },
+          password: { label: "password", type: "password" }
+
+      },
+      async authorize(credentials, req) {
+
+
+          if (!credentials?.loginId || !credentials?.password) return null
+
+          const res = await fetch("https://smilekarina.duckdns.org/api/v1/login", {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  loginId: credentials?.loginId,
+                  password: credentials?.password,
+
+              })
+          })
+
+          // const user = await res.json()
+          const user = await res.json()
+
+
+          if (res.ok && user) {
+              
+              return user.result
+          }
+          
+
+          // Return null if user data could not be retrieved
+          return null
+      }
+  }),
     NaverProvider({
       clientId: process.env.NAVER_CLIENT_ID || "",
       clientSecret: process.env.NAVER_CLIENT_SECRET || ""
