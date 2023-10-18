@@ -10,13 +10,13 @@ import {
 import { ListboxWrapper } from "./../../../ui/ListboxWrapper.jsx"
 
 
-export default function Sequence1(props) {
+export default function Sequence2(props) {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([""]));
   const router = useRouter();
   const searchParams = useSearchParams()
 
-  const [inputValue, setInputValue] = useState(searchParams.get('data') || '');
-  const [inputValue2, setInputValue2] = useState(searchParams.get('data2') || '');
+  const [inputValue3, setInputValue3] = useState(searchParams.get('data3') || '');
+  const [inputValue4, setInputValue4] = useState(searchParams.get('data4') || '');
   const { url, setUrl, updateQueryParams } = props;
 
   const selectedValue = React.useMemo(
@@ -28,8 +28,8 @@ export default function Sequence1(props) {
     const baseURL = 'http://localhost:3000'; // Adjust as needed
 
     const updatedUrl = updateQueryParams(baseURL, url, {
-      data: inputValue,
-      data2: inputValue2,
+      data3: inputValue3,
+      data4: inputValue4,
     });
     setUrl(updatedUrl);
     router.push(updatedUrl);
@@ -53,13 +53,13 @@ export default function Sequence1(props) {
       <p className="text-small text-default-500">Selected value: {selectedValue}</p>
       <input
         type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        value={inputValue3}
+        onChange={(e) => setInputValue3(e.target.value)}
       />
       <input
         type="text"
-        value={inputValue2}
-        onChange={(e) => setInputValue2(e.target.value)}
+        value={inputValue4}
+        onChange={(e) => setInputValue4(e.target.value)}
       />
       <button onClick={handleNext}>Next</button>
     </div>
