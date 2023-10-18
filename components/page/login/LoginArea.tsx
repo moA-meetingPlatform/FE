@@ -14,7 +14,6 @@ type CustomUser = {
 }
 
 
-
 export default function Loginarea() {
   const router = useRouter();
   const query = useSearchParams();
