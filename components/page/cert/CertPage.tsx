@@ -117,33 +117,34 @@ export default function CertPage() {
     }, []);
 
     const handleCertification = async () => {
-        if (routePath === '/member/join/cert') {
-            router.push('/member/join/agree');
+        if (routePath === '/cert') {
+            router.push('/join');
 
-        } else if (routePath === '/member/findIdPw') {
+        } else if (routePath === 'login/findId') {
             const result = await checkId(certData.userName, certData.phone)
             if (result) {
                 localStorage.setItem('loginId', result.toString())
-                router.push('/member/findIdResult')
+                router.push('login/findIdResult')
             }
             else {
                 setModalContent("회원정보가 없습니다.\n정확한 정보를 입력하신 후 다시 시도해 주세요.");
-                setRoutePath('/member/join')
+                setRoutePath('/join')
                 onOpen();
             }
 
-        } else if (routePath === '/member/findPw') {
+        } else if (routePath === '/login/findPw') {
             const result = await checkId(certData.userName, certData.phone)
             if (result && result === certData.loginId) {
                 localStorage.setItem('loginId', result.toString())
 
-                router.push('/member/findPwResult')
+                router.push('login/changePw')
             }
             else {
                 setModalContent("입력한 아이디 정보와 본인인증 정보가 일치하지 않습니다.\n정확한 정보를 입력하신 후 다시 시도해 주세요.");
-                setRoutePath('/member/findPw')
+                setRoutePath('/login/findPw')
                 onOpen();
             }
+
         } else if (routePath === '/mypoint/chgPntPwdCert') {
             const result = await checkId(certData.userName, certData.phone)
             if (result) {
@@ -155,7 +156,7 @@ export default function CertPage() {
                 setRoutePath('/mypoint/chgPntPwdCert')
                 onOpen();
             }
-        } else if (routePath === '/myinfo/cert') {
+/*         } else if (routePath === '/myinfo/cert') {
             const result = await checkIdAdrr(certData.userName, certData.phone)
             if (result) {
                 localStorage.setItem('loginId', result.loginId.toString())
@@ -175,7 +176,7 @@ export default function CertPage() {
             else {
                 setModalContent("회원정보가 없습니다.\n정확한 정보를 입력하신 후 다시 시도해 주세요.");
                 onOpen();
-            }
+            } */
 
         }
     }
@@ -193,17 +194,6 @@ export default function CertPage() {
                         <h3 className="hidden">휴대폰인증</h3>
                         <div>
                             <div className={styles.tab_box0}>
-                                {pathname === '/member/findPw' ? (
-                                    <div className={styles.form_box}>
-                                        <p className={styles.tit}> 아이디를 입력해 주세요. </p>
-                                        <div className={styles.input_box}>
-                                            <input name="loginId" id="loginId" type="text" placeholder='아이디 입력' title="회원가입을 위해 입력해주세요."
-                                                onChange={(e) => handleOnChange(e, certData, setCertData)} />
-                                        </div>
-                                        <p className={styles.error_txt}>
-                                        </p>
-                                    </div>
-                                ) : null}
                                 <div className={styles.form_box}>
                                     <p className={styles.tit}> 이름을 입력해 주세요. </p>
                                     <div className={styles.input_box}>
@@ -213,58 +203,48 @@ export default function CertPage() {
                                     <p className={styles.error_txt}>
                                     </p>
                                 </div>
-                                <div className={styles.form_box}>
-                                    <p className={styles.tit}> 성별을 선택해주세요.
-                                    </p>
-                                    <div className={`${styles.radio_group_box} ${styles.col2}`}>
-                                        <div className={styles.radio_box}>
-                                            <input id="radio00" type="radio" name="gender" value="M" defaultChecked
-                                                onChange={(e) => handleOnChange(e, certData, setCertData)} />
-                                            <label htmlFor="radio00">남자</label>
-                                        </div>
-                                        <div className={styles.radio_box}>
-                                            <input id="radio01" type="radio" name="gender" value="F"
-                                                onChange={(e) => handleOnChange(e, certData, setCertData)} />
-                                            <label htmlFor="radio01">여자</label>
-                                        </div>
+
+                                {pathname !== "/login/findPw" ? (
+                                    <>
+                                        <div className={styles.form_box}>
+                                            <p className={styles.tit}> 성별을 선택해주세요.
+                                            </p>
+                                            <div className={`${styles.radio_group_box} ${styles.col2}`}>
+                                                <div className={styles.radio_box}>
+                                                    <input id="radio00" type="radio" name="gender" value="M" defaultChecked
+                                                        onChange={(e) => handleOnChange(e, certData, setCertData)} />
+                                                    <label htmlFor="radio00">남자</label>
+                                                </div>
+                                                <div className={styles.radio_box}>
+                                                    <input id="radio01" type="radio" name="gender" value="F"
+                                                        onChange={(e) => handleOnChange(e, certData, setCertData)} />
+                                                    <label htmlFor="radio01">여자</label>
+                                                </div>
+                                            </div>
+                                        </div><div className={styles.form_box}><p className={styles.tit}> 생년월일을 입력해주세요.
+                                            <em className="not-italic">(예: 19990101)</em>
+                                        </p>
+                                                <div className={styles.input_box}>
+                                                    <input id="birthday" name='birthday' placeholder='법정생년월일 8자리' type="tel"
+                                                        onChange={(e) => handleOnChange(e, certData, setCertData)} />
+                                                </div>
+                                                <p className={styles.error_txt}>
+                                                </p>
+                                            </div>
+                                            </>
+) : (
+                                        <div className={styles.form_box}>
+                                            <p className={styles.tit}> 아이디 </p>
+                                            <div className={styles.input_box}>
+                                                <input name="userName" id="userName" type="text" placeholder='이름 입력' title="회원가입을 위해 입력해주세요."
+                                                    onChange={(e) => handleOnChange(e, certData, setCertData)} />
+                                            </div>
+                                            <p className={styles.error_txt}>
+                                            </p>
                                     </div>
-                                </div>
-                                <div className={styles.form_box}>
-                                    <p className={styles.tit}> 외국인 이신가요? </p>
-                                    <div className={`${styles.radio_group_box} ${styles.col2}`}>
-                                        <div className={styles.radio_box}>
-                                            <input
-                                                id="radio10"
-                                                type="radio"
-                                                name="nationality"
-                                                value="L"
-                                                defaultChecked
-                                                onChange={(e) => handleOnChange(e, certData, setCertData)}
-                                            />
-                                            <label htmlFor="radio10">내국인</label>
-                                        </div>
-                                        <div className={styles.radio_box}>
-                                            <input
-                                                id="radio11"
-                                                type="radio"
-                                                name="nationality"
-                                                value="F"
-                                                onChange={(e) => handleOnChange(e, certData, setCertData)}
-                                            />
-                                            <label htmlFor="radio11">외국인</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className={styles.form_box}><p className={styles.tit}> 생년월일을 입력해주세요.
-                                    <em className="not-italic" >(예: 19990101)</em>
-                                </p>
-                                    <div className={styles.input_box}>
-                                        <input id="birthday" name='birthday' placeholder='법정생년월일 8자리' type="tel"
-                                            onChange={(e) => handleOnChange(e, certData, setCertData)} />
-                                    </div>
-                                    <p className={styles.error_txt}>
-                                    </p>
-                                </div>
+)
+}
+
                                 <div className={styles.form_box}>
                                     <p className={styles.tit}> 본인명의의 휴대전화번호를 입력해주세요. </p>
                                     <div className={styles.phone_select_box}>
