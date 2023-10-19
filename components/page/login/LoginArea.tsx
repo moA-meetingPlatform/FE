@@ -14,7 +14,6 @@ type CustomUser = {
 }
 
 
-
 export default function Loginarea() {
   const router = useRouter();
   const query = useSearchParams();
@@ -163,17 +162,17 @@ export default function Loginarea() {
       </div>
       <ul className={styles.btn_list_box}>
         <li>
-          <Link href="/member/findIdPw" className={styles.btn}>아이디 찾기</Link>
+          <Link href="/login/findId" className={styles.btn}>아이디 찾기</Link>
         </li>
         <li>
-          <Link href="/member/findPw" className={styles.btn}>비밀번호 찾기</Link>
+          <Link href="/login/findPw" className={styles.btn}>비밀번호 찾기</Link>
         </li>
         <li>
-          <Link href="/member/join" className={styles.btn}>회원가입</Link>
+          <Link href="/cert" className={styles.btn}>회원가입</Link>
         </li>
       </ul>
 
-
+      
     </div>
 
   )
