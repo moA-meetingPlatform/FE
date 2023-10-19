@@ -319,7 +319,7 @@ export default function FormArea() {
                     <span className='text-red-600'>*</span>push 알림을 동의할 시, 직장 인증완료 알림을 받을 수 있습니다.
                 </p>
                 <p className='indent-1'>
-                    (push 알림을 받으시려면 앱 권한 설정에 동의하셔야 합니다.)
+                    (push 알림을 받으시려면 어플리케이션 권한 설정에 동의하셔야 합니다.)
                 </p>
             </div>
             <div className={styles.cnt_box2}>
