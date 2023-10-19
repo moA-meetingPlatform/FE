@@ -21,7 +21,7 @@ export default function CreateMeetingBottomNav(props: { active: number, setActiv
   };
 
   const handleNext = () => {
-    if (active <= maxTabs) {
+    if (active < maxTabs) {
       setActive(active + 1);
     }
   };

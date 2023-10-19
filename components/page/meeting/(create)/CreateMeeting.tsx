@@ -7,6 +7,7 @@ import { Progress } from "@nextui-org/progress";
 import Sequence1 from "./Sequence1.jsx";
 import Sequence2 from "./Sequence2.jsx";
 import Sequence3 from "./Sequence3.jsx";
+import Sequence4 from "./Sequence4.jsx";
 import CreateMeetingBottomNav from "@/components/layout/(navigation)/(bottom)/CreateMeetingBottomNav";
 
 
@@ -48,7 +49,13 @@ export default function CreateMeeting() {
       label: "third",
       progress: 90,
       content: <Sequence3 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
-    }
+    },
+    {
+      id: 4,
+      label: "fourth",
+      progress: 100,
+      content: <Sequence4 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
+    },
   ];
 
 
