@@ -1,6 +1,3 @@
-
-
-
 import React, { useState } from 'react'
 import { Navbar, NavbarContent, NavbarItem, NavbarMenuToggle } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
@@ -40,9 +37,11 @@ export default function HeaderDefault() {
           <Link size="sm" href="/login">Login</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button size="sm" as={Link} color="primary" href="#" variant="flat">
+          <Link href='/cert'>
+          <Button size="sm" color="primary" variant="flat">
             Sign Up
           </Button>
+          </Link>
         </NavbarItem>
       </NavbarContent>
 
