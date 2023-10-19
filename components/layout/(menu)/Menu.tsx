@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { NavbarMenu, NavbarMenuItem } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
 import { MenuContentData } from '@/data/MenuContentData';
-import { ThemeSwitcher } from '../(header)/ThemeSwitcher';
+
 
 
 export default function Menu() {
@@ -24,7 +24,7 @@ export default function Menu() {
           </Link>
         </NavbarMenuItem>
       ))}
-      <ThemeSwitcher type="button" />
+
     </NavbarMenu>
   )
 }
