@@ -15,7 +15,6 @@ export default function Sequence4(props) {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([""]));
   const router = useRouter();
   const searchParams = useSearchParams()
-  const pathname = usePathname();
 
   const [inputValue7, setInputValue7] = useState(searchParams.get('data7') || '');
   const [inputValue8, setInputValue8] = useState(searchParams.get('data8') || '');
@@ -26,6 +25,16 @@ export default function Sequence4(props) {
     [selectedKeys]
   );
 
+  const [createData, setCreateData] = useState({
+    data: '',
+    data2: '',
+    data3: '',
+    data4: '',
+    data5: '',
+    data6: '',
+    data7: '',
+    data8: '',
+  });
 
 
   const handleNext = () => {
@@ -40,39 +49,50 @@ export default function Sequence4(props) {
   };
 
 
-  // const handleButtonClick = () => {
-  //   let paramsArray = [];
-
+  // const handlebuttonClick = () => {
+  //   // 1. URL의 파라미터를 가져옵니다.
+  //   let newCreateData = {};
   //   for (let [key, value] of searchParams.entries()) {
-  //     paramsArray.push(`${key}=${value}`);
+  //     newCreateData[key] = value;
   //   }
 
-  //   const queryString = paramsArray.join('&');
-  //   console.log(queryString);
+  //   // 2. createData의 상태를 업데이트합니다.
+  //   setCreateData(newCreateData);
+
+  //   console.log(newCreateData);
   // }
 
 
 
   const createMeeting = async () => {
 
-    let paramsArray = [];
-
+    // 1. URL의 파라미터를 가져옵니다.
+    let newCreateData = {};
     for (let [key, value] of searchParams.entries()) {
-      paramsArray.push(`${key}=${value}`);
+      newCreateData[key] = value;
     }
 
-    const queryString = paramsArray.join('&');
-    console.log(queryString);
+    // 2. createData의 상태를 업데이트합니다.
+    setCreateData(newCreateData);
+
 
     try {
       const res = await fetch(`https://moa-backend.duckdns.org/api/v1/meeting?${queryString}`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${session.data.user.token}`
         },
         body: JSON.stringify(
           {
-
+            data: createData.data,
+            data2: createData.data2,
+            data3: createData.data3,
+            data4: createData.data4,
+            data5: createData.data5,
+            data6: createData.data6,
+            data7: createData.data7,
+            data8: createData.data8,
           }
         ),
       });
