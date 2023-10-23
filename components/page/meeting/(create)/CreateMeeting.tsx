@@ -60,10 +60,10 @@ export default function CreateMeeting() {
 
 
 
-  useEffect(() => {
-    console.log("active", active);
-    console.log("url", url);
-  }, [active]);
+  // useEffect(() => {
+  //   console.log("active", active);
+  //   console.log("url", url);
+  // }, [active]);
 
   return (
     <>

@@ -10,6 +10,7 @@ import {
 import { ListboxWrapper } from "./../../../ui/ListboxWrapper.jsx"
 
 
+
 export default function Sequence4(props) {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([""]));
   const router = useRouter();
@@ -24,6 +25,18 @@ export default function Sequence4(props) {
     [selectedKeys]
   );
 
+  const [createData, setCreateData] = useState({
+    data: '',
+    data2: '',
+    data3: '',
+    data4: '',
+    data5: '',
+    data6: '',
+    data7: '',
+    data8: '',
+  });
+
+
   const handleNext = () => {
     const baseURL = 'http://localhost:3000'; // Adjust as needed
 
@@ -35,6 +48,69 @@ export default function Sequence4(props) {
     router.push(updatedUrl);
   };
 
+
+  // const handlebuttonClick = () => {
+  //   // 1. URL의 파라미터를 가져옵니다.
+  //   let newCreateData = {};
+  //   for (let [key, value] of searchParams.entries()) {
+  //     newCreateData[key] = value;
+  //   }
+
+  //   // 2. createData의 상태를 업데이트합니다.
+  //   setCreateData(newCreateData);
+
+  //   console.log(newCreateData);
+  // }
+
+
+
+  const createMeeting = async () => {
+
+    // 1. URL의 파라미터를 가져옵니다.
+    let newCreateData = {};
+    for (let [key, value] of searchParams.entries()) {
+      newCreateData[key] = value;
+    }
+
+    // 2. createData의 상태를 업데이트합니다.
+    setCreateData(newCreateData);
+
+
+    try {
+      const res = await fetch(`https://moa-backend.duckdns.org/api/v1/meeting?${queryString}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.data.user.token}`
+        },
+        body: JSON.stringify(
+          {
+            data: createData.data,
+            data2: createData.data2,
+            data3: createData.data3,
+            data4: createData.data4,
+            data5: createData.data5,
+            data6: createData.data6,
+            data7: createData.data7,
+            data8: createData.data8,
+          }
+        ),
+      });
+      const data = await res.json();
+
+      if (data.success === true) {
+
+      }
+      else {
+
+      }
+    }
+    catch (e) {
+      console.error("Error sending request:", e);
+    }
+
+  }
+
   return (
     <div className="flex flex-col gap-2">
       <ListboxWrapper>
@@ -45,8 +121,6 @@ export default function Sequence4(props) {
           selectedKeys={selectedKeys}
           onSelectionChange={setSelectedKeys}
         >
-          <ListboxItem key="text">1111111111원 샷</ListboxItem>
-          <ListboxItem key="ready1">준비중</ListboxItem>
           <ListboxItem key="ready2">준비중</ListboxItem>
         </Listbox>
       </ListboxWrapper>
@@ -62,7 +136,7 @@ export default function Sequence4(props) {
         onChange={(e) => setInputValue8(e.target.value)}
       />
       <button onClick={handleNext}>Next</button>
-      <button onClick={() => { console.log(searchParams.getAll) }}>fetch</button>
+      <button onClick={createMeeting}>fetch</button>
     </div>
   );
 }

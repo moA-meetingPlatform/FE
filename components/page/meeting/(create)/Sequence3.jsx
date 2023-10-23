@@ -45,8 +45,6 @@ export default function Sequence3(props) {
           selectedKeys={selectedKeys}
           onSelectionChange={setSelectedKeys}
         >
-          <ListboxItem key="text">1111111111원 샷</ListboxItem>
-          <ListboxItem key="ready1">준비중</ListboxItem>
           <ListboxItem key="ready2">준비중</ListboxItem>
         </Listbox>
       </ListboxWrapper>
