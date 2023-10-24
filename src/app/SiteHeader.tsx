@@ -39,7 +39,7 @@ const SiteHeader = () => {
 
   //
 
-  const renderRadioThemeDir = () => {
+/*   const renderRadioThemeDir = () => {
     return (
       <div>
         <span className="text-sm font-medium">Theme dir</span>
@@ -62,7 +62,7 @@ const SiteHeader = () => {
         </div>
       </div>
     );
-  };
+  }; */
   const renderRadioHeaders = () => {
     return (
       <div>
@@ -95,7 +95,7 @@ const SiteHeader = () => {
     return (
       <div className="ControlSelections relative z-40 hidden md:block">
         <div className="fixed right-3 top-1/4 z-40 flex items-center">
-          <Popover className="relative">
+          {/* <Popover className="relative">
             {({ open }) => (
               <>
                 <Popover.Button
@@ -144,7 +144,7 @@ const SiteHeader = () => {
                 </Transition>
               </>
             )}
-          </Popover>
+          </Popover> */}
         </div>
       </div>
     );
