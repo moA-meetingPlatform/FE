@@ -1,10 +1,8 @@
-import Header from '@/components/layout/(header)/Header.jsx'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Footer from '@/components/layout/(footer)/Footer'
 import { Providers } from "./providers";
-import { ThemeSwitcher } from '@/components/layout/(header)/ThemeSwitcher'
+import { ThemeSwitcher } from '@/components/layout/(navigation)/(top)/ThemeSwitcher'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,9 +21,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
 
-          <Header />
+
           {children}
-          {/* <Footer /> */}
+
 
         </Providers>
       </body>
