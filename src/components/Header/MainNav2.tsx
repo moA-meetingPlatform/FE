@@ -10,6 +10,8 @@ import NotifyDropdown from "./NotifyDropdown";
 import SwitchDarkMode from "../SwitchDarkMode/SwitchDarkMode";
 import Input from "../Input/Input";
 import SearchModal from "./SearchModal";
+import MoaLogo from "../Logo/MoaLogo";
+import Link from "next/link";
 
 export interface MainNav2Props {
   className?: string;
@@ -64,7 +66,9 @@ const MainNav2: FC<MainNav2Props> = ({ className = "" }) => {
           </div>
 
           <div className="flex lg:flex-1 items-center rtl:space-x-reverse space-x-3 sm:space-x-8">
-            <Logo />
+            <Link href="/">
+              <MoaLogo />
+            </Link>
 
             <div className="hidden md:block h-10 border-s border-slate-200 dark:border-slate-700"></div>
 

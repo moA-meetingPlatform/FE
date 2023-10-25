@@ -5,10 +5,12 @@ import MenuBar from "@/components/MenuBar/MenuBar";
 import SwitchDarkMode from "@/components/SwitchDarkMode/SwitchDarkMode";
 import SearchModal from "./SearchModal";
 import Button from "../Button/Button";
+import MoaLogo from "../Logo/MoaLogo";
+import Link from "next/link";
 
-export interface MainNav1Props {}
+export interface MainNav1Props { }
 
-const MainNav1: FC<MainNav1Props> = ({}) => {
+const MainNav1: FC<MainNav1Props> = ({ }) => {
   return (
     <div className="nc-MainNav1 relative z-10 bg-white dark:bg-slate-900 ">
       <div className="container">
@@ -18,7 +20,9 @@ const MainNav1: FC<MainNav1Props> = ({}) => {
           </div>
 
           <div className="flex justify-center lg:justify-start flex-1 items-center space-x-4 sm:space-x-10 2xl:space-x-14 rtl:space-x-reverse">
-            <Logo />
+            <Link href="/">
+              <MoaLogo />
+            </Link>
             <Navigation className="hidden lg:flex" />
           </div>
 
