@@ -2,7 +2,7 @@ import React from 'react'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { options } from '@/app/api/auth/[...nextauth]/options'
-import OtherLogin from '@/components/(login)/OtherLogin'
+import OtherLogin from '@/components/(page)/login/OtherLogin'
 
 export const metadata = {
   title: '모아 - 로그인',

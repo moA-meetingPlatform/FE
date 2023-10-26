@@ -1,17 +1,17 @@
-import CertPage from '@/components/(page)/cert/CertPage'
+import FormArea from '@/components/(page)/signup/FormArea'
 import React from 'react'
 
-function cert() {
+function join() {
     return (
         <>
             <div className='mt-[20px] text-2xl text-center'>
-                본인인증
+                정보입력
             </div>
             <div>
-                <CertPage />
+                <FormArea />
             </div>
         </>
     )
 }
 
-export default cert
+export default join

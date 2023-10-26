@@ -1,5 +1,5 @@
 import React from 'react'
-import SnsLogin from '@/components/(login)/SnsLogin'
+import SnsLogin from '@/components/(page)/login/SnsLogin'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { options } from '@/app/api/auth/[...nextauth]/options'

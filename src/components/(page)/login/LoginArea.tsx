@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { LogInFormDataType } from '@/types/userDataType';
 import { signIn, signOut } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import PublicModal from '../(widget)/modal/Modal';
+import PublicModal from '../../(widget)/modal/Modal';
 import { useDisclosure } from '@nextui-org/react';
 
 type CustomUser = {
@@ -138,7 +138,7 @@ export default function Loginarea() {
           onChange={handleOnChange}
           title="로그인을 위해 비밀번호를 입력해주세요." />
         <button type="button" onClick={handlePwType}>
-          <Link href="" id="pw00_btn" className={styles.ico_eye_slash}>비밀번호 보기</Link>
+          <Link href="/" id="pw00_btn" className={styles.ico_eye_slash}>비밀번호 보기</Link>
         </button>
       </div>
       <div className={`${styles.chk_group_box} ${styles.col2}`}>
