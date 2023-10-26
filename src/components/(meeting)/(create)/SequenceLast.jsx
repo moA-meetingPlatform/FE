@@ -2,13 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import { usePathname, useSearchParams, useRouter, useParams } from 'next/navigation'
-import {
-  Listbox,
-  ListboxSection,
-  ListboxItem
-} from "@nextui-org/listbox";
-import { ListboxWrapper } from "./../../ui/ListboxWrapper"
 import Heading from '@/components/Heading/Heading';
+import NcModal from '@/components/NcModal/NcModal';
 
 
 
@@ -16,37 +11,39 @@ export default function SequenceLast(props) {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([""]));
   const router = useRouter();
   const searchParams = useSearchParams()
-  const [inputValue7, setInputValue7] = useState(searchParams.get('data7') || '');
-  const [inputValue8, setInputValue8] = useState(searchParams.get('data8') || '');
-  const { url, setUrl, updateQueryParams } = props;
+
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", "),
     [selectedKeys]
   );
 
-  const [createData, setCreateData] = useState({
-    data: '',
-    data2: '',
-    data3: '',
-    data4: '',
-    data5: '',
-    data6: '',
-    data7: '',
-    data8: '',
-  });
-
-
-  const handleNext = () => {
-    const baseURL = 'http://localhost:3000'; // Adjust as needed
-
-    const updatedUrl = updateQueryParams(baseURL, url, {
-      data7: inputValue7,
-      data8: inputValue8,
-    });
-    setUrl(updatedUrl);
-    router.push(updatedUrl);
+  const handleSubmit = () => {
+    // Handle your submit logic here
+    console.log('Button Clicked!');
   };
+
+
+  const [createData, setCreateData] = useState({
+    title: searchParams.get('Title'),
+    meetingAddress: searchParams.get('MeetingAddress'),
+    description: searchParams.get('Description'),
+    entryFee: searchParams.get('EntryFee'),
+    meetingDatetime: searchParams.get('MeetingDatetime'),
+    refundPolicy: searchParams.get('RefundPolicy'),
+    isFcfs: searchParams.get('IsFcfs'),
+    isOnline: searchParams.get('IsOnline'),
+    maxParticipantNum: searchParams.get('MaxParticipantNum'),
+    maxAge: searchParams.get('MaxAge'),
+    minAge: searchParams.get('MinAge'),
+    companyList: searchParams.get('CompanyList'),
+    entryFeeInfoIdList: searchParams.get('EntryFeeInfoIdList'),
+    entryFeeInfoEtcString: searchParams.get('EntryFeeInfoEtcString'),
+    themeCategoryId: searchParams.get('ThemeCategoryId'),
+    question: searchParams.get('Question'),
+    headerImageUrl: searchParams.get('HeaderImageUrl'),
+    joinGender: searchParams.get('JoinGender'),
+  });
 
 
   const createMeeting = async () => {
@@ -70,21 +67,31 @@ export default function SequenceLast(props) {
         },
         body: JSON.stringify(
           {
-            data: createData.data,
-            data2: createData.data2,
-            data3: createData.data3,
-            data4: createData.data4,
-            data5: createData.data5,
-            data6: createData.data6,
-            data7: createData.data7,
-            data8: createData.data8,
+            title: createData.title,
+            meetingAddress: createData.meetingAddress,
+            description: createData.description,
+            entryFee: createData.entryFee,
+            meetingDatetime: createData.meetingDatetime,
+            refundPolicy: createData.refundPolicy,
+            isFcfs: createData.isFcfs,
+            isOnline: createData.isOnline,
+            maxParticipantNum: createData.maxParticipantNum,
+            maxAge: createData.maxAge,
+            minAge: createData.minAge,
+            companyList: createData.companyList,
+            entryFeeInfoIdList: createData.entryFeeInfoIdList,
+            entryFeeInfoEtcString: createData.entryFeeInfoEtcString,
+            themeCategoryId: createData.themeCategoryId,
+            question: createData.question,
+            headerImageUrl: createData.headerImageUrl,
+            joinGender: createData.joinGender,
           }
         ),
       });
       const data = await res.json();
 
       if (data.success === true) {
-
+        router.push('/');
       }
       else {
 
@@ -98,32 +105,30 @@ export default function SequenceLast(props) {
 
   return (
     <>
-      <Heading desc={"모임을 선택하세요"}>어떤 모임을 하고싶나요?</Heading>
+      <Heading desc={"요약"}>모임을 만드시겠습니까?</Heading>
       <div className="flex flex-col gap-2">
-        <ListboxWrapper>
-          <Listbox
-            aria-label="Single selection example"
-            variant="bordered"
-            selectionMode="single"
-            selectedKeys={selectedKeys}
-            onSelectionChange={setSelectedKeys}
-          >
-            <ListboxItem key="ready2">준비중</ListboxItem>
-          </Listbox>
-        </ListboxWrapper>
-        <p className="text-small text-default-500">Selected value: {selectedValue}</p>
-        <input
-          type="text"
-          value={inputValue7}
-          onChange={(e) => setInputValue7(e.target.value)}
-        />
-        <input
-          type="text"
-          value={inputValue8}
-          onChange={(e) => setInputValue8(e.target.value)}
-        />
-        <button onClick={handleNext}>Next</button>
+        <p className="text-small text-default-500">호스트: {selectedValue}</p>
+        <p className="text-small text-default-500">모임 제목: {createData.title}</p>
+        <p className="text-small text-default-500">모임 내용: {createData.description}</p>
+        <p className="text-small text-default-500">인원수: {createData.maxParticipantNum}</p>
+        <p className="text-small text-default-500">참가 방법: {createData.isFcfs}</p>
+        <p className="text-small text-default-500">참가비: {createData.entryFee}</p>
+        <p className="text-small text-default-500">참가비 세부사항: {createData.entryFeeInfoIdList} {createData.entryFeeInfoEtcString}</p>
+        <p className="text-small text-default-500">성별: {createData.joinGender}</p>
+        <p className="text-small text-default-500">날짜: {createData.meetingDatetime}</p>
+        <p className="text-small text-default-500">장소: {createData.meetingAddress}</p>
+
         <button onClick={createMeeting}>fetch</button>
+
+        <NcModal
+          renderTrigger={(openModal) => <button onClick={openModal}>Open With Custom Trigger</button>}
+          modalTitle="Your Modal Title"
+          renderContent={() => <>
+            <div>Your modal content here</div>
+            <button onClick={handleSubmit}>Submit</button>
+          </>}
+        />
+
       </div>
     </>
   );

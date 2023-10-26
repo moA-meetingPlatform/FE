@@ -10,7 +10,7 @@ export default function Sequence3(props) {
   const router = useRouter();
   const searchParams = useSearchParams()
 
-  const [inputTitle, setInputTitle] = useState(searchParams.get('title') || '');
+  const [inputTitle, setInputTitle] = useState(searchParams.get('Title') || '');
   const { url, setUrl, updateQueryParams } = props;
 
   const selectedValue = React.useMemo(
@@ -22,7 +22,7 @@ export default function Sequence3(props) {
     const baseURL = 'http://localhost:3000'; // Adjust as needed
 
     const updatedUrl = updateQueryParams(baseURL, url, {
-      title: inputTitle,
+      Title: inputTitle,
     });
     setUrl(updatedUrl);
     router.push(updatedUrl);

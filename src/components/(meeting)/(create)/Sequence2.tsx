@@ -31,7 +31,7 @@ export default function Sequence2(props: Sequence2Props) {
   const router = useRouter();
   const searchParams = useSearchParams()
 
-  const [inputThemeCategoryId, setInputThemeCategoryId] = useState(searchParams.get('themeCategoryId') || '');
+  const [inputThemeCategoryId, setInputThemeCategoryId] = useState(searchParams.get('ThemeCategoryId') || '');
   const { url, setUrl, updateQueryParams } = props;
 
   const selectedValue = React.useMemo(
@@ -47,7 +47,7 @@ export default function Sequence2(props: Sequence2Props) {
     const baseURL = 'http://localhost:3000'; // Adjust as needed
 
     const updatedUrl = updateQueryParams(baseURL, url, {
-      themeCategoryId: inputThemeCategoryId,
+      ThemeCategoryId: inputThemeCategoryId,
     });
     setUrl(updatedUrl);
     router.push(updatedUrl);

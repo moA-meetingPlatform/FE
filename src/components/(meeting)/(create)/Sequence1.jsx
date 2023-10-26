@@ -36,6 +36,8 @@ export default function Sequence1(props) {
     router.push(updatedUrl);
   };
 
+
+
   return (
     <>
       <Heading desc={"모임을 선택하세요"}>어떤 모임을 하고싶나요?</Heading>
@@ -52,17 +54,6 @@ export default function Sequence1(props) {
             <ListboxItem key="ready">준비중</ListboxItem>
           </Listbox>
         </ListboxWrapper>
-        <p className="text-small text-default-500">Selected value: {selectedValue}</p>
-        {/* <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <input
-          type="text"
-          value={inputValue2}
-          onChange={(e) => setInputValue2(e.target.value)}
-        /> */}
         <button onClick={handleNext}>Next</button>
       </div>
     </>

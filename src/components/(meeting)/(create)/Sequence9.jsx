@@ -12,7 +12,8 @@ export default function Sequence9(props) {
 
   const [inputEntryFee, setInputEntryFee] = useState(searchParams.get('EntryFee') || '');
   const [inputEntryFeeInfoIdList, setInputEntryFeeInfoIdList] = useState(searchParams.get('EntryFeeInfoIdList') || '');
-  const [inputEntreFeeInfoEtcString, setInpuEntreFeeInfoEtcString] = useState(searchParams.get('EntreFeeInfoEtcString') || '');
+  const [inputEntryFeeInfoEtcString, setInputEntryFeeInfoEtcString] = useState(searchParams.get('EntryFeeInfoEtcString') || '');
+  const [inputRefundPolicy, setInputRefundPolicy] = useState(searchParams.get('RefundPolicy') || '');
   const { url, setUrl, updateQueryParams } = props;
 
   const selectedValue = React.useMemo(
@@ -26,7 +27,8 @@ export default function Sequence9(props) {
     const updatedUrl = updateQueryParams(baseURL, url, {
       EntryFee: inputEntryFee,
       EntryFeeInfoIdList: inputEntryFeeInfoIdList,
-      EntreFeeInfoEtcString: inputEntreFeeInfoEtcString,
+      EntryFeeInfoEtcString: inputEntryFeeInfoEtcString,
+      RefundPolicy: inputRefundPolicy,
     });
     setUrl(updatedUrl);
     router.push(updatedUrl);
@@ -49,8 +51,13 @@ export default function Sequence9(props) {
         />
         <input
           type="text"
-          value={inputEntreFeeInfoEtcString}
-          onChange={(e) => setInputEntreFeeInfoEtcString(e.target.value)}
+          value={inputEntryFeeInfoEtcString}
+          onChange={(e) => setInputEntryFeeInfoEtcString(e.target.value)}
+        />
+        <input
+          type="text"
+          value={inputRefundPolicy}
+          onChange={(e) => setInputRefundPolicy(e.target.value)}
         />
         <button onClick={handleNext}>Next</button>
       </div>
