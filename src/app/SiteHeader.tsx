@@ -37,9 +37,7 @@ const SiteHeader = () => {
     };
   }, [themeDir]);
 
-  //
-
-/*   const renderRadioThemeDir = () => {
+  const renderRadioThemeDir = () => {
     return (
       <div>
         <span className="text-sm font-medium">Theme dir</span>
@@ -48,11 +46,10 @@ const SiteHeader = () => {
             return (
               <div
                 key={dir}
-                className={`py-1.5 px-3.5 flex items-center rounded-full font-medium text-xs cursor-pointer select-none uppercase ${
-                  themeDir === dir
-                    ? "bg-black dark:bg-neutral-200 text-white dark:text-black shadow-black/10 shadow-lg"
-                    : "border border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500"
-                }`}
+                className={`py-1.5 px-3.5 flex items-center rounded-full font-medium text-xs cursor-pointer select-none uppercase ${themeDir === dir
+                  ? "bg-black dark:bg-neutral-200 text-white dark:text-black shadow-black/10 shadow-lg"
+                  : "border border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500"
+                  }`}
                 onClick={() => setThemeDIr(dir)}
               >
                 {dir}
@@ -62,7 +59,7 @@ const SiteHeader = () => {
         </div>
       </div>
     );
-  }; */
+  };
   const renderRadioHeaders = () => {
     return (
       <div>
@@ -72,11 +69,10 @@ const SiteHeader = () => {
             return (
               <div
                 key={header}
-                className={`py-1.5 px-3.5 flex items-center rounded-full font-medium text-xs cursor-pointer select-none ${
-                  headerSelected === header
-                    ? "bg-black dark:bg-neutral-200 text-white dark:text-black shadow-black/10 shadow-lg"
-                    : "border border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500"
-                }`}
+                className={`py-1.5 px-3.5 flex items-center rounded-full font-medium text-xs cursor-pointer select-none ${headerSelected === header
+                  ? "bg-black dark:bg-neutral-200 text-white dark:text-black shadow-black/10 shadow-lg"
+                  : "border border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500"
+                  }`}
                 onClick={() =>
                   setHeaderSelected(
                     header as "Header 1" | "Header 2" | "Header 3"
@@ -95,13 +91,12 @@ const SiteHeader = () => {
     return (
       <div className="ControlSelections relative z-40 hidden md:block">
         <div className="fixed right-3 top-1/4 z-40 flex items-center">
-          {/* <Popover className="relative">
+          <Popover className="relative">
             {({ open }) => (
               <>
                 <Popover.Button
-                  className={`p-2.5 bg-white hover:bg-neutral-100 dark:bg-primary-6000 dark:hover:bg-primary-700 rounded-xl shadow-xl border border-neutral-200 dark:border-primary-6000 z-10 focus:outline-none ${
-                    open ? " focus:ring-2 ring-primary-500" : ""
-                  }`}
+                  className={`p-2.5 bg-white hover:bg-neutral-100 dark:bg-primary-6000 dark:hover:bg-primary-700 rounded-xl shadow-xl border border-neutral-200 dark:border-primary-6000 z-10 focus:outline-none ${open ? " focus:ring-2 ring-primary-500" : ""
+                    }`}
                 >
                   <CogIcon className="w-8 h-8" />
                 </Popover.Button>
@@ -144,7 +139,7 @@ const SiteHeader = () => {
                 </Transition>
               </>
             )}
-          </Popover> */}
+          </Popover>
         </div>
       </div>
     );

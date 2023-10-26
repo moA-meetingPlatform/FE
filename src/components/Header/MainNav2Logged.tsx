@@ -7,8 +7,10 @@ import AvatarDropdown from "./AvatarDropdown";
 import Navigation from "@/components/Navigation/Navigation";
 import SearchModal from "./SearchModal";
 import NotifyDropdown from "./NotifyDropdown";
+import MoaLogo from "../Logo/MoaLogo";
+import Link from "next/link";
 
-export interface MainNav2LoggedProps {}
+export interface MainNav2LoggedProps { }
 
 const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
   const renderContent = () => {
@@ -17,9 +19,11 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
         <div className="flex items-center lg:hidden flex-1">
           <MenuBar />
         </div>
-
+        <Link href="/">
+          <MoaLogo />
+        </Link>
         <div className="lg:flex-1 flex items-center">
-          <Logo />
+
         </div>
 
         <div className="flex-[2] hidden lg:flex justify-center mx-4">

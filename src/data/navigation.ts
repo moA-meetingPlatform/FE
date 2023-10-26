@@ -11,7 +11,7 @@ export const MEGAMENU_TEMPLATES: NavItemType[] = [
     href: "/#",
     name: "Home Page",
     children: [
-      { id: randomId(), href: "/", name: "Home page 1" },
+      { id: randomId(), href: "/home-1", name: "Home page 1" },
       { id: randomId(), href: "/home-2", name: "Home page 2" },
       { id: randomId(), href: "/home-3", name: "Home page 3" },
       { id: randomId(), href: "/home-4", name: "Home page 4" },
@@ -325,7 +325,7 @@ export const NAVIGATION_DEMO_2: NavItemType[] = [
     name: "Homes",
     type: "dropdown",
     children: [
-      { id: randomId(), href: "/", name: "Home page 1" },
+      { id: randomId(), href: "/home-1", name: "Home page 1" },
       { id: randomId(), href: "/home-2", name: "Home page 2" },
       { id: randomId(), href: "/home-3", name: "Home page 3" },
       { id: randomId(), href: "/home-4", name: "Home page 4" },
