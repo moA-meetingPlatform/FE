@@ -16,6 +16,7 @@ import Sequence9 from "./Sequence9.jsx";
 import SequenceLast from "./SequenceLast.jsx";
 import CreateMeetingBottomNav from "@/components/(navigation)/(bottom)/CreateMeetingBottomNav";
 import LinearProgress from '@mui/material/LinearProgress';
+import NcModal from "@/components/NcModal/NcModal";
 
 
 
@@ -24,6 +25,7 @@ export default function CreateMeeting() {
   const [active, setActive] = useState(1);
   const router = useRouter();
   const [url, setUrl] = useState(usePathname());
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function updateQueryParams(baseURL: string, url: string, params: Record<string, string>): string {
     // Add base URL if the provided URL is a relative path
@@ -36,7 +38,10 @@ export default function CreateMeeting() {
     return urlObj.pathname + urlObj.search;
   }
 
-
+  const handleSubmit = () => {
+    // Handle your submit logic here
+    console.log('Button Clicked!');
+  };
 
 
   let tabs = [
@@ -104,10 +109,38 @@ export default function CreateMeeting() {
 
 
 
-  // useEffect(() => {
-  //   console.log("active", active);
-  //   console.log("url", url);
-  // }, [active]);
+  useEffect(() => {
+    // const getTempSave = async () => {
+    //   // if (!token) {
+    //   //   console.error("Token is not provided.");
+    //   //   return;
+    //   // }
+    //   try {
+    //     const response = await fetch(``, {
+    //       method: 'GET',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         // 'Authorization': `Bearer ${token}`
+    //       }
+    //     });
+
+    //     if (!response.ok) {
+    //       throw new Error(`Fetch failed with status: ${response.status}`);
+    //     }
+
+    //     const data = await response.json();
+
+    //     // 서버 응답이 성공적으로 완료되면 모달 열기
+    //     setIsModalOpen(true);
+
+    //   } catch (error) {
+    //     console.error('Error fetching barcode:', error);
+    //   }
+    // };
+
+    // getTempSave();
+    setIsModalOpen(true);
+  }, []);
 
   return (
     <>
@@ -122,6 +155,23 @@ export default function CreateMeeting() {
         </Card>
       </div>
       <CreateMeetingBottomNav active={active} setActive={setActive} />
+
+      <NcModal
+        isOpenProp={isModalOpen}
+        onCloseModal={() => setIsModalOpen(false)}
+        modalTitle="Your Modal Title"
+        renderContent={() => (
+          <>
+            <div>Your modal content here</div>
+            <button onClick={() => {
+              // 타입 강제 회피
+              // @ts-ignore
+              // router.push(`/meeting/create${data.params}`)
+              router.push(`/meeting/create`)
+            }}>Submit</button>
+          </>
+        )}
+      />
     </>
   );
 }
