@@ -12,6 +12,7 @@ import Sequence5 from "./Sequence5.jsx";
 import Sequence6 from "./Sequence6.jsx";
 import Sequence7 from "./Sequence7.jsx";
 import Sequence8 from "./Sequence8.jsx";
+import Sequence9 from "./Sequence9.jsx";
 import SequenceLast from "./SequenceLast.jsx";
 import CreateMeetingBottomNav from "@/components/(navigation)/(bottom)/CreateMeetingBottomNav";
 import LinearProgress from '@mui/material/LinearProgress';
@@ -83,13 +84,19 @@ export default function CreateMeeting() {
     },
     {
       id: 8,
-      label: "8",
+      label: "멤버 조건",
       progress: 80,
       content: <Sequence8 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
     },
     {
+      id: 9,
+      label: "참가비",
+      progress: 90,
+      content: <Sequence9 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
+    },
+    {
       id: 10,
-      label: "last",
+      label: "요약 및 패칭",
       progress: 100,
       content: <SequenceLast url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
     },
@@ -97,10 +104,10 @@ export default function CreateMeeting() {
 
 
 
-  useEffect(() => {
-    console.log("active", active);
-    console.log("url", url);
-  }, [active]);
+  // useEffect(() => {
+  //   console.log("active", active);
+  //   console.log("url", url);
+  // }, [active]);
 
   return (
     <>

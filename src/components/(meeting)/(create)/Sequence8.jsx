@@ -10,7 +10,11 @@ export default function Sequence5(props) {
   const router = useRouter();
   const searchParams = useSearchParams()
 
-  const [inputMeetingDatetime, setInputMeetingDatetime] = useState(searchParams.get('MeetingDatetime') || '');
+  const [inputJoinGender, setInputJoinGender] = useState(searchParams.get('JoinGender') || '');
+  const [inputMaxAge, setInputMaxAge] = useState(searchParams.get('MaxAge') || '');
+  const [inputMinAge, setInputMinAge] = useState(searchParams.get('MinAge') || '');
+  const [inputMaxParticipantNum, setInputMaxParticipantNum] = useState(searchParams.get('MaxParticipantNum') || '');
+  const [inputCompanyList, setInputCompanyList] = useState(searchParams.get('CompanyList') || '');
   const { url, setUrl, updateQueryParams } = props;
 
   const selectedValue = React.useMemo(
@@ -22,7 +26,11 @@ export default function Sequence5(props) {
     const baseURL = 'http://localhost:3000'; // Adjust as needed
 
     const updatedUrl = updateQueryParams(baseURL, url, {
-      MeetingDatetime: inputMeetingDatetime,
+      JoinGender: inputJoinGender,
+      MaxAge: inputMaxAge,
+      MinAge: inputMinAge,
+      MaxParticipantNum: inputMaxParticipantNum,
+      CompanyList: inputCompanyList,
     });
     setUrl(updatedUrl);
     router.push(updatedUrl);
@@ -30,13 +38,33 @@ export default function Sequence5(props) {
 
   return (
     <>
-      <Heading desc={""}>언제 만날까요?</Heading>
+      <Heading desc={""}>어떤 멤버를 모집할까요?</Heading>
       <div className="flex flex-col gap-2">
         <p className="text-small text-default-500">Selected value: {selectedValue}</p>
         <input
           type="text"
-          value={inputMeetingDatetime}
-          onChange={(e) => setInputMeetingDatetime(e.target.value)}
+          value={inputJoinGender}
+          onChange={(e) => setInputJoinGender(e.target.value)}
+        />
+        <input
+          type="text"
+          value={inputMaxAge}
+          onChange={(e) => setInputMaxAge(e.target.value)}
+        />
+        <input
+          type="text"
+          value={inputMinAge}
+          onChange={(e) => setInputMinAge(e.target.value)}
+        />
+        <input
+          type="text"
+          value={inputMaxParticipantNum}
+          onChange={(e) => setInputMaxParticipantNum(e.target.value)}
+        />
+        <input
+          type="text"
+          value={inputCompanyList}
+          onChange={(e) => setInputCompanyList(e.target.value)}
         />
         <button onClick={handleNext}>Next</button>
       </div>

@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 export default function CreateMeetingBottomNav(props: { active: number, setActive: Function }) {
   const ref = React.useRef<HTMLDivElement>(null);
   const { active, setActive } = props;
-  const maxTabs = 8;
+  const maxTabs = 10;
 
   const handlePrevious = () => {
     if (active > 1) {

@@ -11,6 +11,7 @@ export default function Sequence4(props) {
   const searchParams = useSearchParams()
 
   const [inputDescription, setInputDescription] = useState(searchParams.get('Description') || '');
+  const [inputHeaderImageUrl, setInputHeaderImageUrl] = useState(searchParams.get('HeaderImageUrl') || '');
   const { url, setUrl, updateQueryParams } = props;
 
   const selectedValue = React.useMemo(
@@ -23,6 +24,7 @@ export default function Sequence4(props) {
 
     const updatedUrl = updateQueryParams(baseURL, url, {
       Description: inputDescription,
+      HeaderImageUrl: inputHeaderImageUrl,
     });
     setUrl(updatedUrl);
     router.push(updatedUrl);
@@ -37,6 +39,11 @@ export default function Sequence4(props) {
           type="text"
           value={inputDescription}
           onChange={(e) => setInputDescription(e.target.value)}
+        />
+        <input
+          type="text"
+          value={inputHeaderImageUrl}
+          onChange={(e) => setInputHeaderImageUrl(e.target.value)}
         />
         <button onClick={handleNext}>Next</button>
       </div>

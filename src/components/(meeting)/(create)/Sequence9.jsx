@@ -5,13 +5,14 @@ import { usePathname, useSearchParams, useRouter, useParams } from 'next/navigat
 import Heading from '@/components/Heading/Heading';
 
 
-export default function Sequence5(props) {
+export default function Sequence9(props) {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([""]));
   const router = useRouter();
   const searchParams = useSearchParams()
 
-  const [inputIsFcfs, setInputIsFcfs] = useState(searchParams.get('IsFcfs') || '');
-  const [inputQuestion, setInputQuestion] = useState(searchParams.get('Question') || '');
+  const [inputEntryFee, setInputEntryFee] = useState(searchParams.get('EntryFee') || '');
+  const [inputEntryFeeInfoIdList, setInputEntryFeeInfoIdList] = useState(searchParams.get('EntryFeeInfoIdList') || '');
+  const [inputEntreFeeInfoEtcString, setInpuEntreFeeInfoEtcString] = useState(searchParams.get('EntreFeeInfoEtcString') || '');
   const { url, setUrl, updateQueryParams } = props;
 
   const selectedValue = React.useMemo(
@@ -23,8 +24,9 @@ export default function Sequence5(props) {
     const baseURL = 'http://localhost:3000'; // Adjust as needed
 
     const updatedUrl = updateQueryParams(baseURL, url, {
-      IsFcfs: inputIsFcfs,
-      Question: inputQuestion,
+      EntryFee: inputEntryFee,
+      EntryFeeInfoIdList: inputEntryFeeInfoIdList,
+      EntreFeeInfoEtcString: inputEntreFeeInfoEtcString,
     });
     setUrl(updatedUrl);
     router.push(updatedUrl);
@@ -32,18 +34,23 @@ export default function Sequence5(props) {
 
   return (
     <>
-      <Heading desc={""}>어떻게 멤버를 모집할까요?</Heading>
+      <Heading desc={""}>참가비가 있나요?</Heading>
       <div className="flex flex-col gap-2">
         <p className="text-small text-default-500">Selected value: {selectedValue}</p>
         <input
           type="text"
-          value={inputIsFcfs}
-          onChange={(e) => setInputIsFcfs(e.target.value)}
+          value={inputEntryFee}
+          onChange={(e) => setInputEntryFee(e.target.value)}
         />
         <input
           type="text"
-          value={inputQuestion}
-          onChange={(e) => setInputQuestion(e.target.value)}
+          value={inputEntryFeeInfoIdList}
+          onChange={(e) => setInputEntryFeeInfoIdList(e.target.value)}
+        />
+        <input
+          type="text"
+          value={inputEntreFeeInfoEtcString}
+          onChange={(e) => setInputEntreFeeInfoEtcString(e.target.value)}
         />
         <button onClick={handleNext}>Next</button>
       </div>
