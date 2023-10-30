@@ -11,11 +11,11 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 
 
-interface Sequence2Props {
-  url: string;
-  setUrl: (newUrl: string) => void;
-  updateQueryParams: any;  // Ideally, provide a more specific type than 'any'
-}
+// interface Sequence2Props {
+//   url: string;
+//   setUrl: (newUrl: string) => void;
+//   updateQueryParams: any;  // Ideally, provide a more specific type than 'any'
+// }
 
 // 그리드 스타일
 const Item = styled(Paper)(({ theme }) => ({
@@ -26,7 +26,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Sequence2(props: Sequence2Props) {
+export default function Sequence2(props) {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([""]));
   const router = useRouter();
   const searchParams = useSearchParams()
@@ -39,9 +39,14 @@ export default function Sequence2(props: Sequence2Props) {
     [selectedKeys]
   );
 
+
+
   // 아코디언
   const defaultContent =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+
+
+
 
   const handleNext = () => {
     const baseURL = 'http://localhost:3000'; // Adjust as needed

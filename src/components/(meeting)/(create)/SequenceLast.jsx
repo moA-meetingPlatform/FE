@@ -57,41 +57,48 @@ export default function SequenceLast(props) {
     // 2. createData의 상태를 업데이트합니다.
     setCreateData(newCreateData);
 
+    // 데이터 변환
+    const toBoolean = (value) => value === '1';
+    const toInt = (value) => parseInt(value, 10);
+    const toJsonArray = (value) => JSON.parse(value);
+    const toString = (value) => String(value);
+
 
     try {
       const res = await fetch(`https://moa-backend.duckdns.org/api/v1/meeting`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.data.user.token}`
+          // 'Authorization': `Bearer ${session.data.user.token}`
         },
         body: JSON.stringify(
           {
-            title: createData.title,
-            meetingAddress: createData.meetingAddress,
-            description: createData.description,
-            entryFee: createData.entryFee, ingDatetime,
-            refundPolicy: createData.refundPolicy,
-            isFcfs: createData.isFcfs,
-            isOnline: createData.isOnline,
-            maxParticipantNum: createData.maxParticipantNum,
-            maxAge: createData.maxAge,
-            minAge: createData.minAge,
-            companyList: createData.companyList,
-            entryFeeInfoIdList: createData.entryFeeInfoIdList,
-            entryFeeInfoEtcString: createData.entryFeeInfoEtcString,
-            themeCategoryId: createData.themeCategoryId,
-            question: createData.question,
-            headerImageUrl: createData.headerImageUrl,
-            joinGender: createData.joinGender,
-            meetingDatetime: createData.meet
+            title: toString(createData.title),
+            meetingAddress: toString(createData.meetingAddress),
+            description: toString(createData.description),
+            entryFee: toInt(createData.entryFee),
+            refundPolicy: toString(createData.refundPolicy),
+            isFcfs: toBoolean(createData.isFcfs),
+            isOnline: toBoolean(createData.isOnline),
+            maxParticipantNum: toInt(createData.maxParticipantNum),
+            maxAge: toInt(createData.maxAge),
+            minAge: toInt(createData.minAge),
+            companyList: toJsonArray(createData.companyList),
+            entryFeeInfoIdList: toJsonArray(createData.entryFeeInfoIdList),
+            entryFeeInfoEtcString: toString(createData.entryFeeInfoEtcString),
+            themeCategoryId: toInt(createData.themeCategoryId),
+            question: toString(createData.question),
+            headerImageUrl: toString(createData.headerImageUrl),
+            joinGender: toString(createData.joinGender),
+            meetingDatetime: toString(createData.meetingDatetime)
           }
         ),
       });
       const data = await res.json();
 
-      if (data.success === true) {
-        router.push('/');
+      if (data.isSuccess === true) {
+        // router.push('/');
+        console.log(data);
       }
       else {
 
