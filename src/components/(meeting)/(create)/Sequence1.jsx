@@ -40,7 +40,7 @@ export default function Sequence1(props) {
 
   return (
     <>
-      <Heading desc={"모임을 선택하세요"}>어떤 모임을 하고싶나요?</Heading>
+      <Heading desc={"모임을 선택하세요"} isCenter={false}>어떤 모임을 하고싶나요?</Heading>
       <div className="flex flex-col gap-2">
         <ListboxWrapper>
           <Listbox

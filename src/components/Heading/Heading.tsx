@@ -10,7 +10,7 @@ const Heading: React.FC<HeadingProps> = ({
   children,
   desc = "",
   className = "mb-10 md:mb-12 text-neutral-900 dark:text-neutral-50",
-  isCenter = false,
+  isCenter = true,
   ...args
 }) => {
   return (

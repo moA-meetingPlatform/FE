@@ -59,7 +59,7 @@ export default function SequenceLast(props) {
 
 
     try {
-      const res = await fetch(`https://moa-backend.duckdns.org/api/v1/meeting?${queryString}`, {
+      const res = await fetch(`https://moa-backend.duckdns.org/api/v1/meeting`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,8 +70,7 @@ export default function SequenceLast(props) {
             title: createData.title,
             meetingAddress: createData.meetingAddress,
             description: createData.description,
-            entryFee: createData.entryFee,
-            meetingDatetime: createData.meetingDatetime,
+            entryFee: createData.entryFee, ingDatetime,
             refundPolicy: createData.refundPolicy,
             isFcfs: createData.isFcfs,
             isOnline: createData.isOnline,
@@ -85,6 +84,7 @@ export default function SequenceLast(props) {
             question: createData.question,
             headerImageUrl: createData.headerImageUrl,
             joinGender: createData.joinGender,
+            meetingDatetime: createData.meet
           }
         ),
       });

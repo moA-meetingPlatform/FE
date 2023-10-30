@@ -28,6 +28,7 @@ import SectionGridCategoryBox from "@/components/SectionGridCategoryBox/SectionG
 import BottomNav from "@/components/(navigation)/(bottom)/BottomNav";
 import Header from "@/components/(navigation)/(top)/Header";
 import SiteHeader from "../SiteHeader";
+import SectionMagazine from "@/components/Sections/SectionMagazine";
 
 
 //
@@ -39,37 +40,46 @@ const PageHome = ({ }) => {
   return (
     <div className="nc-PageHome relative">
       <SiteHeader />
+
       <div className="container relative">
         <SectionLargeSlider
+
+          heading="호스트 추천"
           className="pt-10 pb-16 md:py-16 lg:pb-28 lg:pt-20"
           posts={DEMO_POSTS?.filter((_, i) => i < 3)}
         />
 
-        <SectionGridCategoryBox
-          headingCenter={false}
-          categoryCardType="card2"
-          className="pb-16 lg:pb-28"
-          categories={DEMO_CATEGORIES.filter((_, i) => i < 10)}
-        />
-
         <div className="relative py-16">
           <BackgroundSection />
+          <SectionGridCategoryBox
+            headingCenter={true}
+            categoryCardType="card2"
+            className="pb-16 lg:pb-28"
+            categories={DEMO_CATEGORIES.filter((_, i) => i < 10)}
+          />
+        </div>
+        {/* <SectionGridAuthorBox
+          className="py-16 lg:py-28"
+          authors={DEMO_AUTHORS.filter((_, i) => i < 10)}
+        /> */}
+        <div className="relative py-16">
+          {/* <BackgroundSection /> */}
           <SectionSliderNewAuthors
-            heading="Newest authors"
+            heading="인기 호스트"
             subHeading="Say hello to future creator potentials"
             authors={DEMO_AUTHORS.filter((_, i) => i < 10)}
           />
         </div>
 
-        <SectionSliderNewCategories
+        {/* <SectionSliderNewCategories
           className="py-16 lg:py-28"
           heading="Top trending topics"
           subHeading="Discover 233 topics"
           categories={DEMO_CATEGORIES.filter((_, i) => i < 10)}
           categoryCardType="card4"
-        />
+        /> */}
 
-        <div className="relative py-16">
+        {/* <div className="relative py-16">
           <BackgroundSection />
           <SectionSliderPosts
             postCardName="card9"
@@ -77,19 +87,20 @@ const PageHome = ({ }) => {
             subHeading="Click on the icon to enjoy the music or podcast 🎧"
             posts={DEMO_POSTS_AUDIO.filter((_, i) => i > 3 && i < 10)}
           />
+        </div> */}
+        <div className="relative py-16">
+          <BackgroundSection />
+          <SectionMagazine className="py-16 lg:py-28" posts={MAGAZINE1_POSTS} />
         </div>
+        {/* <SectionAds /> */}
 
-        <SectionMagazine1 className="py-16 lg:py-28" posts={MAGAZINE1_POSTS} />
-
-        <SectionAds />
-
-        <SectionMagazine7
+        {/* <SectionMagazine7
           className="py-16 lg:py-28"
           posts={DEMO_POSTS_GALLERY.filter((_, i) => i < 6)}
-        />
+        /> */}
       </div>
 
-      <div className="dark bg-neutral-900 dark:bg-black dark:bg-opacity-20 text-neutral-100">
+      {/* <div className="dark bg-neutral-900 dark:bg-black dark:bg-opacity-20 text-neutral-100">
         <div className="relative container">
           <SectionGridPosts
             className="py-16 lg:py-28"
@@ -101,8 +112,8 @@ const PageHome = ({ }) => {
             gridClass="md:grid-cols-2 lg:grid-cols-3"
           />
         </div>
-      </div>
-
+      </div> */}
+      {/* 
       <div className="container ">
         <SectionMagazine8
           className="py-16 lg:py-28"
@@ -116,10 +127,7 @@ const PageHome = ({ }) => {
           />
         </div>
 
-        <SectionGridAuthorBox
-          className="py-16 lg:py-28"
-          authors={DEMO_AUTHORS.filter((_, i) => i < 10)}
-        />
+
 
         <div className="relative py-16">
           <BackgroundSection />
@@ -149,7 +157,7 @@ const PageHome = ({ }) => {
         <SectionVideos className="py-16 lg:py-28" />
 
         <SectionLatestPosts className="pb-16 lg:pb-28" />
-      </div>
+      </div> */}
       <BottomNav />
     </div>
   );
