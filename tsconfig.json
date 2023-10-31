@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Logo/SearchIcon.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Logo/SearchIcon.jsx", "src/app/(others)/setting/(notification)/announce/page.jsx"],
   "exclude": ["node_modules"]
 }

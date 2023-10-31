@@ -22,13 +22,13 @@ export default function SnsLogin() {
 
   return (
     <div>
-      <div className='pt-20 px-[40px] pb-[80px]'>
+      <div>
         <button onClick={() => handleLogin('kakao')} title="새창 열림"
-        className='bg-[#fee102] mx-auto h-9 w-[300px] rounded-full font-semibold text-yellow-800'>
+        className='bg-[#fee102] h-9 w-[300px] rounded-full font-semibold text-yellow-800'>
           <span>카카오톡으로 5초만에 시작하기</span>
         </button>
         <Link href="/login/otherLogin">
-          <div className='absolute right-28 font-semibold'>
+          <div className='text-center font-semibold'>
             다른 방법으로 시작하기
           </div>
         </Link>

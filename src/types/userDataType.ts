@@ -26,12 +26,12 @@ export interface SignUpFormDataType {
   zoneCode: String,
   address: string,
   detailAddress: string,
-  agree1: Boolean,
-  agree2: Boolean,
+  birth: String,
+  nickName: String,
   agree3: Boolean,
   agree4: Boolean,
   agree5: Boolean,
-  agree6: Boolean,
+  // agree6: Boolean,
 }
 
 export interface FindPWFormDataType {
