@@ -5,7 +5,7 @@ import { usePathname, useSearchParams, useRouter, useParams } from 'next/navigat
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Progress } from "@nextui-org/react";
 import Sequence1 from "./Sequence1.jsx";
-import Sequence2 from "./Sequence2";
+import Sequence2 from "./Sequence2.jsx";
 import Sequence3 from "./Sequence3.jsx";
 import Sequence4 from "./Sequence4.jsx";
 import Sequence5 from "./Sequence5.jsx";
@@ -26,6 +26,7 @@ export default function CreateMeeting() {
   const router = useRouter();
   const [url, setUrl] = useState(usePathname());
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tempUrl, setTempUrl] = useState('');
 
   function updateQueryParams(baseURL: string, url: string, params: Record<string, string>): string {
     // Add base URL if the provided URL is a relative path
@@ -37,12 +38,6 @@ export default function CreateMeeting() {
     }
     return urlObj.pathname + urlObj.search;
   }
-
-  const handleSubmit = () => {
-    // Handle your submit logic here
-    console.log('Button Clicked!');
-  };
-
 
   let tabs = [
     {
@@ -110,36 +105,52 @@ export default function CreateMeeting() {
 
 
   useEffect(() => {
-    // const getTempSave = async () => {
-    //   // if (!token) {
-    //   //   console.error("Token is not provided.");
-    //   //   return;
-    //   // }
-    //   try {
-    //     const response = await fetch(``, {
-    //       method: 'GET',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         // 'Authorization': `Bearer ${token}`
-    //       }
-    //     });
 
-    //     if (!response.ok) {
-    //       throw new Error(`Fetch failed with status: ${response.status}`);
-    //     }
 
-    //     const data = await response.json();
+    const getTempSave = async () => {
+      // if (!token) {
+      //   console.error("Token is not provided.");
+      //   return;
+      // }
+      try {
+        const response = await fetch(``, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${token}`
+          }
+        });
 
-    //     // 서버 응답이 성공적으로 완료되면 모달 열기
-    //     setIsModalOpen(true);
+        if (!response.ok) {
+          throw new Error(`Fetch failed with status: ${response.status}`);
+        }
 
-    //   } catch (error) {
-    //     console.error('Error fetching barcode:', error);
-    //   }
-    // };
+        const data = await response.json();
+
+
+        if (data.isSuccess === true) {
+
+          console.log(data);
+          setTempUrl(data.tempurl);
+          setIsModalOpen(true);
+        }
+        else {
+
+        }
+
+        // 서버 응답이 성공적으로 완료되면 모달 열기
+
+
+      } catch (error) {
+        console.error('Error fetching barcode:', error);
+      }
+    };
 
     // getTempSave();
-    setIsModalOpen(true);
+
+
+    setUrl(window.location.href);
+    // setIsModalOpen(true);
   }, []);
 
   return (
@@ -159,16 +170,18 @@ export default function CreateMeeting() {
       <NcModal
         isOpenProp={isModalOpen}
         onCloseModal={() => setIsModalOpen(false)}
-        modalTitle="Your Modal Title"
+        modalTitle="임시 저장 내용이 있습니다"
         renderContent={() => (
           <>
-            <div>Your modal content here</div>
+            <div>임시 저장한 모임을 불러오시겠슴둥?</div>
             <button onClick={() => {
               // 타입 강제 회피
               // @ts-ignore
               // router.push(`/meeting/create${data.params}`)
-              router.push(`/meeting/create`)
-            }}>Submit</button>
+              router.push(tempUrl)
+              setIsModalOpen(false)
+            }}>예</button>
+            <button onClick={() => { setIsModalOpen(false) }}>아니오</button>
           </>
         )}
       />
