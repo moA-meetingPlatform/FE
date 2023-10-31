@@ -3,14 +3,42 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './FormArea.module.css'
 import { SignUpFormDataType } from '@/types/userDataType'
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import PublicModal from '@/components/(widget)/modal/Modal';
 import { useDisclosure } from "@nextui-org/react";
 import { DaumAddressType } from '@/types/DaumAddressType';
 import PostCodeDaum from '@/components/(widget)/post/PostCodeDaum';
 
 
+/* interface FormAreaProps {
+  url: string;
+  setUrl: (newUrl: string) => void;
+  updateQueryParams: any;  // Ideally, provide a more specific type than 'any'
+} */
+
 export default function FormArea() {
+/* //sequence부분
+  const [selectedKeys, setSelectedKeys] = React.useState(new Set([""]));
+  const route = useRouter();
+  const searchParams = useSearchParams()
+
+  const [inputThemeCategoryId, setInputThemeCategoryId] = useState(searchParams.get('ThemeCategoryId') || '');
+  const { url, setUrl, updateQueryParams } = props;
+
+  const selectedValue = React.useMemo(
+    () => Array.from(selectedKeys).join(", "),
+    [selectedKeys]
+  );
+
+  const handleNext = () => {
+    const baseURL = 'http://localhost:3000'; // Adjust as needed
+
+    const updatedUrl = updateQueryParams(baseURL, url, {
+      ThemeCategoryId: inputThemeCategoryId,
+    });
+    setUrl(updatedUrl);
+    route.push(updatedUrl);
+  }; */
 
     const isClient = typeof window !== 'undefined';
     const router = useRouter();
@@ -20,6 +48,7 @@ export default function FormArea() {
     const [address, setAddress] = useState<DaumAddressType>();
     const [idChecked, setIdChecked] = useState<boolean>(false);
     const loginIdRef = useRef<HTMLInputElement>(null);
+    // form 기본값
     const [signupData, setSignupData] = useState<SignUpFormDataType>({
         loginId: '',
         password: '',
@@ -28,12 +57,12 @@ export default function FormArea() {
         zoneCode: '',
         address: '',
         detailAddress: '',
-        agree1: false,
-        agree2: false,
+        birth: '',
+        nickName: '',
         agree3: false,
         agree4: false,
         agree5: false,
-        agree6: false
+        // agree6: false
     })
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,18 +97,18 @@ export default function FormArea() {
             zoneCode,
             address,
             detailAddress,
-            agree1: optionOne,
-            agree2: optionTwo,
+            birth,
+            nickName,
             agree3: agreeEmail,
             agree4: letter,
             agree5: dm,
-            agree6: tm
+            // agree6: tm
         } = signupData;
 
         const fullAddress = zoneCode+ "," + address + "," + detailAddress;
 
         try {
-            const response = await fetch('https://smilekarina.duckdns.org/api/v1/user/join/cert', {
+            const response = await fetch('http://localhost:3000/api/v1/user/auth/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -91,15 +120,17 @@ export default function FormArea() {
                         email: "",
                         password,
                         phone,
-                        address: fullAddress
+                        address: fullAddress,
+                        birth,
+                        nickName
                     },
                     agreeAdvertiseIn: {
-                        optionOne,
-                        optionTwo,
+/*                         optionOne,
+                        optionTwo, */
                         agreeEmail,
                         letter,
                         dm,
-                        tm
+                        // tm
                     }
                 })
             })
@@ -108,12 +139,14 @@ export default function FormArea() {
                 localStorage.setItem('tempLoginId', data.result.loginId.toString());
                 localStorage.setItem('tempAddress', data.result.address.toString());
                 localStorage.setItem('tempEmail', data.result.email.toString());
+                localStorage.setItem('tempBirth', data.result.birth.toString());
+                localStorage.setItem('tempNickName', data.result.nickName.toString());
                 localStorage.setItem('tempAgreeEmail', data.result.agreeEmail.toString());
                 localStorage.setItem('tempLetter', data.result.letter.toString());
                 localStorage.setItem('tempDm', data.result.dm.toString());
-                localStorage.setItem('tempTm', data.result.tm.toString());
+                // localStorage.setItem('tempTm', data.result.tm.toString());
             }
-            router.push('/member/join/success')
+            router.push('/join/success')
         } catch (error) {
             console.error("Error sending POST request:", error);
         }
@@ -121,7 +154,7 @@ export default function FormArea() {
 
     const checkId = async () => {
         try {
-            const response = await fetch(`https://smilekarina.duckdns.org/api/v1/join?loginId=${signupData.loginId}`);
+            const response = await fetch(`https://localhost:3000/api/v1/user/id-check?loginId=${signupData.loginId}`);
             const data = await response.json();
             
             if (data.success) {
@@ -147,12 +180,12 @@ export default function FormArea() {
             agree3: checked,
             agree4: checked,
             agree5: checked,
-            agree6: checked
+            // agree6: checked
         }));
     }
 
     const isAllChecked = (): boolean => {
-        return !!signupData.agree3 && !!signupData.agree4 && !!signupData.agree5 && !!signupData.agree6;
+        return !!signupData.agree3 && !!signupData.agree4 && !!signupData.agree5/* && !!signupData.agree6*/;
     }
     
 
@@ -160,12 +193,11 @@ export default function FormArea() {
         // Logic for the first useEffect
         const tempName = isClient && localStorage.getItem('tempName');
         const tempPhone = isClient && localStorage.getItem('tempPhone');
-        const tempagree1 = isClient && localStorage.getItem('tempagree1') === 'true';
-        const tempagree2 = isClient && localStorage.getItem('tempagree2') === 'true';
+        // const tempagree2 = isClient && localStorage.getItem('tempagree2') === 'true';
         const tempagree3 = isClient && localStorage.getItem('tempagree3') === 'true';
         const tempagree4 = isClient && localStorage.getItem('tempagree4') === 'true';
         const tempagree5 = isClient && localStorage.getItem('tempagree5') === 'true';
-        const tempagree6 = isClient && localStorage.getItem('tempagree6') === 'true';
+        // const tempagree6 = isClient && localStorage.getItem('tempagree6') === 'true';
 
         if (tempName && tempPhone) {
             setSignupData({
@@ -176,12 +208,12 @@ export default function FormArea() {
         }
         setSignupData(prevData => ({
             ...prevData,
-            agree1: tempagree1,
-            agree2: tempagree2,
+/*             agree1: tempagree1,
+            agree2: tempagree2, */
             agree3: tempagree3,
             agree4: tempagree4,
             agree5: tempagree5,
-            agree6: tempagree6
+            // agree6: tempagree6
         }));
 
         // Logic for the second useEffect
@@ -210,7 +242,8 @@ export default function FormArea() {
                         <div className={styles.input_box}>
                             <input type="text" id="loginId" name='loginId'
                                 placeholder='영문, 숫자 6~20자리 입력해주세요.' title="회원 가입을 위한 아이디 입력"
-                                onChange={handleOnChange} ref={loginIdRef}  />
+                                onChange={handleOnChange} 
+                                  ref={loginIdRef}  />
                         </div>
                         <div className={styles.btn_box}>
                             <button className={styles.btn2} onClick={checkId} > 중복확인 </button>
@@ -236,9 +269,26 @@ export default function FormArea() {
                     <p className={styles.error_txt}> 비밀번호가 일치하지 않습니다. </p>
                 </div>
                 <div className={`${styles.form_box} ${styles.required}`}>
+                    <p className={styles.tit}> 닉네임 <span className="hidden">필수항목</span></p>
+                    <div className={styles.input_box}>
+                        <input type="nickName" id="nickName" name='nickName'
+                            placeholder='3~10자리로 입력해주세요.' title="회원 가입을 위한 닉네임 입력"
+                            onChange={handleOnChange} />
+                    </div>
+                    <p className={styles.error_txt}> 비밀번호 형식에 맞게 입력해주세요. </p>
+                </div>
+                <div className={`${styles.form_box} ${styles.required}`}>
                     <p className={styles.tit}> 이름 <span className="hidden">필수항목</span></p>
                     <div className={styles.input_box}>
                         <input type="text" id="userName" name='userName' title="이름" value={signupData.userName.toString()} readOnly
+                            className={styles.readonly_bg} />
+                    </div>
+                </div>
+                <div className={`${styles.form_box} ${styles.required}`}>
+                    <p className={styles.tit}> 생년월일 <span className="hidden">필수항목</span></p>
+                    <div className={styles.input_box}>
+                        <input type="text" id="birth" name='birth' title="생년월일" value={signupData.phone.toString()} readOnly
+                        //TODO: 생년월일 받아오기
                             className={styles.readonly_bg} />
                     </div>
                 </div>
@@ -271,7 +321,7 @@ export default function FormArea() {
             </div>
             <div className={styles.terms_agree_box}>
                 <div className={styles.agree_form_box}>
-                    <ul className={`${styles.agree_list} ${styles.btn_type0} ${styles.txt_type0}`}>
+{/*                     <ul className={`${styles.agree_list} ${styles.btn_type0} ${styles.txt_type0}`}>
                         <li className={`${styles.agree_form} ${styles.join_agree}`}>
                             <div className={styles.chk_box}>
                                 <input type="checkbox" id="terms0" name='agree1' checked={!!signupData.agree1} onChange={handleOnChange} />
@@ -286,7 +336,7 @@ export default function FormArea() {
                             </div>
                             <button className={styles.agree_show}><span>내용보기</span></button>
                         </li>
-                    </ul>
+                    </ul> */}
                     <div className={styles.agree_sub_box}>
                         <p className={styles.add_info_agree_tit}> 모아 광고정보 수신동의 </p>
                         <div className={`${styles.chk_box} ${styles.simple}`}>
@@ -306,15 +356,18 @@ export default function FormArea() {
                                 <input id="receivespoint2" type="checkbox" name='agree5' checked={!!signupData.agree5} onChange={handleOnChange} />
                                 <label htmlFor="receivespoint2">DM</label>
                             </div>
-                            <div className={`${styles.chk_box} ${styles.simple}`}>
+{/*                             <div className={`${styles.chk_box} ${styles.simple}`}>
                                 <input id="receivespoint3" type="checkbox" name='agree6' checked={!!signupData.agree6} onChange={handleOnChange} />
                                 <label htmlFor="receivespoint3">TM</label>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
             </div>
             <div className={styles.add_info_agree_txt}>
+                <p>
+                  가입을 진행할 경우, 서비스약관 및 개인정보처리방침에 동의한 것으로 간주합니다.
+                </p>
                 <p>
                     <span className='text-red-600'>*</span>push 알림을 동의할 시, 직장 인증완료 알림을 받을 수 있습니다.
                 </p>

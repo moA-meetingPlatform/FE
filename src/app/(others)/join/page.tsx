@@ -1,17 +1,19 @@
-import FormArea from '@/components/(page)/signup/FormArea'
+import CertPage from '@/components/(page)/signup/CertPage'
+import Step from '@/components/(page)/signup/step/Step'
+
 import React from 'react'
 
-function join() {
+function SignupStep() {
     return (
         <>
-            <div className='mt-[20px] text-2xl text-center'>
-                정보입력
-            </div>
-            <div>
-                <FormArea />
-            </div>
+        <Step
+          step={1}
+          title={'본인인증'}
+          description={'휴대폰 번호로 인증해 주세요.'}
+        />
+        <CertPage />
         </>
     )
 }
 
-export default join
+export default SignupStep

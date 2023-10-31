@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import styles from './CertPage.module.css'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { CertFormDataType } from '@/types/userDataType'
 import { useDisclosure } from '@nextui-org/react'
 import PublicModal from '@/components/(widget)/modal/Modal'
@@ -28,10 +28,18 @@ export const handleOnChange = (
     }
 }
 
+/* interface CertPageProps {
+  url: string;
+  setUrl: (newUrl: string) => void;
+  updateQueryParams: any;  // Ideally, provide a more specific type than 'any'
+} */
+
+
 export const handleLocalStorage = (name: String, phone: String) => {
     phone = formatPhoneNumber(phone.toString())
     localStorage.setItem('tempName', name.toString())
     localStorage.setItem('tempPhone', phone.toString())
+    localStorage.setItem('tempBirth', birth.toString())
 }
 
 export const checkId = async (name: String, phone: String) => {
@@ -80,6 +88,29 @@ export const checkIdAdrr = async (name: String, phone: String) => {
 }
 
 export default function CertPage() {
+
+/*   const [selectedKeys, setSelectedKeys] = React.useState(new Set([""]));
+const route = useRouter();
+const searchParams = useSearchParams()
+
+const [inputMeetingDatetime, setInputMeetingDatetime] = useState(searchParams.get('MeetingDatetime') || '');
+const { url, setUrl, updateQueryParams } = props;
+
+const selectedValue = React.useMemo(
+  () => Array.from(selectedKeys).join(", "),
+  [selectedKeys]
+);
+
+const handleNext = () => {
+  const baseURL = 'http://localhost:3000'; // Adjust as needed
+
+  const updatedUrl = updateQueryParams(baseURL, url, {
+    MeetingDatetime: inputMeetingDatetime,
+  });
+  setUrl(updatedUrl);
+  route.push(updatedUrl);
+};
+ */
     const router = useRouter();
     const pathname = usePathname();
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -118,13 +149,13 @@ export default function CertPage() {
 
     const handleCertification = async () => {
         if (routePath === '/cert') {
-            router.push('/join');
+            router.push('/join/form');
 
-        } else if (routePath === 'login/findId') {
+        } else if (routePath === '/login/findPw') {
             const result = await checkId(certData.userName, certData.phone)
             if (result) {
                 localStorage.setItem('loginId', result.toString())
-                router.push('login/findIdResult')
+                router.push('/login/findIdResult')
             }
             else {
                 setModalContent("회원정보가 없습니다.\n정확한 정보를 입력하신 후 다시 시도해 주세요.");
@@ -137,47 +168,13 @@ export default function CertPage() {
             if (result && result === certData.loginId) {
                 localStorage.setItem('loginId', result.toString())
 
-                router.push('login/changePw')
+                router.push('/login/changePw')
             }
             else {
                 setModalContent("입력한 아이디 정보와 본인인증 정보가 일치하지 않습니다.\n정확한 정보를 입력하신 후 다시 시도해 주세요.");
                 setRoutePath('/login/findPw')
                 onOpen();
             }
-
-        } else if (routePath === '/mypoint/chgPntPwdCert') {
-            const result = await checkId(certData.userName, certData.phone)
-            if (result) {
-                localStorage.setItem('loginId', result.toString())
-                router.push('/mypoint/chgPntPwd')
-            }
-            else {
-                setModalContent("회원정보가 없습니다.\n정확한 정보를 입력하신 후 다시 시도해 주세요.");
-                setRoutePath('/mypoint/chgPntPwdCert')
-                onOpen();
-            }
-/*         } else if (routePath === '/myinfo/cert') {
-            const result = await checkIdAdrr(certData.userName, certData.phone)
-            if (result) {
-                localStorage.setItem('loginId', result.loginId.toString())
-                localStorage.setItem('address', result.address.toString())
-                router.push('/myinfo/modify')
-            }
-            else {
-                setModalContent("회원정보가 없습니다.\n정확한 정보를 입력하신 후 다시 시도해 주세요.");
-                onOpen();
-            }
-        }else if (routePath === '/myinfo/changePwd') {
-            const result = await checkId(certData.userName, certData.phone)
-            if (result) {
-                
-                router.push('/member/changePwd')
-            }
-            else {
-                setModalContent("회원정보가 없습니다.\n정확한 정보를 입력하신 후 다시 시도해 주세요.");
-                onOpen();
-            } */
-
         }
     }
 
@@ -198,10 +195,12 @@ export default function CertPage() {
                                     <p className={styles.tit}> 이름을 입력해 주세요. </p>
                                     <div className={styles.input_box}>
                                         <input name="userName" id="userName" type="text" placeholder='이름 입력' title="회원가입을 위해 입력해주세요."
+                                                  /* value={inputMeetingDatetime}
+                                            onChange={(e) => 
+                                            {handleOnChange(e, certData, setCertData); 
+                                            setInputMeetingDatetime(e.target.value);}}  */
                                             onChange={(e) => handleOnChange(e, certData, setCertData)} />
                                     </div>
-                                    <p className={styles.error_txt}>
-                                    </p>
                                 </div>
 
                                 {pathname !== "/login/findPw" ? (
@@ -337,7 +336,7 @@ export default function CertPage() {
                             </div>
                             <div className={styles.tab_box1}>
                                 <div className={styles.btn_box}>
-                                    <button className={styles.btn_primary}
+                                    <button className='bg-[#4338ca] w-full h-10 rounded-xl text-white font-semibold'
                                         onClick={(e) => {
                                             handleLocalStorage(certData.userName, certData.phone);
                                             handleCertification();
