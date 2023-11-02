@@ -3,7 +3,7 @@ import ModalCategories from "../../ModalCategories";
 import ModalTags from "../../ModalTags";
 import { DEMO_POSTS } from "@/data/posts";
 import { PostDataType } from "@/data/types";
-import { DEMO_CATEGORIES, DEMO_TAGS } from "@/data/taxonomies";
+import { MEETING_CATEGORIES, MEETING_TAGS } from "@/data/category";
 import { DEMO_AUTHORS } from "@/data/authors";
 import Pagination from "@/components/Pagination/Pagination";
 import ButtonPrimary from "@/components/Button/ButtonPrimary";
@@ -19,7 +19,7 @@ import Image from "next/image";
 // Tag and category have same data type - we will use one demo data
 const posts: PostDataType[] = DEMO_POSTS.filter((_, i) => i < 16);
 
-const PageArchive = ({}) => {
+const PageArchive = ({ }) => {
   const FILTERS = [
     { name: "Most Recent" },
     { name: "Curated by Admin" },
@@ -54,8 +54,8 @@ const PageArchive = ({}) => {
         <div>
           <div className="flex flex-col sm:justify-between sm:flex-row">
             <div className="flex space-x-2.5 rtl:space-x-reverse">
-              <ModalCategories categories={DEMO_CATEGORIES} />
-              <ModalTags tags={DEMO_TAGS} />
+              <ModalCategories categories={MEETING_CATEGORIES} />
+              <ModalTags tags={MEETING_TAGS} />
             </div>
             <div className="block my-4 border-b w-full border-neutral-300 dark:border-neutral-500 sm:hidden"></div>
             <div className="flex justify-end">
@@ -82,7 +82,7 @@ const PageArchive = ({}) => {
         <div className="relative py-16">
           <BackgroundSection />
           <SectionGridCategoryBox
-            categories={DEMO_CATEGORIES.filter((_, i) => i < 10)}
+            categories={MEETING_CATEGORIES.filter((_, i) => i < 10)}
           />
           <div className="text-center mx-auto mt-10 md:mt-16">
             <ButtonSecondary loading>Show me more</ButtonSecondary>

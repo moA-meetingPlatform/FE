@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { DEMO_POSTS } from "@/data/posts";
 import { PostDataType } from "@/data/types";
 import { DEMO_AUTHORS } from "@/data/authors";
-import { DEMO_CATEGORIES } from "@/data/taxonomies";
+import { MEETING_CATEGORIES } from "@/data/category";
 import Pagination from "@/components/Pagination/Pagination";
 import ButtonPrimary from "@/components/Button/ButtonPrimary";
 import Nav from "@/components/Nav/Nav";
@@ -26,8 +26,8 @@ import CardAuthorBox2 from "@/components/CardAuthorBox2/CardAuthorBox2";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 
 const posts: PostDataType[] = DEMO_POSTS.filter((_, i) => i < 12);
-const cats = DEMO_CATEGORIES.filter((_, i) => i < 15);
-const tags = DEMO_CATEGORIES.filter((_, i) => i < 32);
+const cats = MEETING_CATEGORIES.filter((_, i) => i < 15);
+const tags = MEETING_CATEGORIES.filter((_, i) => i < 32);
 const authors = DEMO_AUTHORS.filter((_, i) => i < 12);
 
 const FILTERS = [
@@ -40,7 +40,7 @@ const FILTERS = [
 
 const TABS = ["Articles", "Categories", "Tags", "Authors"];
 
-const PageSearch = ({}) => {
+const PageSearch = ({ }) => {
   let s = "Technology";
 
   const [tabActive, setTabActive] = useState(TABS[0]);
@@ -185,7 +185,8 @@ const PageSearch = ({}) => {
           {tabActive === "Tags" && (
             <div className="flex flex-wrap mt-12 ">
               {tags.map((tag) => (
-                <Tag className="mb-3 mr-3" key={tag.id} tag={tag} />
+                // <Tag className="mb-3 mr-3" key={tag.id} tag={tag} />
+                <></>
               ))}
             </div>
           )}
@@ -210,7 +211,7 @@ const PageSearch = ({}) => {
         <div className="relative py-16">
           <BackgroundSection />
           <SectionGridCategoryBox
-            categories={DEMO_CATEGORIES.filter((_, i) => i < 10)}
+            categories={MEETING_CATEGORIES.filter((_, i) => i < 10)}
           />
           <div className="text-center mx-auto mt-10 md:mt-16">
             <ButtonSecondary>Show me more</ButtonSecondary>

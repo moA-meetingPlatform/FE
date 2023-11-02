@@ -4,7 +4,7 @@ import CardCategory3 from "@/components/CardCategory3/CardCategory3";
 import CardCategory4 from "@/components/CardCategory4/CardCategory4";
 import CardCategory5 from "@/components/CardCategory5/CardCategory5";
 import Heading from "@/components/Heading/Heading";
-import { DEMO_CATEGORIES } from "@/data/taxonomies";
+import { MEETING_CATEGORIES } from "@/data/category";
 import { TaxonomyType } from "@/data/types";
 import React from "react";
 
@@ -15,7 +15,7 @@ export interface SectionGridCategoryBoxProps {
   className?: string;
 }
 
-const DATA = DEMO_CATEGORIES.filter((_, i) => i < 10);
+const DATA = MEETING_CATEGORIES.filter((_, i) => i < 10);
 
 const SectionGridCategoryBox: React.FC<SectionGridCategoryBoxProps> = ({
   categories = DATA,
