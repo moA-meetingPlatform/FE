@@ -18,6 +18,11 @@ export interface TaxonomyType {
   desc?: string;
   color?: TwMainColor | string;
   taxonomy: "category" | "tag";
+  tag: TagType[];
+}
+export interface TagType {
+  id: number;
+  name: string;
 }
 
 export interface PostAuthorType {
@@ -38,7 +43,7 @@ export interface PostDataType {
   id: string | number;
   author: PostAuthorType;
   date: string;
-  href: Route;
+  href: Route | string;
   categories: TaxonomyType[];
   title: string;
   featuredImage: string | StaticImageData;

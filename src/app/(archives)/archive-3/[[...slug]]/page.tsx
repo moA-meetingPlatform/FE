@@ -2,7 +2,7 @@ import React from "react";
 import ModalCategories from "../../ModalCategories";
 import ModalTags from "../../ModalTags";
 import { DEMO_POSTS_VIDEO } from "@/data/posts";
-import { DEMO_CATEGORIES, DEMO_TAGS } from "@/data/taxonomies";
+import { MEETING_CATEGORIES, MEETING_TAGS } from "@/data/category";
 import { DEMO_AUTHORS } from "@/data/authors";
 import Pagination from "@/components/Pagination/Pagination";
 import ButtonPrimary from "@/components/Button/ButtonPrimary";
@@ -14,7 +14,7 @@ import ButtonSecondary from "@/components/Button/ButtonSecondary";
 import SectionSliderNewAuthors from "@/components/SectionSliderNewAthors/SectionSliderNewAuthors";
 import Card10V2 from "@/components/Card10/Card10V2";
 
-const PageArchiveVideo = ({}) => {
+const PageArchiveVideo = ({ }) => {
   const FILTERS = [
     { name: "Most Recent" },
     { name: "Curated by Admin" },
@@ -35,8 +35,8 @@ const PageArchiveVideo = ({}) => {
           {/* ====================== END HEADER ====================== */}
           <div className="mt-16 flex flex-col sm:items-center sm:justify-between sm:flex-row">
             <div className="flex space-x-2.5 rtl:space-x-reverse">
-              <ModalCategories categories={DEMO_CATEGORIES} />
-              <ModalTags tags={DEMO_TAGS} />
+              <ModalCategories categories={MEETING_CATEGORIES} />
+              <ModalTags tags={MEETING_TAGS} />
             </div>
             <div className="block my-4 border-b w-full border-neutral-500 sm:hidden"></div>
             <div className="flex justify-end">
@@ -72,7 +72,7 @@ const PageArchiveVideo = ({}) => {
         <div className="relative py-16">
           <BackgroundSection />
           <SectionGridCategoryBox
-            categories={DEMO_CATEGORIES.filter((_, i) => i < 10)}
+            categories={MEETING_CATEGORIES.filter((_, i) => i < 10)}
           />
           <div className="text-center mx-auto mt-10 md:mt-16">
             <ButtonSecondary>Show me more</ButtonSecondary>

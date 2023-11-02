@@ -11,12 +11,12 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { DEMO_AUTHORS } from "@/data/authors";
-import { DEMO_CATEGORIES } from "@/data/taxonomies";
+import { MEETING_CATEGORIES } from "@/data/category";
 import { DEMO_POSTS } from "@/data/posts";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const categories = DEMO_CATEGORIES.filter((_, i) => i < 9);
+const categories = MEETING_CATEGORIES.filter((_, i) => i < 9);
 const posts = DEMO_POSTS.filter((_, i) => i < 5);
 const authors = DEMO_AUTHORS.filter((_, i) => i < 9);
 
@@ -40,15 +40,15 @@ const SearchModal: FC<Props> = ({ renderTrigger }) => {
     rawQuery === "#"
       ? posts
       : query === "" || rawQuery.startsWith(">")
-      ? []
-      : posts.filter((project) => project.title.toLowerCase().includes(query));
+        ? []
+        : posts.filter((project) => project.title.toLowerCase().includes(query));
 
   const filteredProjects =
     rawQuery === "#"
       ? categories
       : query === "" || rawQuery.startsWith(">")
-      ? []
-      : categories.filter((project) =>
+        ? []
+        : categories.filter((project) =>
           project.name.toLowerCase().includes(query)
         );
 
@@ -56,8 +56,8 @@ const SearchModal: FC<Props> = ({ renderTrigger }) => {
     rawQuery === ">"
       ? authors
       : query === "" || rawQuery.startsWith("#")
-      ? []
-      : authors.filter((user) =>
+        ? []
+        : authors.filter((user) =>
           user.displayName.toLowerCase().includes(query)
         );
 
@@ -158,117 +158,117 @@ const SearchModal: FC<Props> = ({ renderTrigger }) => {
                   {(filteredProjects.length > 0 ||
                     filteredUsers.length > 0 ||
                     filteredPosts.length > 0) && (
-                    <Combobox.Options
-                      static
-                      className="max-h-80 scroll-py-10 scroll-pb-2 space-y-4 overflow-y-auto p-4 pb-2"
-                    >
-                      {filteredPosts.length > 0 && (
-                        <li>
-                          <h2 className="text-xs font-semibold text-gray-900">
-                            Posts
-                          </h2>
-                          <ul className="-mx-4 mt-2 text-sm text-gray-700">
-                            {filteredPosts.map((post) => (
-                              <Combobox.Option
-                                key={post.id}
-                                value={post}
-                                className={({ active }) =>
-                                  classNames(
-                                    "flex select-none items-center px-4 py-2",
-                                    active && "bg-indigo-600 text-white"
-                                  )
-                                }
-                              >
-                                {({ active }) => (
-                                  <>
-                                    <ClockIcon
-                                      className={classNames(
-                                        "h-6 w-6 flex-none",
-                                        active ? "text-white" : "text-gray-400"
-                                      )}
-                                      aria-hidden="true"
-                                    />
-                                    <span className="ms-3 flex-auto truncate">
-                                      {post.title}
-                                    </span>
-                                  </>
-                                )}
-                              </Combobox.Option>
-                            ))}
-                          </ul>
-                        </li>
-                      )}
+                      <Combobox.Options
+                        static
+                        className="max-h-80 scroll-py-10 scroll-pb-2 space-y-4 overflow-y-auto p-4 pb-2"
+                      >
+                        {filteredPosts.length > 0 && (
+                          <li>
+                            <h2 className="text-xs font-semibold text-gray-900">
+                              Posts
+                            </h2>
+                            <ul className="-mx-4 mt-2 text-sm text-gray-700">
+                              {filteredPosts.map((post) => (
+                                <Combobox.Option
+                                  key={post.id}
+                                  value={post}
+                                  className={({ active }) =>
+                                    classNames(
+                                      "flex select-none items-center px-4 py-2",
+                                      active && "bg-indigo-600 text-white"
+                                    )
+                                  }
+                                >
+                                  {({ active }) => (
+                                    <>
+                                      <ClockIcon
+                                        className={classNames(
+                                          "h-6 w-6 flex-none",
+                                          active ? "text-white" : "text-gray-400"
+                                        )}
+                                        aria-hidden="true"
+                                      />
+                                      <span className="ms-3 flex-auto truncate">
+                                        {post.title}
+                                      </span>
+                                    </>
+                                  )}
+                                </Combobox.Option>
+                              ))}
+                            </ul>
+                          </li>
+                        )}
 
-                      {filteredProjects.length > 0 && (
-                        <li>
-                          <h2 className="text-xs font-semibold text-gray-900">
-                            Categories
-                          </h2>
-                          <ul className="-mx-4 mt-2 text-sm text-gray-700">
-                            {filteredProjects.map((project) => (
-                              <Combobox.Option
-                                key={project.id}
-                                value={project}
-                                className={({ active }) =>
-                                  classNames(
-                                    "flex select-none items-center px-4 py-2",
-                                    active && "bg-indigo-600 text-white"
-                                  )
-                                }
-                              >
-                                {({ active }) => (
-                                  <>
-                                    <HashtagIcon
-                                      className={classNames(
-                                        "h-6 w-6 flex-none",
-                                        active ? "text-white" : "text-gray-400"
-                                      )}
-                                      aria-hidden="true"
-                                    />
-                                    <span className="ms-3 flex-auto truncate">
-                                      {project.name}
-                                    </span>
-                                  </>
-                                )}
-                              </Combobox.Option>
-                            ))}
-                          </ul>
-                        </li>
-                      )}
+                        {filteredProjects.length > 0 && (
+                          <li>
+                            <h2 className="text-xs font-semibold text-gray-900">
+                              Categories
+                            </h2>
+                            <ul className="-mx-4 mt-2 text-sm text-gray-700">
+                              {filteredProjects.map((project) => (
+                                <Combobox.Option
+                                  key={project.id}
+                                  value={project}
+                                  className={({ active }) =>
+                                    classNames(
+                                      "flex select-none items-center px-4 py-2",
+                                      active && "bg-indigo-600 text-white"
+                                    )
+                                  }
+                                >
+                                  {({ active }) => (
+                                    <>
+                                      <HashtagIcon
+                                        className={classNames(
+                                          "h-6 w-6 flex-none",
+                                          active ? "text-white" : "text-gray-400"
+                                        )}
+                                        aria-hidden="true"
+                                      />
+                                      <span className="ms-3 flex-auto truncate">
+                                        {project.name}
+                                      </span>
+                                    </>
+                                  )}
+                                </Combobox.Option>
+                              ))}
+                            </ul>
+                          </li>
+                        )}
 
-                      {filteredUsers.length > 0 && (
-                        <li>
-                          <h2 className="text-xs font-semibold text-gray-900">
-                            Authors
-                          </h2>
-                          <ul className="-mx-4 mt-2 text-sm text-gray-700">
-                            {filteredUsers.map((user) => (
-                              <Combobox.Option
-                                key={user.id}
-                                value={user}
-                                className={({ active }) =>
-                                  classNames(
-                                    "flex select-none items-center px-4 py-2",
-                                    active && "bg-indigo-600 text-white"
-                                  )
-                                }
-                              >
-                                <Image
-                                  src={user.avatar}
-                                  alt="author"
-                                  className="h-6 w-6 flex-none rounded-full"
-                                  sizes="30px"
-                                />
-                                <span className="ms-3 flex-auto truncate">
-                                  {user.displayName}
-                                </span>
-                              </Combobox.Option>
-                            ))}
-                          </ul>
-                        </li>
-                      )}
-                    </Combobox.Options>
-                  )}
+                        {filteredUsers.length > 0 && (
+                          <li>
+                            <h2 className="text-xs font-semibold text-gray-900">
+                              Authors
+                            </h2>
+                            <ul className="-mx-4 mt-2 text-sm text-gray-700">
+                              {filteredUsers.map((user) => (
+                                <Combobox.Option
+                                  key={user.id}
+                                  value={user}
+                                  className={({ active }) =>
+                                    classNames(
+                                      "flex select-none items-center px-4 py-2",
+                                      active && "bg-indigo-600 text-white"
+                                    )
+                                  }
+                                >
+                                  <Image
+                                    src={user.avatar}
+                                    alt="author"
+                                    className="h-6 w-6 flex-none rounded-full"
+                                    sizes="30px"
+                                  />
+                                  <span className="ms-3 flex-auto truncate">
+                                    {user.displayName}
+                                  </span>
+                                </Combobox.Option>
+                              ))}
+                            </ul>
+                          </li>
+                        )}
+                      </Combobox.Options>
+                    )}
 
                   {rawQuery === "?" && (
                     <div className="py-14 px-6 text-center text-sm sm:px-14">

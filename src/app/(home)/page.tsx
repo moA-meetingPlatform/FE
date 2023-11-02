@@ -8,7 +8,7 @@ import {
   DEMO_POSTS_GALLERY,
   DEMO_POSTS_VIDEO,
 } from "@/data/posts";
-import { DEMO_CATEGORIES } from "@/data/taxonomies";
+import { MEETING_CATEGORIES } from "@/data/category";
 import { DEMO_AUTHORS } from "@/data/authors";
 import SectionSliderNewCategories from "@/components/SectionSliderNewCategories/SectionSliderNewCategories";
 import SectionSliderPosts from "@/components/Sections/SectionSliderPosts";
@@ -55,7 +55,7 @@ const PageHome = ({ }) => {
             headingCenter={true}
             categoryCardType="card2"
             className="pb-16 lg:pb-28"
-            categories={DEMO_CATEGORIES.filter((_, i) => i < 10)}
+            categories={MEETING_CATEGORIES.filter((_, i) => i < 10)}
           />
         </div>
         {/* <SectionGridAuthorBox
@@ -75,7 +75,7 @@ const PageHome = ({ }) => {
           className="py-16 lg:py-28"
           heading="Top trending topics"
           subHeading="Discover 233 topics"
-          categories={DEMO_CATEGORIES.filter((_, i) => i < 10)}
+          categories={MEETING_CATEGORIES.filter((_, i) => i < 10)}
           categoryCardType="card4"
         /> */}
 

@@ -31,7 +31,7 @@ const Card11: FC<Card11Props> = ({
       className={`nc-Card11 relative flex flex-col group rounded-3xl overflow-hidden bg-white dark:bg-neutral-900 ${className}`}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
-      //
+    //
     >
       <div
         className={`block flex-shrink-0 relative w-full rounded-t-3xl overflow-hidden z-10 ${ratio}`}
@@ -40,7 +40,7 @@ const Card11: FC<Card11Props> = ({
           <PostFeaturedMedia post={post} isHover={isHover} />
         </div>
       </div>
-      <Link href={href} className="absolute inset-0"></Link>
+      <Link href={'/'} className="absolute inset-0"></Link>
       <span className="absolute top-3 inset-x-3 z-10">
         <CategoryBadgeList categories={categories} />
       </span>

@@ -3,7 +3,7 @@ import __posts_news from "./jsons/__posts_news.json";
 import __postsGallery from "./jsons/__postsGallery.json";
 import __postsVideo from "./jsons/__postsVideo.json";
 import __postsAudio from "./jsons/__postsAudio.json";
-import { DEMO_CATEGORIES } from "./taxonomies";
+import { MEETING_CATEGORIES } from "./category";
 import { PostDataType } from "./types";
 import { DEMO_AUTHORS } from "./authors";
 
@@ -11,7 +11,7 @@ import { DEMO_AUTHORS } from "./authors";
 const DEMO_POSTS = __posts.map((post, index): PostDataType => {
   //  ##########  GET CATEGORY BY CAT ID ######## //
   const categories = post.categoriesId.map(
-    (id) => DEMO_CATEGORIES.filter((taxonomy) => taxonomy.id === id)[0]
+    (id) => MEETING_CATEGORIES.filter((taxonomy) => taxonomy.id === id)[0]
   );
 
   return {
@@ -26,7 +26,7 @@ const DEMO_POSTS = __posts.map((post, index): PostDataType => {
 const DEMO_POSTS_NEWS = __posts_news.map((post, index): PostDataType => {
   //  ##########  GET CATEGORY BY CAT ID ######## //
   const categories = post.categoriesId.map(
-    (id) => DEMO_CATEGORIES.filter((taxonomy) => taxonomy.id === id)[0]
+    (id) => MEETING_CATEGORIES.filter((taxonomy) => taxonomy.id === id)[0]
   );
 
   return {
@@ -41,7 +41,7 @@ const DEMO_POSTS_NEWS = __posts_news.map((post, index): PostDataType => {
 const DEMO_POSTS_GALLERY = __postsGallery.map((post, index): PostDataType => {
   //  ##########  GET CATEGORY BY CAT ID ######## //
   const categories = post.categoriesId.map(
-    (id) => DEMO_CATEGORIES.filter((taxonomy) => taxonomy.id === id)[0]
+    (id) => MEETING_CATEGORIES.filter((taxonomy) => taxonomy.id === id)[0]
   );
 
   return {
@@ -56,7 +56,7 @@ const DEMO_POSTS_GALLERY = __postsGallery.map((post, index): PostDataType => {
 const DEMO_POSTS_VIDEO = __postsVideo.map((post, index): PostDataType => {
   //  ##########  GET CATEGORY BY CAT ID ######## //
   const categories = post.categoriesId.map(
-    (id) => DEMO_CATEGORIES.filter((taxonomy) => taxonomy.id === id)[0]
+    (id) => MEETING_CATEGORIES.filter((taxonomy) => taxonomy.id === id)[0]
   );
 
   return {
@@ -71,7 +71,7 @@ const DEMO_POSTS_VIDEO = __postsVideo.map((post, index): PostDataType => {
 const DEMO_POSTS_AUDIO = __postsAudio.map((post, index): PostDataType => {
   //  ##########  GET CATEGORY BY CAT ID ######## //
   const categories = post.categoriesId.map(
-    (id) => DEMO_CATEGORIES.filter((taxonomy) => taxonomy.id === id)[0]
+    (id) => MEETING_CATEGORIES.filter((taxonomy) => taxonomy.id === id)[0]
   );
 
   return {
