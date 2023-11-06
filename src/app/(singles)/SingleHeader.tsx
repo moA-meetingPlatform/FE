@@ -5,7 +5,7 @@ import CategoryBadgeList from "@/components/CategoryBadgeList/CategoryBadgeList"
 import SingleTitle from "./SingleTitle";
 import PostMeta2 from "@/components/PostMeta2/PostMeta2";
 import SingleMetaAction2 from "./SingleMetaAction2";
-import { DEMO_CATEGORIES } from "@/data/taxonomies";
+import { MEETING_CATEGORIES } from "@/data/category";
 
 export interface SingleHeaderProps {
   hiddenDesc?: boolean;
@@ -24,7 +24,7 @@ const SingleHeader: FC<SingleHeaderProps> = ({
         <div className="space-y-5">
           <CategoryBadgeList
             itemClass="!px-3"
-            categories={[DEMO_CATEGORIES[1]]}
+            categories={[MEETING_CATEGORIES[1]]}
           />
           <SingleTitle
             mainClass={titleMainClass}

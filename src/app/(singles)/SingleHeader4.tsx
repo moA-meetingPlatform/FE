@@ -4,7 +4,7 @@ import SingleTitle from "./SingleTitle";
 import PostMeta2 from "@/components/PostMeta2/PostMeta2";
 import SingleMetaAction2 from "./SingleMetaAction2";
 import NcImage from "@/components/NcImage/NcImage";
-import { DEMO_CATEGORIES } from "@/data/taxonomies";
+import { MEETING_CATEGORIES } from "@/data/category";
 
 export interface SingleHeader4Props {
   hiddenDesc?: boolean;
@@ -21,7 +21,7 @@ const SingleHeader4: FC<SingleHeader4Props> = ({
         <div className="max-w-5xl mx-auto space-y-5 dark">
           <CategoryBadgeList
             itemClass="!px-3"
-            categories={[DEMO_CATEGORIES[1]]}
+            categories={[MEETING_CATEGORIES[1]]}
           />
           <SingleTitle
             mainClass="text-neutral-900 font-bold text-3xl md:text-4xl md:!leading-[120%] lg:text-5xl 2xl:text-6xl dark:text-neutral-100"
