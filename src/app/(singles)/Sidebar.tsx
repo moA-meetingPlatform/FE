@@ -5,7 +5,7 @@ import WidgetPosts from "@/components/WidgetPosts/WidgetPosts";
 import WidgetTags from "@/components/WidgetTags/WidgetTags";
 import { DEMO_AUTHORS } from "@/data/authors";
 import { DEMO_POSTS } from "@/data/posts";
-import { DEMO_CATEGORIES, DEMO_TAGS } from "@/data/taxonomies";
+import { MEETING_CATEGORIES, MEETING_TAGS } from "@/data/category";
 import { PostDataType } from "@/data/types";
 
 export interface SidebarProps {
@@ -13,8 +13,8 @@ export interface SidebarProps {
 }
 
 const widgetPosts: PostDataType[] = DEMO_POSTS.filter((_, i) => i > 2 && i < 7);
-const tags = DEMO_TAGS.filter((_, i) => i > 5);
-const categories = DEMO_CATEGORIES.filter((_, i) => i > 7 && i < 13);
+const tags = MEETING_TAGS.filter((_, i) => i > 5);
+const categories = MEETING_CATEGORIES.filter((_, i) => i > 7 && i < 13);
 const authors = DEMO_AUTHORS.filter((_, i) => i < 5);
 
 export const Sidebar: FC<SidebarProps> = ({ className = "space-y-6 " }) => {

@@ -20,22 +20,22 @@ export type TwMainColor =
   | "gray";
 
 
-interface TagType {
-  id: number;
-  name: string;
-}
+// interface TagType {
+//   id: number;
+//   name: string;
+// }
 
-interface TaxonomyType {
-  id: string | number;
-  name: string;
-  href: Route;
-  count?: number;
-  thumbnail?: string | StaticImageData;
-  desc?: string;
-  color?: TwMainColor | string;
-  taxonomy: "category" | "tag";
-  tag: TagType[];
-}
+// interface TaxonomyType {
+//   id: string | number;
+//   name: string;
+//   href: Route;
+//   count?: number;
+//   thumbnail?: string | StaticImageData;
+//   desc?: string;
+//   color?: TwMainColor | string;
+//   taxonomy: "category" | "tag";
+//   tag: TagType[];
+// }
 
 export interface ModalTagsProps {
   id: number
@@ -48,7 +48,7 @@ const ModalTags: FC<ModalTagsProps> = ({ id }) => {
   const category = MEETING_CATEGORIES.find((cat) => cat.id === id);
 
   // Extract the tags of the category
-  const tags: TagType[] = category?.tag || [];
+  const tags = category?.tag || [];
 
   const renderModalContent = () => {
     return (

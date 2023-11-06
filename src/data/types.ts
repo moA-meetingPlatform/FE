@@ -12,7 +12,7 @@ export interface CustomLink {
 export interface TaxonomyType {
   id: string | number;
   name: string;
-  href: Route;
+  href: any;
   count?: number;
   thumbnail?: string | StaticImageData;
   desc?: string;
@@ -23,6 +23,7 @@ export interface TaxonomyType {
 export interface TagType {
   id: number;
   name: string;
+  href: any;
 }
 
 export interface PostAuthorType {
@@ -36,14 +37,14 @@ export interface PostAuthorType {
   count: number;
   desc: string;
   jobName: string;
-  href: Route;
+  href: any;
 }
 
 export interface PostDataType {
   id: string | number;
   author: PostAuthorType;
   date: string;
-  href: Route | string;
+  href: any;
   categories: TaxonomyType[];
   title: string;
   featuredImage: string | StaticImageData;

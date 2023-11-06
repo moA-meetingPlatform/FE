@@ -13,6 +13,8 @@ import SearchModal from "./SearchModal";
 import MoaLogo from "../Logo/MoaLogo";
 import Link from "next/link";
 
+
+// 헤더 2
 export interface MainNav2Props {
   className?: string;
 }

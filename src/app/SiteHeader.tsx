@@ -18,7 +18,8 @@ const SiteHeader = () => {
   useThemeMode();
   //
 
-  //
+  // 여기서 세션 체크하여 헤드 분기시키기
+
   // FOR OUR DEMO PAGE, use do not use this, you can delete it.
   const [headerSelected, setHeaderSelected] = useState<
     "Header 1" | "Header 2" | "Header 3"
@@ -87,6 +88,8 @@ const SiteHeader = () => {
       </div>
     );
   };
+
+  // 사이드 메뉴
   const renderControlSelections = () => {
     return (
       <div className="ControlSelections relative z-40 hidden md:block">
