@@ -29,6 +29,9 @@ import BottomNav from "@/components/(navigation)/(bottom)/BottomNav";
 import Header from "@/components/(navigation)/(top)/Header";
 import SiteHeader from "../SiteHeader";
 import SectionMagazine from "@/components/Sections/SectionMagazine";
+import CreateBtn from "@/components/Button/CreateBtn";
+import Link from "next/link";
+import ButtonPrimary from "@/components/Button/ButtonPrimary";
 
 
 //
@@ -57,6 +60,9 @@ const PageHome = ({ }) => {
             className="pb-16 lg:pb-28"
             categories={MEETING_CATEGORIES.filter((_, i) => i < 10)}
           />
+          <Link href={'/meeting/category/0/0'}>
+            <ButtonPrimary>Show me more</ButtonPrimary>
+          </Link>
         </div>
         {/* <SectionGridAuthorBox
           className="py-16 lg:py-28"
@@ -158,7 +164,9 @@ const PageHome = ({ }) => {
 
         <SectionLatestPosts className="pb-16 lg:pb-28" />
       </div> */}
-      <BottomNav />
+      <Link href={'/meeting/create'}>
+        <CreateBtn />
+      </Link>
     </div>
   );
 };

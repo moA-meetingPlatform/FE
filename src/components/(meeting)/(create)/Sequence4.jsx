@@ -5,6 +5,9 @@ import { usePathname, useSearchParams, useRouter, useParams } from 'next/navigat
 import Heading from '@/components/Heading/Heading';
 
 
+
+
+
 export default function Sequence4(props) {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([""]));
   const router = useRouter();
@@ -13,6 +16,9 @@ export default function Sequence4(props) {
   const [inputDescription, setInputDescription] = useState(searchParams.get('Description') || '');
   const [inputHeaderImageUrl, setInputHeaderImageUrl] = useState(searchParams.get('HeaderImageUrl') || '');
   const { url, setUrl, updateQueryParams } = props;
+
+  // 이미지 url 저장 변수
+  let [src, setSrc] = useState('')
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", "),
@@ -30,8 +36,51 @@ export default function Sequence4(props) {
     router.push(updatedUrl);
   };
 
+
+
+
   return (
     <>
+      <input type="file" accept="image/*"
+        onChange={async (e) => {
+          // 파일명 얻기
+          let file = e.target.files[0]
+
+          // 파일명 인코딩
+          let filename = encodeURIComponent(file.name)
+
+          // api 요청 - presigned url 얻기
+          let res = await fetch(`/api/awss3/upload?file=${filename}`)
+
+          // presigned url 받아옴
+          res = await res.json()
+
+          console.log(res)
+
+          //S3 업로드 
+          // TODO: 파일 업로드하면 바로 s3에 업로드된다. 
+          // 나중에 createObjectURL을 이용해 모임 정보 생성할 때 업로드하도록 수정
+          const formData = new FormData()
+          Object.entries({ ...res.fields, file }).forEach(([key, value]) => {
+            formData.append(key, value)
+          })
+          let 업로드결과 = await fetch(res.url, {
+            method: 'POST',
+            body: formData,
+          })
+          console.log(업로드결과)
+
+          if (업로드결과.ok) {
+            setSrc(업로드결과.url + '/' + filename)
+          } else {
+            console.log('실패')
+          }
+        }}
+      />
+      {/* 이미지 출력 */}
+      <img src={src} />
+
+
       <Heading desc={""}>모임을 소개해주세요</Heading>
       <div className="flex flex-col gap-2">
         <p className="text-small text-default-500">Selected value: {selectedValue}</p>

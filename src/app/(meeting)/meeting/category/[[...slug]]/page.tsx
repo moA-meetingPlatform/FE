@@ -11,19 +11,50 @@ import SiteHeader from "@/app/SiteHeader";
 import __posts from "../../../../../data/jsons/__posts.json";
 import { DEMO_AUTHORS } from "@/data/authors";
 
-async function getData() {
-  const res = await fetch('https://api.example.com/...')
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
+const fetchData = async () => {
+  try {
+    // 첫 번째 요청
+    const responseOne = await fetch('/api/first-endpoint');
+    const dataOne = await responseOne.json();
 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
+    // 필요한 데이터 추출
+    const neededDataFromFirstCall = dataOne.someProperty;
+
+    // 두 번째 요청 (첫 번째 요청의 데이터를 사용)
+    const responseTwo = await fetch('/api/second-endpoint', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ neededDataFromFirstCall }),
+    });
+    const dataTwo = await responseTwo.json();
+
+    // 필요한 데이터 추출
+    const neededDataFromSecondCall = dataTwo.anotherProperty;
+
+    // 세 번째 요청 (두 번째 요청의 데이터를 사용)
+    const responseThree = await fetch('/api/third-endpoint', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ neededDataFromSecondCall }),
+    });
+    const dataThree = await responseThree.json();
+
+    // 세 번째 요청의 응답 처리
+    console.log(dataThree);
+
+    return dataThree.json()
+
+
+  } catch (error) {
+    // 에러 처리
+    console.error('An error occurred:', error);
   }
 
-
-  return res.json()
-}
+};
 
 const DEMO_POSTS = __posts.map((post, index): PostDataType => {
   //  ##########  GET CATEGORY BY CAT ID ######## //
@@ -43,7 +74,7 @@ const DEMO_POSTS = __posts.map((post, index): PostDataType => {
 // Tag and category have same data type - we will use one demo data
 const posts = DEMO_POSTS.filter((_, i) => i < 10);
 
-export default function PageArchive({ params }: { params: { slug: string } }) {
+export default async function PageArchive({ params }: { params: { slug: string } }) {
   const FILTERS = [
     { name: "Most Recent" },
     { name: "Curated by Admin" },
@@ -52,7 +83,8 @@ export default function PageArchive({ params }: { params: { slug: string } }) {
     { name: "Most Viewed" },
   ];
 
-
+  // const data = await fetchData();
+  console.log(params.slug[1])
 
   return (
     <>
