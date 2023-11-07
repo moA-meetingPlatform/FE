@@ -40,7 +40,7 @@ const CardCategory1: FC<CardCategory1Props> = ({
           className={`${size === "large" ? "text-sm" : "text-xs"
             } block mt-[2px] text-neutral-500 dark:text-neutral-400`}
         >
-          {count} Articles
+          {count}개 모임
         </span>
       </div>
     </Link>
