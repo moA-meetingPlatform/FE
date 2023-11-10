@@ -11,6 +11,8 @@ import { Card, CardBody, Progress } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import JoinButton from './JoinButton'
+import BackStepHeader from '@/components/(navigation)/(top)/BackStepHeader'
+import FormArea from '../FormArea'
 
 function JoinStep() {
 
@@ -20,6 +22,7 @@ function JoinStep() {
     userPassword : "",
     checkPassword :"",
     phoneNumber : "",
+    phoneCert : false,
   })
 
   useEffect(() => {
@@ -31,25 +34,32 @@ function JoinStep() {
     {
       id: 1,
       label: "아이디 입력",
-      progress: 33,
+      progress: 25,
       content: <IdInput signUpData={signUpData} setSignUpData={setSignUpData}/>
     },
     {
       id: 2,
       label: "비밀번호 입력",
-      progress: 66,
+      progress: 50,
       content: <PwInput signUpData={signUpData} setSignUpData={setSignUpData}/>
     },
     {
       id: 3,
       label: "휴대폰 인증",
-      progress: 100,
+      progress: 75,
       content: <PhoneCert signUpData={signUpData} setSignUpData={setSignUpData}/>
-    }
+    },
+    {
+      id: 4,
+      label: "정보 입력",
+      progress: 100,
+      content: <FormArea signUpData={signUpData} setSignUpData={setSignUpData}/>
+    },
   ]
+  
   return (
     <>
-      <BackbuttonHeader contents=''/>
+      <BackStepHeader active={active} setActive={setActive}/>
       <LinearProgress variant="determinate" value={tabs.find(tab => tab.id === active)?.progress} />
       <Progress size="sm" aria-label="Loading..." value={tabs.find(tab => tab.id === active)?.progress} className="max-w-md" />
       <div className="flex w-full flex-col">

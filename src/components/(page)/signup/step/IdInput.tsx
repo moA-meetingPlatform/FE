@@ -26,7 +26,7 @@ function IdInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<Re
 
   return (
     <>
-    <main className='grid place-items-center'>
+    <main className='grid place-items-center mb-40'>
       <div className='text-xl py-3 font-semibold'>
         이메일을 입력해주세요.
         <p className='text-sm mt-3 font-medium'>자주 쓰는 이메일을 사용하는 것이 좋습니다.</p>

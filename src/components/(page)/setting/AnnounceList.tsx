@@ -7,11 +7,11 @@ export default function AnnounceList (props: any) {
   return(
     <>
     {props.announces.map((announce : any)=>{
-      return <li key={announce.id} className="flex justify-between items-center border-t h-auto min-h-[64px] tracking-tighter">
-        <div className="w-[180px]">
+      return <li key={announce.id} className="list-none items-center border-t h-auto min-h-[48px] tracking-tighter">
+        <div className="w-full">
         <Link href={`/setting/announce/${announce.id}`}>{announce.title}</Link>
+        <p className="text-sm text-slate-500">{announce.date}</p>
         </div>
-        <span>{announce.date}</span>
       </li>
     })}
   </>

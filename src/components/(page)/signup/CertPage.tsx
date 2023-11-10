@@ -35,7 +35,7 @@ export const handleOnChange = (
 } */
 
 
-export const handleLocalStorage = (name: String, phone: String) => {
+export const handleLocalStorage = (name: String, phone: String, birth: String) => {
     phone = formatPhoneNumber(phone.toString())
     localStorage.setItem('tempName', name.toString())
     localStorage.setItem('tempPhone', phone.toString())
@@ -119,7 +119,7 @@ const handleNext = () => {
     const [certData, setCertData] = useState<CertFormDataType>({
         loginId: '',
         userName: '',
-        birthday: '',
+        birth: '',
         phone: '',
         gender: 'M',
         nationality: 'L',
@@ -338,7 +338,7 @@ const handleNext = () => {
                                 <div className={styles.btn_box}>
                                     <button className='bg-[#4338ca] w-full h-10 rounded-xl text-white font-semibold'
                                         onClick={(e) => {
-                                            handleLocalStorage(certData.userName, certData.phone);
+                                            handleLocalStorage(certData.userName, certData.phone, certData.birth);
                                             handleCertification();
                                         }}> 인증번호 요청 </button>
                                 </div>

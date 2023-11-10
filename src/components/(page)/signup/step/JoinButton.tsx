@@ -6,6 +6,7 @@ function JoinButton({active, setActive, signUpData, setSignUpData} :
   {active:number, setActive:React.Dispatch<SetStateAction<number>>, signUpData:SignupType, setSignUpData:React.Dispatch<React.SetStateAction<SignupType>>}) {
 
     const router=useRouter()
+    const maxTabs = 4;
 
     interface ErrorSignupType{
       userId : string, 
@@ -29,6 +30,12 @@ function JoinButton({active, setActive, signUpData, setSignUpData} :
       }
     }
 
+    const handleNext = () => {
+      if (active < maxTabs) {
+        setActive(active + 1);
+      } else {router.push("/login/otherLogin")}
+    };
+
   return (
     <>
       <div className='grid place-items-center mt-3'>
@@ -40,7 +47,7 @@ function JoinButton({active, setActive, signUpData, setSignUpData} :
           :
           active===1 ? handleSignupFetch
           : */
-          ()=>setActive(active +1)
+          handleNext
         }>
           다음
         </button>
