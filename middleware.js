@@ -15,7 +15,7 @@ export async function middleware(request) {
   // console.log(session)
 
   // meeting 페이지 접근시 로그인 안되어있으면 로그인 페이지로 이동
-  if ( request.nextUrl.pathname.startsWith('/meeasdasadcsacdating') )
+  if ( request.nextUrl.pathname.startsWith('/asdads') )
     if (session === null){
       // TODO : host 바꾸기
       return NextResponse.redirect(new URL('http://localhost:3000/login'), request.url)

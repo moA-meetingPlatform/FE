@@ -5,7 +5,7 @@ export default async function announcePost(props:any){
   const announce = await res.json();
   return (
     <>
-    <main className="mt-16 p-5">
+    <main className="mt-16">
       <h2 className="font-semibold">{announce.title}</h2>
       <h1 className="text-sm">{announce.date}</h1>
       {announce.body}

@@ -1,7 +1,7 @@
 export interface CertFormDataType {
   loginId: String;
   userName: String,
-  birthday: String,
+  birth: String,
   phone: String,
   gender: String,
   nationality: String,
@@ -21,17 +21,18 @@ export interface LogInFormDataType {
 export interface SignUpFormDataType {
   loginId: String,
   password: String,
-  userName: String,
-  phone: String,
-  zoneCode: String,
+  name: String,
+  phoneNumber: String,
+/*   zoneCode: String,
   address: string,
-  detailAddress: string,
-  agree1: Boolean,
-  agree2: Boolean,
-  agree3: Boolean,
-  agree4: Boolean,
-  agree5: Boolean,
-  agree6: Boolean,
+  detailAddress: string, */
+  birthdate: String,
+  nickname: String,
+  gender : String,
+  agree1: boolean,
+  agree2: boolean,
+  agree3: boolean,
+  // agree6: Boolean,
 }
 
 export interface FindPWFormDataType {

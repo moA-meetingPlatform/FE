@@ -15,7 +15,7 @@ const ModalTags: FC<ModalTagsProps> = ({ tags }) => {
   const renderModalContent = () => {
     return (
       <div className="flex flex-wrap dark:text-neutral-200">
-        {tags.map((tag) => (
+        {tags.map((tag:any) => (
           <Tag key={tag.id} tag={tag} className="me-2 mb-2" />
         ))}
       </div>

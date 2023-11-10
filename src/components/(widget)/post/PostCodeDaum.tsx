@@ -28,7 +28,7 @@ function PostCodeDaum({isView, setIsView, setAddress}: {isView: boolean, setIsVi
       };
 
   return (
-    <div >
+    <div>
         <button type='button' onClick={handleClick}>
         우편번호 찾기 
     </button>
