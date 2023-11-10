@@ -9,7 +9,7 @@ export default function NoticeModal() {
 
   return (
     <>
-      <Button onPress={onOpen} className="mt-3">등록</Button>
+      <Button onPress={onOpen} className="mt-3 h-[28px] w-[50px] bg-[#4338ca] rounded-full font-semibold text-white">등록</Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
         <ModalContent>
           {(onClose) => (

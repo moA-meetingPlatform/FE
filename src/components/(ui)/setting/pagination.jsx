@@ -1,4 +1,4 @@
-'use client'
+/* 'use client'
 
 import { Pagination } from '@nextui-org/react';
 import React from 'react'
@@ -20,4 +20,4 @@ function Paginate() {
   )
 }
 
-export default Paginate
+export default Paginate */

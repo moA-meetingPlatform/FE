@@ -6,7 +6,7 @@ import { PostDataType } from "@/data/types";
 import Pagination from "@/components/Pagination/Pagination";
 import ButtonPrimary from "@/components/Button/ButtonPrimary";
 import { DEMO_AUTHORS } from "@/data/authors";
-import { DEMO_CATEGORIES } from "@/data/taxonomies";
+import { MEETING_CATEGORIES } from "@/data/category";
 import Nav from "@/components/Nav/Nav";
 import NavItem from "@/components/NavItem/NavItem";
 import SocialsList from "@/components/SocialsList/SocialsList";
@@ -26,6 +26,12 @@ import NcDropDown from "@/components/NcDropDown/NcDropDown";
 import { SOCIALS_DATA } from "@/components/SocialsShare/SocialsShare";
 import AccountActionDropdown from "@/components/AccountActionDropdown/AccountActionDropdown";
 import Image from "next/image";
+import { CogIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
+import MannerTemparature from "@/components/(ui)/setting/mannerTem";
+import { InterestData } from "@/data/interestData";
+import { InterestTpye } from "@/types/InterestType";
+
 
 const posts: PostDataType[] = DEMO_POSTS.filter((_, i) => i < 12);
 const FILTERS = [
@@ -35,7 +41,7 @@ const FILTERS = [
   { name: "Most Discussed" },
   { name: "Most Viewed" },
 ];
-const TABS = ["Articles", "Favorites", "Saved"];
+const TABS = ["좋아요", "참여", "진행"];
 
 const PageAuthor = ({}) => {
   const [tabActive, setTabActive] = useState<string>(TABS[0]);
@@ -81,17 +87,26 @@ const PageAuthor = ({}) => {
               <div className="max-w-screen-sm space-y-3.5 ">
                 <h2 className="inline-flex items-center text-2xl sm:text-3xl lg:text-4xl font-semibold">
                   <span>Dony Herrera</span>
-                  <VerifyIcon
+{/*                   <VerifyIcon
                     className="ml-2"
                     iconClass="w-6 h-6 sm:w-7 sm:h-7 xl:w-8 xl:h-8"
-                  />
+                  /> */}
+                  <MannerTemparature />
                 </h2>
+                <div className="h-14">
                 <span className="block text-sm text-neutral-500 dark:text-neutral-400">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Porro autem totam iure quibusdam asperiores numquam quae animi
-                  assumenda necessitatibus consectetur.
+                몰랐던 취미나 관심사를 함께 발굴해 나가봐요!
                 </span>
-                <a
+                <span>
+{/*                   <NcImage
+                  src="http://www.w3.org/2000/svg"
+                  alt="edit button"
+                  width={20}
+                  height={20}
+                  /> */}
+                </span>
+                </div>
+{/*                 <a
                   href="#"
                   className="flex items-center text-xs font-medium space-x-2.5 rtl:space-x-reverse cursor-pointer text-neutral-500 dark:text-neutral-400 truncate"
                 >
@@ -99,26 +114,35 @@ const PageAuthor = ({}) => {
                   <span className="text-neutral-700 dark:text-neutral-300 truncate">
                     https://example.com/me
                   </span>
-                </a>
-                <SocialsList itemClass="block w-7 h-7" />
+                </a> */}
+                {/* <SocialsList itemClass="block w-7 h-7" /> */}
+                <div className='profile_bottom_box mt-7'>
+                  <ul className='intrest_badge'>
+                    {InterestData.map((e:InterestTpye)=>(
+                      <li key={e.id} className='inline-block mr-2 bg-slate-200 rounded-full h-6 px-3 leading-6 font-semibold text-[13px] text-black'>{e.content}</li>
+                    ))
+                    }
+                  </ul>
+                </div>
               </div>
             </div>
 
             {/*  */}
             <div className="absolute md:static start-5 end-5 top-4 sm:start-auto sm:top-5 sm:end-5 flex justify-end">
-              <FollowButton
+{/*               <FollowButton
                 isFollowing={false}
                 fontSize="text-sm md:text-base font-medium"
                 sizeClass="px-4 py-1 md:py-2.5 h-8 md:!h-10 sm:px-6 lg:px-8"
-              />
+              /> */}
 
               <div className="mx-2">
-                <NcDropDown
+{/*                 <NcDropDown
                   className="flex-shrink-0 flex items-center justify-center focus:outline-none h-10 w-10 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-200 rounded-full"
                   renderTrigger={() => <ShareIcon className="h-5 w-5" />}
                   onClick={() => {}}
                   data={SOCIALS_DATA}
-                />
+                /> */}
+                <button> <Link href="/setting" ><CogIcon className="w-8 h-8" /></Link></button>
               </div>
 
               <AccountActionDropdown containerClassName="h-10 w-10 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700" />
@@ -167,7 +191,7 @@ const PageAuthor = ({}) => {
         <div className="relative py-16">
           <BackgroundSection />
           <SectionGridCategoryBox
-            categories={DEMO_CATEGORIES.filter((_, i) => i < 10)}
+            categories={MEETING_CATEGORIES.filter((_, i) => i < 10)}
           />
           <div className="text-center mx-auto mt-10 md:mt-16">
             <ButtonSecondary>Show me more</ButtonSecondary>

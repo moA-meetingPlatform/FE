@@ -7,8 +7,7 @@ function inquiry() {
     <>
     <main className='mt-[50px]'>
       <header className="text-center max-w-2xl mx-auto - mb-14 sm:mb-16 lg:mb-20">
-        <Heading2>문의하기</Heading2>
-        <span className="block text-sm mt-2 text-neutral-700 sm:text-base dark:text-neutral-200">
+      <span className="block text-xl mt-2 text-neutral-700 sm:text-base dark:text-neutral-200">
           문의하실 내용을 작성해 주세요.
         </span>
       </header>
@@ -40,7 +39,9 @@ function inquiry() {
         className='border w-full h-[150px] rounded-xl'/>
       </div>
 
+      <div className='flex justify-end'>
       <NoticeModal />
+      </div>
     </main>
     </>
   )

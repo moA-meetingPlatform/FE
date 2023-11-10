@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation'
 import Loginarea from '@/components/(page)/login/LoginArea'
 
 
-function moaLogin() {
+function MoaLogin() {
 
   const query = useSearchParams();
   const callBackUrl = query.get('callbackUrl');
@@ -29,4 +29,4 @@ function moaLogin() {
   )
 }
 
-export default moaLogin
+export default MoaLogin

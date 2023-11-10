@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import AnnounceList from "@/components/(page)/setting/AnnounceList";
+import BackbuttonHeader from "@/components/(navigation)/(top)/BackbuttonHeader";
 
 
 export default async function announce() {
@@ -9,8 +10,8 @@ export default async function announce() {
 
 return (
   <>
-    <main className="mt-16">
-      <h1 className="text-3xl font-semibold">공지사항</h1>
+  <BackbuttonHeader contents="공지사항"/>
+    <main>
       <AnnounceList announces={announces}/>
       <ol className="mt-10">
       </ol>
