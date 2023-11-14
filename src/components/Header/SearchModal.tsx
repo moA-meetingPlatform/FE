@@ -61,6 +61,8 @@ const SearchModal: FC<Props> = ({ renderTrigger }) => {
           user.displayName.toLowerCase().includes(query)
         );
 
+  // console.log(posts);
+
   return (
     <>
       <div onClick={() => setOpen(true)} className="cursor-pointer">
@@ -321,7 +323,7 @@ const SearchModal: FC<Props> = ({ renderTrigger }) => {
                     </kbd>{" "}
                     <span className="sm:hidden">for projects,</span>
                     <span className="hidden sm:inline">
-                      to access projects,
+                      to access Category,
                     </span>
                     <kbd
                       className={classNames(
@@ -344,14 +346,14 @@ const SearchModal: FC<Props> = ({ renderTrigger }) => {
                     >
                       ?
                     </kbd>{" "}
-                    for help, or{" "}
-                    <Link
+                    for help{" "}
+                    {/* <Link
                       href={"/search"}
                       className="mx-1 flex h-5 px-1.5 items-center justify-center rounded border bg-white sm:mx-2 border-primary-6000 text-neutral-900"
                       onClick={() => setOpen(false)}
                     >
-                      Go to search page
-                    </Link>{" "}
+                      Go to search pageasda
+                    </Link>{" "} */}
                   </div>
                 </Combobox>
               </Dialog.Panel>

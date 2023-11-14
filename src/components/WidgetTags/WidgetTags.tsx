@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import Tag from "@/components/Tag/Tag";
 import WidgetHeading1 from "@/components/WidgetHeading1/WidgetHeading1";
 import { TaxonomyType } from "@/data/types";
-import { DEMO_TAGS } from "@/data/taxonomies";
+import { MEETING_TAGS } from "@/data/category";
 
-const tagsDemo = DEMO_TAGS.filter((_, i) => i < 9);
+const tagsDemo = MEETING_TAGS.filter((_, i) => i < 9);
 
 export interface WidgetTagsProps {
   className?: string;
@@ -22,9 +22,9 @@ const WidgetTags: FC<WidgetTagsProps> = ({
         viewAll={{ label: "View all", href: "/#" }}
       />
       <div className="flex flex-wrap p-4 xl:p-5">
-        {tags.map((tag) => (
+        {/* {tags.map((tag) => (
           <Tag className="mr-2 mb-2" key={tag.id} tag={tag} />
-        ))}
+        ))} */}
       </div>
     </div>
   );
