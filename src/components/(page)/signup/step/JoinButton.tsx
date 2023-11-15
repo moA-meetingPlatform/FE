@@ -41,7 +41,7 @@ function JoinButton({active, setActive, signUpData, setSignUpData} :
       <div className='grid place-items-center mt-3'>
         <button className='h-[44px] w-[300px] bg-[#4338ca] rounded-2xl grid place-items-center text-white font-semibold'
         onClick={
-/*           active===3 ? ()=>router.push('/login')
+          /* active===4 ? ()=>router.push('/login')
           :
           active===2 ? handleSignupFetch
           :

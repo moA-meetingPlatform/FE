@@ -18,11 +18,95 @@ function PhoneInput(props: PhoneInputProps) {
 
   const [verify, setVerify] = useState<any>(false)
   const [remainingTime, setRemainingTime] = useState<any>(180);
+  const [phoneInput, setPhoneInput] = useState<string>('');
 
   const handleResend = () => {
     if (verify) { // 인증번호 재전송을 누를 때 verify를 false로 설정
     setRemainingTime(180);
     } // 인증번호 재전송을 누를 때 remainingTime을 180으로 초기화
+    sendVerificationCode();
+  };
+
+  const [phoneError, setPhoneError] = useState<string>('');
+
+/*   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+
+    // 11자리 숫자만 허용
+    if (/^[0-9]{0,11}$/.test(inputValue)) {
+      setPhoneInput(inputValue);
+
+          // 휴대폰 번호 유효성 검사
+    const isValidPhone = /^[0-9]{11}$/.test(inputValue);
+
+    if (isValidPhone) {
+      setPhoneInput(inputValue);
+      setPhoneError('');
+    } else {
+      setPhoneError('본인 명의의 번호를 정확히 입력해 주세요.');
+    }
+  };
+} */
+
+const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const inputValue = e.target.value;
+
+  // 11자리 숫자만 허용
+  if (/^[0-9]{0,11}$/.test(inputValue)) {
+    setPhoneInput(inputValue);
+  }
+};
+
+
+
+  const [verificationCode, setVerificationCode] = useState<string>('');
+
+  const sendVerificationCode = async () => {
+    try {
+      const response = await fetch('인증번호-보내기-API-주소', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phoneNumber: phoneInput,
+        }),
+      });
+
+      if (response.ok) {
+        setVerify(true);
+      } else {
+        // 인증번호 보내기에 실패한 경우의 처리
+        // (예: 오류 메시지 표시 등)
+      }
+    } catch (error) {
+      console.error('Error sending verification code:', error);
+    }
+  };
+
+  const verifyCode = async () => {
+    try {
+      const response = await fetch('인증번호-확인-API-주소', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phoneNumber: phoneInput,
+          verificationCode: verificationCode,
+        }),
+      });
+
+      if (response.ok) {
+        // 인증 성공 시의 로직
+        // (예: signUpData 업데이트, 다음 단계로 이동 등)
+      } else {
+        // 인증 실패 시의 처리
+        // (예: 오류 메시지 표시 등)
+      }
+    } catch (error) {
+      console.error('Error verifying verification code:', error);
+    }
   };
 
   return (
@@ -40,10 +124,18 @@ function PhoneInput(props: PhoneInputProps) {
               <option value="06"> LG U+ 알뜰폰 </option>
           </select>
           <span>
-          <input id="phone" name='phone' maxLength={11} type="tel"
-              placeholder='-없이 번호 입력' className='w-full ml-3 border-0 border-b-2'
-              // onChange={(e) => handleOnChange(e, certData, setCertData)}
-              />
+          <input 
+          id="phone" 
+          name='phone' 
+          maxLength={11}
+          type="tel"
+          pattern="[0-9]{11}"
+          placeholder='-없이 번호 입력' 
+          className='w-full ml-3 border-0 border-b-2'
+          value={phoneInput}
+          onChange={handlePhoneChange}
+          // onChange={(e) => handleOnChange(e, certData, setCertData)}
+          />
           </span>
         </div>
       </div>
@@ -97,12 +189,19 @@ function PhoneInput(props: PhoneInputProps) {
             <CertTimer verify={verify} remainingTime={remainingTime} setRemainingTime={setRemainingTime}/>
           </div>
 
-        <form className="mt-5 mx-3 relative max-w-sm">
+        <form 
+        className="mt-5 mx-3 relative max-w-sm"
+        onSubmit={(e) => {
+          e.preventDefault();
+          verifyCode();
+        }}>
           <Input
             required
             aria-required
             placeholder="인증번호 입력"
             type="number"
+            value={verificationCode}
+            onChange={(e) => setVerificationCode(e.target.value)}
           />
           <ButtonCircle
             type="submit"
