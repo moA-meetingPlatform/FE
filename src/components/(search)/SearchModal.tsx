@@ -75,7 +75,7 @@ const SearchModal: FC<Props> = ({ renderTrigger }) => {
     // API 요청을 보내고 데이터를 받는 것을 시뮬레이션합니다.
     // 실제로는 여기서 fetch 또는 axios를 사용할 것입니다.
     const getSearchData = async () => {
-      const response = await fetch(`http://localhost:8000/api/v1/search/search?title=${rawQuery}`, {
+      const response = await fetch(`https://moamoa-backend.duckdns.org/api/v1/search/related-search?title=${rawQuery}`, {
         method: 'GET',
       });
       if (!response.ok) {
