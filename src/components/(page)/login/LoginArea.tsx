@@ -11,15 +11,11 @@ import { useDisclosure } from '@nextui-org/react';
 import NcLink from '@/components/NcLink/NcLink';
 import Swal from 'sweetalert2';
 
-type CustomUser = {
-  backendResponse?: any; // 또는 백엔드 응답의 구체적인 타입을 여기에 정의하실 수 있습니다.
-}
-
 
 export default function Loginarea() {
   const router = useRouter();
   const query = useSearchParams();
-  const callBackUrl = query.get('callbackUrl');
+  const callBackUrl = query?.get('callbackUrl');
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [modalContent, setModalContent] = useState<string>("");
 
@@ -131,7 +127,7 @@ export default function Loginarea() {
       <p className='flex justify-between font-semibold'>
         비밀번호
       <span>
-          <Link href="/login/findIdPw" className='text-[13px] text-blue-600 underline'>아이디·비밀번호 찾기</Link>
+          <Link href="/findIdPw" className='text-[13px] text-blue-600 underline'>아이디·비밀번호 찾기</Link>
       </span>
       </p>
       <div className={styles.input_box}>

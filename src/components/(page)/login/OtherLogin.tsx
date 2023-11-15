@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react'
 import { signIn, useSession } from 'next-auth/react'
 import { useSearchParams, useRouter } from 'next/navigation'
-import Link from 'next/link'
 import Loginarea from './LoginArea'
 
 export default function OtherLogin() {

@@ -4,4 +4,5 @@ export interface SignupType{
   checkPassword:string,
   phoneNumber : string,
   phoneCert : boolean,
+  idChecked : boolean,
 }

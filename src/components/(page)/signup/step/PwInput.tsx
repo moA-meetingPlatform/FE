@@ -3,7 +3,7 @@
 import { SignupType } from '@/types/SignupType'
 import React, { useState } from 'react'
 
-function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<React.SetStateAction<SignupType>>}) {
+function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<React.SetStateAction<SignupType>>;}) {
 
   const { signUpData, setSignUpData } = props;
   const [passwordError, setPasswordError] = useState<string | null>(null);

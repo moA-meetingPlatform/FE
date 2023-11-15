@@ -5,7 +5,7 @@ const RootLayout = ({ children } : { children: ReactNode }) => {
         <>
         <header className="text-center mx-auto py-4 bg-white w-full">
             {/* <Heading2>Forgot password</Heading2> */}
-            test
+            
         </header>
         {children}
         </>

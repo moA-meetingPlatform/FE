@@ -22,7 +22,7 @@ export default async function otherLoginPage() {
   return (
   <>
     <main>
-      <div>
+      <div className='bg-white'>
       <header className="text-center max-w-2xl mx-auto - mb-14 sm:mb-16 lg:mb-20">
         <Heading>Login</Heading>
         <span className="block text-sm mt-2 text-neutral-700 sm:text-base dark:text-neutral-200">
