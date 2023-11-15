@@ -10,12 +10,6 @@ import { DaumAddressType } from '@/types/DaumAddressType';
 import { SignupType } from '@/types/SignupType';
 
 
-/* interface FormAreaProps {
-  url: string;
-  setUrl: (newUrl: string) => void;
-  updateQueryParams: any;  // Ideally, provide a more specific type than 'any'
-} */
-
 export default function FormArea(props: {signUpData: SignupType, setSignUpData:React.Dispatch<React.SetStateAction<SignupType>>}) {
 
   const { signUpData, setSignUpData } = props;
@@ -26,25 +20,17 @@ export default function FormArea(props: {signUpData: SignupType, setSignUpData:R
     const [modalContent, setModalContent] = useState<string>("");
     const [isView, setIsView] = useState<boolean>(false);
     const [address, setAddress] = useState<DaumAddressType>();
-    const [idChecked, setIdChecked] = useState<boolean>(false);
-    const loginIdRef = useRef<HTMLInputElement>(null);
 
     // form 기본값
     const [signupData, setSignupData] = useState<SignUpFormDataType>({
         name: '', 
-        loginId: '',
-        password: '',
         birthdate: '',
         phoneNumber: '',
-/*         zoneCode: '',
-        address: '',
-        detailAddress: '', */
         nickname: '',
         gender: 'M',
         agree1: false,
         agree2: false,
         agree3: false,
-        // agree6: false
     })
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,35 +48,27 @@ export default function FormArea(props: {signUpData: SignupType, setSignUpData:R
         }
     }
 
-    const handleSignUp = async () => {
-        if (!idChecked) {
-            setModalContent("아이디 중복 확인을 해주세요.");
-            onOpen();
-            loginIdRef.current?.focus();  // 아이디 입력 필드에 포커스
-            return;
-        }
-
-        
+        const handleSignUp = async () => {
         const {
-            loginId,
             name,
-            password,
             phoneNumber,
-/*             zoneCode,
-            address,
-            detailAddress, */
             birthdate,
             nickname,
             gender,
             agree1: agreeEmail,
             agree2: sms,
             agree3: push,
-            // agree6: tm
         } = signupData;
-
         // const fullAddress = zoneCode+ "," + address + "," + detailAddress;
 
-        try {
+      // 유효성 검사 로직 추가
+    if (!name || !phoneNumber || !birthdate || !nickname || !gender) {
+      setModalContent("필수 항목을 모두 입력해주세요.");
+      onOpen();
+      return;
+  }
+
+/*         try {
             const response = await fetch('http://localhost:3000/api/v1/user/auth/signup', {
                 method: 'POST',
                 headers: {
@@ -98,65 +76,38 @@ export default function FormArea(props: {signUpData: SignupType, setSignUpData:R
                 },
                 body: JSON.stringify({
                     userSignUpIn: {
-                        loginId,
                         name,
                         email: "",
-                        password,
                         phoneNumber,
-                        // address: fullAddress,
                         birthdate,
                         nickname,
                         gender
                     },
                     agreeAdvertiseIn: {
-/*                         optionOne,
-                        optionTwo, */
                         agreeEmail,
                         sms,
                         push,
-                        // tm
                     }
                 })
             })
+
+
             const data = await response.json();
             if (response){
-                localStorage.setItem('tempLoginId', data.result.loginId.toString());
-                // localStorage.setItem('tempAddress', data.result.address.toString());
-                localStorage.setItem('tempEmail', data.result.email.toString());
-                localStorage.setItem('tempBirthdate', data.result.birthdate.toString());
+                localStorage.setItem('tempName', data.result.name.toString());
                 localStorage.setItem('tempGender', data.result.gender.toString());
                 localStorage.setItem('tempNickname', data.result.nickname.toString());
+                localStorage.setItem('tempBirthdate', data.result.birthdate.toString());
+                localStorage.setItem('tempPhonenumber', data.result.phoneNumber.toString());
                 localStorage.setItem('tempAgreeEmail', data.result.agreeEmail.toString());
                 localStorage.setItem('tempSms', data.result.sms.toString());
                 localStorage.setItem('temPush', data.result.push.toString());
-                // localStorage.setItem('tempTm', data.result.tm.toString());
             }
             router.push('/join')
         } catch (error) {
             console.error("Error sending POST request:", error);
-        }
-    }
-
-    const checkId = async () => {
-        try {
-            const response = await fetch(`https://localhost:3000/api/v1/user/id-check?loginId=${signupData.loginId}`);
-            const data = await response.json();
-            
-            if (data.success) {
-                setModalContent("입력하신 아이디는 사용이 가능 합니다.");
-                setIdChecked(true);  // 아이디 중복 확인 완료
-            } else {
-                setModalContent("입력하신 아이디는 사용이 불가능 합니다.");
-                setIdChecked(false); // 아이디 중복 확인이 되지 않음
-            }
-        } catch (error) {
-            console.error("Error sending POST request:", error);
-            setModalContent("ID 중복 확인 중 오류가 발생했습니다. 다시 시도해주세요.");
-            setIdChecked(false);  // 아이디 중복 확인이 되지 않음
-        }
-        onOpen();
-    }
-    
+        } */
+  }
 
     const handleAllCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { checked } = e.target;
@@ -214,7 +165,7 @@ export default function FormArea(props: {signUpData: SignupType, setSignUpData:R
 
     return (
       <>
-        <main>
+        <main className='grid place-items-center'>
           <div>
             <PublicModal isOpen={isOpen} onOpenChange={onOpenChange} content={modalContent} />
           </div>
@@ -237,9 +188,8 @@ export default function FormArea(props: {signUpData: SignupType, setSignUpData:R
                     <p className={styles.tit}> 성별 <span className="hidden">필수항목</span></p>
                       <select name="gender" id="gender">
                         <option value="M" deta-id="gender">남자</option>
-                        <option value="W" deta-id="gender">여자</option>
+                        <option value="F" deta-id="gender">여자</option>
                       </select>
-                    {/* <p className={styles.error_txt}> 닉네임 형식에 맞게 입력해주세요. </p> */}
                 </div>
 
                 <div className={`${styles.form_box}`}>
@@ -267,46 +217,10 @@ export default function FormArea(props: {signUpData: SignupType, setSignUpData:R
                   </div>
               </div>
 
-              {/* 주소 정보 */}
-{/*               <div className={`${styles.form_box} ${styles.required}`}>
-                  <p className={styles.tit}> 자택주소 <span className="hidden">필수항목</span></p>
-                  <div className={styles.input_address_box}>
-                      <div className={`${styles.input_btn_box} ${styles.w_type2}`}>
-                          <div className={styles.input_box}>
-                              <input type="text" id="zoneCode" name='zoneCode' value={signupData.zoneCode.toString()} readOnly placeholder='우편번호' />
-                          </div>
-                          <div className={styles.btn_box}>
-                              <div className='border rounded-xl h-[45px] leading-[45px] px-2 bg-[#4338ca] font-semibold text-white'> 
-                              <PostCodeDaum isView={isView} setIsView={setIsView} setAddress={setAddress} /></div>
-                          </div>
-                      </div>
-                      <div className={`${styles.input_box} mb-2`}>
-                          <input type="text" id="address" name='address' value={signupData.address.toString()} readOnly placeholder='주소' />
-                      </div>
-                      <div className={styles.input_box} >
-                          <input type="text" id="detailAddress" name='detailAddress' placeholder='상세주소' onChange={handleOnChange} />
-                      </div>
-                  </div>
-              </div> */}
+
           </div>
           <div className='my-5'>
               <div className={styles.agree_form_box}>
-{/*                     <ul className={`${styles.agree_list} ${styles.btn_type0} ${styles.txt_type0}`}>
-                      <li className={`${styles.agree_form} ${styles.join_agree}`}>
-                          <div className={styles.chk_box}>
-                              <input type="checkbox" id="terms0" name='agree1' checked={!!signupData.agree1} onChange={handleOnChange} />
-                              <label htmlFor="terms0">[선택] 혜택제공 및 분석을 위한 개인정보 수집 및 이용 동의</label>
-                          </div>
-                          <button className={styles.agree_show}><span>내용보기</span></button>
-                      </li>
-                      <li className={`${styles.agree_form} ${styles.join_agree}`}>
-                          <div className={styles.chk_box}>
-                              <input type="checkbox" id="terms1" name='agree2' checked={!!signupData.agree2} onChange={handleOnChange} />
-                              <label htmlFor="terms1">[선택] 이마트/신세계 공동 개인정보 수집 및 이용 동의</label>
-                          </div>
-                          <button className={styles.agree_show}><span>내용보기</span></button>
-                      </li>
-                  </ul> */}
                   <div className='border p-1 rounded-lg bg-[#eef2ff] w-[250px]'>
                     <p> 모아 광고정보 수신동의 </p>
                     <div className='mt-3'>
@@ -343,26 +257,6 @@ export default function FormArea(props: {signUpData: SignupType, setSignUpData:R
                 (push 알림을 받으시려면 앱 권한 설정을 변경하셔야 합니다.)
             </p>
           </div>
-
-{/*               <div className={styles.btn_box}>
-                  <button className='w-full mt-14 h-10 rounded-xl bg-[#4338ca] text-white'
-                      onClick={() => {
-                          handleSignUp();
-                      }}>확인</button>
-              </div> */}
-
-{/*           <div className={styles.notice_box}>
-              <h3 className={styles.tit}>[유의사항]</h3>
-              <ul className={styles.list_cnt}>
-                  <li>아이디는 영문 소문자, 숫자를 조합하여 6-20자리로 입력해 주세요.</li>
-                  <li>비밀번호는 영문 대/소문자, 숫자, 특수문자 중 3가지 이상을 조합하여 8-20자리로 입력해 주세요.</li>
-                  <li>아이디와 동일한 비밀번호는 사용하실 수 없습니다.</li>
-                  <li>생년월일, 전화번호와 동일하거나 일부를 포함한 비밀번호는 사용하실 수 없습니다.</li>
-                  <li>3글자 이상의 동일한 숫자/문자 또는 연속된 숫자/문자, 키보드 상 연속된 배열의 문자는 입력하실 수 없습니다.</li>
-                  <li>개명하신 회원님의 경우 통신사 등에 등록된 본인인증 정보가 개명하신 이름으로 바뀐 이후부터 자동으로 변경됩니다.</li>
-                  <li>본인인증을 통해 확인된 정보는 수정하실 수 없습니다.</li>
-              </ul>
-          </div> */}
           </main>
         </>
     )
@@ -391,3 +285,32 @@ export default function FormArea(props: {signUpData: SignupType, setSignUpData:R
     setUrl(updatedUrl);
     route.push(updatedUrl);
   }; */
+
+                /* 주소 정보 */
+/*               <div className={`${styles.form_box} ${styles.required}`}>
+                  <p className={styles.tit}> 자택주소 <span className="hidden">필수항목</span></p>
+                  <div className={styles.input_address_box}>
+                      <div className={`${styles.input_btn_box} ${styles.w_type2}`}>
+                          <div className={styles.input_box}>
+                              <input type="text" id="zoneCode" name='zoneCode' value={signupData.zoneCode.toString()} readOnly placeholder='우편번호' />
+                          </div>
+                          <div className={styles.btn_box}>
+                              <div className='border rounded-xl h-[45px] leading-[45px] px-2 bg-[#4338ca] font-semibold text-white'> 
+                              <PostCodeDaum isView={isView} setIsView={setIsView} setAddress={setAddress} /></div>
+                          </div>
+                      </div>
+                      <div className={`${styles.input_box} mb-2`}>
+                          <input type="text" id="address" name='address' value={signupData.address.toString()} readOnly placeholder='주소' />
+                      </div>
+                      <div className={styles.input_box} >
+                          <input type="text" id="detailAddress" name='detailAddress' placeholder='상세주소' onChange={handleOnChange} />
+                      </div>
+                  </div>
+              </div> */
+
+/*               <div className={styles.btn_box}>
+                  <button className='w-full mt-14 h-10 rounded-xl bg-[#4338ca] text-white'
+                      onClick={() => {
+                          handleSignUp();
+                      }}>확인</button>
+              </div> */

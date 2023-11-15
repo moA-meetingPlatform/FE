@@ -19,8 +19,8 @@ export interface LogInFormDataType {
 }
 
 export interface SignUpFormDataType {
-  loginId: String,
-  password: String,
+/*   loginId: String,
+  password: String, */
   name: String,
   phoneNumber: String,
 /*   zoneCode: String,

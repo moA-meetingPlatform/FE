@@ -41,13 +41,6 @@ export default function SnsLogin() {
             </div>
           </Link>
         </div>
-{/*         <div className='mt-3 border-t'>
-        <Link href="/login/moaLogin">
-          <div className='mt-3 border-2 border-[#4338ca] h-9 leading-9 w-[300px] rounded-full font-semibold text-center'>
-            기존 회원으로 로그인하기
-          </div>
-        </Link>
-        </div> */}
         <p className='text-[12px]'>회원가입없이 둘러보기</p>
       </div>
       <div className='grid place-items-center'>

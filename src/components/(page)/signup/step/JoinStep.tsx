@@ -56,6 +56,7 @@ function JoinStep() {
       content: <FormArea signUpData={signUpData} setSignUpData={setSignUpData}/>
     },
   ]
+
   
   return (
     <>
