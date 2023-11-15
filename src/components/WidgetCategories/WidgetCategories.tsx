@@ -1,10 +1,10 @@
 import CardCategory1 from "@/components/CardCategory1/CardCategory1";
 import WidgetHeading1 from "@/components/WidgetHeading1/WidgetHeading1";
-import { DEMO_CATEGORIES } from "@/data/taxonomies";
+import { MEETING_CATEGORIES } from "@/data/category";
 import { TaxonomyType } from "@/data/types";
 import React, { FC } from "react";
 
-const categoriesDemo: TaxonomyType[] = DEMO_CATEGORIES.filter(
+const categoriesDemo: TaxonomyType[] = MEETING_CATEGORIES.filter(
   (_, i) => i > 7 && i < 13
 );
 export interface WidgetCategoriesProps {
