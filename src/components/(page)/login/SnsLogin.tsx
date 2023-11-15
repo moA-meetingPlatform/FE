@@ -8,11 +8,12 @@ import Image from 'next/image';
 import MoaLogo from '@/components/Logo/MoaLogo';
 import MoaLogo2 from '@/components/Logo/MoaLogo2';
 import Firstbottom from '@/components/Logo/firstbottom';
+import LogoSvg from '@/components/Logo/LogoSvg';
 
 export default function SnsLogin() {
 
   const query = useSearchParams();
-  const callBackUrl = query.get('callbackUrl');
+  const callBackUrl = query?.get('callbackUrl');
   const session = useSession()
 
 
@@ -25,27 +26,31 @@ export default function SnsLogin() {
 };
 
   return (
-    <>
-      <div className='main_logo mt-20 grid place-items-center'>
-        <MoaLogo2 />
+    <div className='flex flex-col justify-center items-center bg-white pt-10'>
+      <div className='flex justify-start m-auto w-[180px] h-auto py-10'>
+        <LogoSvg />
       </div>
-      <div className='grid place-items-center mt-40'>
+      <div className='flex flex-col justify-center items-center gap-2 mt-4'>
         <button onClick={() => handleLogin('kakao')} title="새창 열림"
-        className='bg-[#fee102] h-9 w-[300px] rounded-full font-semibold text-yellow-800'>
-          <span>카카오톡으로 5초만에 시작하기</span>
+          className='bg-[#fee102] w-[300px] rounded-full font-semibold text-yellow-800 py-2'>
+          <span className='text-sm'>카카오톡으로 5초만에 시작하기</span>
         </button>
-        <div className='mt-3 border-t'>
-          <Link href="/login/otherLogin">
-            <div className='mt-3 bg-[#eef2ff] h-9 leading-9 w-[300px] rounded-full font-semibold text-center'>
-              다른 방법으로 시작하기
-            </div>
-          </Link>
-        </div>
-        <p className='text-[12px]'>회원가입없이 둘러보기</p>
+        <Link className='mt-3 bg-[#3a31b9] w-[300px] rounded-full font-semibold text-center py-2' href="/moa-login">
+            <span className='text-sm text-white'>모아로 로그인</span>
+        </Link>
       </div>
-      <div className='grid place-items-center'>
+      <div className='flex justify-center items-center gap-2 my-4'>
+        <Link href='/' className='text-xs px-4'>둘러보기</Link>
+        <div className='w-[1px] h-5 bg-gray-300'></div>
+        <Link href='/join' className='text-xs px-4'>회원가입</Link>
+      </div>
+      <div className='flex justify-center absolute -bottom-[50px] left-[50%] -translate-x-[50%] opacity-0'
+        style = {{
+          animation: 'move-up 1s ease-in-out forwards',
+        }}
+      >
         <Firstbottom />
       </div>
-    </>
+    </div>
   )
 }

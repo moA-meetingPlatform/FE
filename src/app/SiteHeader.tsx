@@ -12,6 +12,7 @@ import {
 import { Popover, Transition } from "@headlessui/react";
 import SwitchDarkMode2 from "@/components/SwitchDarkMode/SwitchDarkMode2";
 import { useThemeMode } from "@/hooks/useThemeMode";
+import { useSession } from "next-auth/react";
 
 const SiteHeader = () => {
   let pathname = usePathname();
@@ -19,6 +20,8 @@ const SiteHeader = () => {
   //
 
   // 여기서 세션 체크하여 헤드 분기시키기
+  const session = useSession();
+
 
   // FOR OUR DEMO PAGE, use do not use this, you can delete it.
   const [headerSelected, setHeaderSelected] = useState<
@@ -26,8 +29,16 @@ const SiteHeader = () => {
   >("Header 1");
   const [themeDir, setThemeDIr] = useState<"rtl" | "ltr">("ltr");
 
+  
   //
   useEffect(() => {
+
+    if (session.status === "unauthenticated") {
+      setHeaderSelected("Header 3");
+    } else {
+      setHeaderSelected("Header 1");
+    }
+
     if (themeDir === "rtl") {
       document.querySelector("html")?.setAttribute("dir", "rtl");
     } else {
@@ -36,7 +47,7 @@ const SiteHeader = () => {
     return () => {
       document.querySelector("html")?.removeAttribute("dir");
     };
-  }, [themeDir]);
+  }, [themeDir, session.status]);
 
   const renderRadioThemeDir = () => {
     return (

@@ -21,8 +21,9 @@ export default function BackStepHeader({active, setActive} : {active:number, set
       <Navbar className="bg-white">
         <NavbarBrand>
           <button onClick={handlePrevious} >
-            <div className="-ml-[30px]">
+            <div className="flex gap-24 text-lg font-semibold">
               <ArrowBackIcon fontSize="large" sx={{ color: grey[900] }}/>
+              <p>회원가입</p>
             </div>
           </button>
           <div className="mx-auto text-2xl font-semibold"></div>

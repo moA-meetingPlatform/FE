@@ -23,19 +23,27 @@ function JoinStep() {
     checkPassword :"",
     phoneNumber : "",
     phoneCert : false,
+    idChecked: false, // 중복 확인 여부를 저장하는 상태 추가
   })
 
   useEffect(() => {
   },[signUpData])
 
   const [active, setActive] = useState<any>(1);
+
+  const handleIdCheck = (isChecked: boolean) => {
+    // 중복 확인 결과에 따라 필요한 로직을 수행
+    if (!isChecked) {
+      
+    }
+  };
   
   let tabs = [
     {
       id: 1,
       label: "아이디 입력",
       progress: 25,
-      content: <IdInput signUpData={signUpData} setSignUpData={setSignUpData}/>
+      content: <IdInput signUpData={signUpData} setSignUpData={setSignUpData} onIdCheck={handleIdCheck}/>
     },
     {
       id: 2,
@@ -63,7 +71,7 @@ function JoinStep() {
       <BackStepHeader active={active} setActive={setActive}/>
       <LinearProgress variant="determinate" value={tabs.find(tab => tab.id === active)?.progress} />
       <Progress size="sm" aria-label="Loading..." value={tabs.find(tab => tab.id === active)?.progress} className="max-w-md" />
-      <div className="flex w-full flex-col">
+      <div className="flex w-full flex-col bg-white">
         <Card>
           <CardBody>
             {tabs.find(tab => tab.id === active)?.content}

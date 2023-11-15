@@ -4,9 +4,14 @@ import { SignupType } from '@/types/SignupType'
 import { useDisclosure } from '@nextui-org/react';
 import React, { use, useRef, useState } from 'react'
 
-function IdInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<React.SetStateAction<SignupType>>}) {
+interface IdInputProps {
+  signUpData: SignupType;
+  setSignUpData: React.Dispatch<React.SetStateAction<SignupType>>;
+  onIdCheck: (isChecked: boolean) => void; // 추가: 중복 확인 결과 전달
+}
 
-  const { signUpData, setSignUpData } = props;
+function IdInput({ signUpData, setSignUpData, onIdCheck }: IdInputProps) {
+
   const [error, setError] = useState<string | null>(null);
 
   const handleOnChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
@@ -47,34 +52,36 @@ function IdInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<Re
   const loginIdRef = useRef<HTMLInputElement>(null);
 
   
-  const handleSignUp = async () => {
+/*   const handleSignUp = async () => {
     if (!idChecked) {
         setModalContent("아이디 중복 확인을 해주세요.");
         onOpen();
         loginIdRef.current?.focus();  // 아이디 입력 필드에 포커스
         return;
-    }
+    } */
 
     const checkId = async () => {
       try {
-          const response = await fetch(`https://localhost:3000/api/v1/user/id-check?loginId=${signUpData.loginId}`);
+          const response = await fetch(`https://moa-backend.duckdns.org/user/id-check?loginId=${signUpData.loginId}`);
           const data = await response.json();
           
           if (data.success) {
               setModalContent("입력하신 아이디는 사용이 가능 합니다.");
               setIdChecked(true);  // 아이디 중복 확인 완료
+              onIdCheck(true); // 중복확인 전달
           } else {
               setModalContent("입력하신 아이디는 사용이 불가능 합니다.");
               setIdChecked(false); // 아이디 중복 확인이 되지 않음
-          }
+              onIdCheck(true);} // 중복확인 전달
       } catch (error) {
           console.error("Error sending POST request:", error);
           setModalContent("ID 중복 확인 중 오류가 발생했습니다. 다시 시도해주세요.");
           setIdChecked(false);  // 아이디 중복 확인이 되지 않음
+          onIdCheck(false);
       }
       onOpen();
   }
-}
+
 
   return (
     <>
@@ -94,6 +101,11 @@ function IdInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<Re
       {error && (
         <p className="text-red-500 text-sm mt-2">{error}</p>
       )}
+
+      <div className='flex w-[290px] justify-end'>
+      <button className='bg-[#4338ca] text-white w-32 h-10 rounded-3xl font-semibold mt-5'
+      onChange={checkId}>중복확인</button>
+      </div>
     </main>
     </>
   )

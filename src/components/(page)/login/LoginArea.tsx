@@ -9,16 +9,13 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import PublicModal from '../../(widget)/modal/Modal';
 import { useDisclosure } from '@nextui-org/react';
 import NcLink from '@/components/NcLink/NcLink';
-
-type CustomUser = {
-  backendResponse?: any; // 또는 백엔드 응답의 구체적인 타입을 여기에 정의하실 수 있습니다.
-}
+import Swal from 'sweetalert2';
 
 
 export default function Loginarea() {
   const router = useRouter();
   const query = useSearchParams();
-  const callBackUrl = query.get('callbackUrl');
+  const callBackUrl = query?.get('callbackUrl');
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [modalContent, setModalContent] = useState<string>("");
 
@@ -83,23 +80,8 @@ export default function Loginarea() {
   )
 
   const handleLogin = async () => {
-    if (!loginData.loginId && !loginData.password) {
-      setModalContent('아이디와 비밀번호를 입력해주세요.')
-      onOpen();
-      return;
-    }
-    if (!loginData.loginId) {
-      setModalContent('아이디를 입력해주세요.')
-      onOpen();
-      return;
-    }
-    if (!loginData.password) {
-      setModalContent('비밀번호를 입력해주세요.')
-      onOpen();
-      return;
-    }
-
-    // console.log(loginData)
+    
+    console.log(loginData)
     const result = await signIn('credentials', {
       loginId: loginData.loginId,
       password: loginData.password,
@@ -108,14 +90,21 @@ export default function Loginarea() {
     })
     
     if (result?.error) {
-      setModalContent('아이디 또는 비밀번호를 확인해 주세요.');
-      onOpen();
-/*   } else {
-      router.push(callBackUrl ? callBackUrl : '/') */
-  }
-// TODO 여기 살리기
-
+      Swal.fire({
+        text: `아이디 비빌번호를 확인 후 다시 시도해주세요.`,
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+          container: "my-swal",
+        },
+      });
+    }
   };
+
+// TODO 여기 살리기
 
 
 
@@ -138,7 +127,7 @@ export default function Loginarea() {
       <p className='flex justify-between font-semibold'>
         비밀번호
       <span>
-          <Link href="/login/findIdPw" className='text-[13px] text-blue-600 underline'>아이디·비밀번호 찾기</Link>
+          <Link href="/findIdPw" className='text-[13px] text-blue-600 underline'>아이디·비밀번호 찾기</Link>
       </span>
       </p>
       <div className={styles.input_box}>
