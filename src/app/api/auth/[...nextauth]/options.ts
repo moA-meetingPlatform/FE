@@ -17,10 +17,10 @@ export const options: NextAuthOptions = {
       },
       async authorize(credentials, req) {
 
-
+          console.log(credentials)
           if (!credentials?.loginId || !credentials?.password) return null
 
-          const res = await fetch("https://smilekarina.duckdns.org/api/v1/login", {
+          const res = await fetch("https://moa-backend.duckdns.org/api/v1/user/auth/login", {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export const options: NextAuthOptions = {
 
           // const user = await res.json()
           const user = await res.json()
-
+          console.log(user)
 
           if (res.ok && user) {
               

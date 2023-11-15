@@ -1,16 +1,17 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { signIn, useSession } from 'next-auth/react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Loginarea from './LoginArea'
 
 export default function OtherLogin() {
 
   const query = useSearchParams();
-  const callBackUrl = query.get('callbackUrl');
+  const callBackUrl = query?.get('callbackUrl');
   const session = useSession()
+  const router = useRouter();
 
 
   const handleLogin = async (provider: string) => {
@@ -19,7 +20,16 @@ export default function OtherLogin() {
         redirect: true,
         callbackUrl: callBackUrl ? callBackUrl : '/'
     })
-};
+
+    console.log(result)
+  };
+  
+  useEffect(() => {
+    if (session.status === 'authenticated') {
+      router.push('/')
+    }
+  }
+  , [session])
 
   return (
     <div>

@@ -19,11 +19,8 @@ export default async function LoginPage() {
 
 
   return (
-
-    <main>
-      <div className='login_cnt'>
-        <SnsLogin />
-      </div>
-    </main>
+    <div className='h-full bg-white'>
+      <SnsLogin />
+    </div>
   )
 }

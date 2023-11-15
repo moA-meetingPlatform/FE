@@ -5,9 +5,12 @@ import { avatarImgs } from "@/contains/fakeData";
 import { Fragment } from "react";
 import Avatar from "@/components/Avatar/Avatar";
 import SwitchDarkMode2 from "@/components/SwitchDarkMode/SwitchDarkMode2";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function AvatarDropdown() {
+  const session = useSession();
+  console.log("session", session);
   return (
     <div className="AvatarDropdown ">
       <Popover className="relative">
@@ -319,7 +322,7 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ms-4">
-                        <p className="text-sm font-medium ">{"Log out"}</p>
+                        <p className="text-sm font-medium " onClick={()=>signOut()}>{"Log out"}</p>
                       </div>
                     </Link>
                   </div>

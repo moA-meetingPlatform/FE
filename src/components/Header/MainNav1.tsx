@@ -34,10 +34,10 @@ const MainNav1: FC<MainNav1Props> = () => {
             <SearchModal />
             <Button
               sizeClass="py-3 px-4 sm:px-6"
-              href="/login"
+              href="/auth"
               pattern="primary"
             >
-              Sign up
+              로그인
             </Button>
           </div>
         </div>

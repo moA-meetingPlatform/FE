@@ -8,7 +8,7 @@ function Logout() {
     <div className='text-red-500'>
       <button onClick={() => signOut()}>
         Log Out
-        </button>
+      </button>
     </div>
   )
 }
