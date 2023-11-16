@@ -43,3 +43,6 @@ next-env.d.ts
 /db.json
 
 moa-meetingplatform-27490853e5f6.json
+
+# yarn
+yarn.lock

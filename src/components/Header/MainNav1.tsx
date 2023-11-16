@@ -34,7 +34,7 @@ const MainNav1: FC<MainNav1Props> = () => {
             <SearchModal />
             <Button
               sizeClass="py-3 px-4 sm:px-6"
-              href="/auth"
+              href="/login"
               pattern="primary"
             >
               로그인
