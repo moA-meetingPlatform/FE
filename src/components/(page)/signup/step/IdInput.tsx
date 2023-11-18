@@ -35,9 +35,9 @@ function IdInput({ signUpData, setSignUpData, active, setActive, stepId }: IdInp
 
     const checkId = async (e:any) => {
       e.preventDefault();
-      console.log(signUpData.userId)
+      console.log(signUpData.loginId)
       try {
-          const response = await fetch(`https://moa-backend.duckdns.org/api/v1/user/id-check?id=${signUpData.userId}`);
+          const response = await fetch(`https://moa-backend.duckdns.org/api/v1/user/id-check?id=${signUpData.loginId}`);
           const data = await response.json();
           console.log(data);
           console.log(stepId)
@@ -92,7 +92,7 @@ function IdInput({ signUpData, setSignUpData, active, setActive, stepId }: IdInp
           name="userId"
           placeholder="이메일을 입력해주세요."
           onChange={handleOnChange}
-          defaultValue={signUpData.userId}
+          defaultValue={signUpData.loginId}
         />
         <button
           type="submit"

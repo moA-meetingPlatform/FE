@@ -21,7 +21,7 @@ function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<Re
   }
 
   const handleConfirmPasswordChange = (value: string) => {
-    if (value !== signUpData.userPassword) {
+    if (value !== signUpData.password) {
       setConfirmPasswordError('비밀번호가 일치하지 않습니다.');
     } else {
       setConfirmPasswordError(null);
@@ -68,13 +68,13 @@ function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<Re
             type="password"
             name="userPassword"
             onChange={handleOnChange}
-            defaultValue={signUpData.userPassword}
+            defaultValue={signUpData.password}
           />
           {passwordError && (
           <p className="text-red-500 text-xs mt-1 mb-3 ml-5 text-left">{passwordError}</p>
           )}
         </div>
-        <div className='flex flex-col justify-start md:w-[80%] w-full transition-all'>
+        <div className='flex flex-col mt-3 justify-start md:w-[80%] w-full transition-all'>
           <label className='text-[0.8rem] bg-white -mb-3 ml-5 z-50 w-fit px-2'>한번더 입력해주세요.</label>
           <input 
             type="password"

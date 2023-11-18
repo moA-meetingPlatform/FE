@@ -3,9 +3,9 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
   },
-  env:{
+/*   env:{
     TOSS_SECRET_SECRET:process.env.TOSS_SECRET_SECRET
-  },
+  }, */
   images: {
     remotePatterns: [
       {
