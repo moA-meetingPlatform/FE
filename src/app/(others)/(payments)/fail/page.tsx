@@ -1,8 +1,10 @@
-import { useRouter } from "next/router";
+'use client'
+
+import { useRouter } from "next/navigation";
 import Link from 'next/link';
 
 export default function FailPage() {
-  const { query } = useRouter();
+  const query  = useRouter();
 
   return (
     <main>
@@ -18,14 +20,14 @@ export default function FailPage() {
           <p>code = {query.code ?? "UNKNOWN_ERROR"}</p>
           <p>message = {query.message ?? "알 수 없음"}</p>
 
-          <div>
+{/*           <div>
             <Link href="https://docs.tosspayments.com/guides/payment-widget/integration">
               <button className="button" style={{ marginTop: '30px', marginRight: '10px' }}>연동 문서</button>
             </Link>
             <Link href="https://discord.gg/A4fRFXQhRu">
               <button className="button" style={{ marginTop: '30px', backgroundColor: '#e8f3ff', color: '#1b64da' }}>실시간 문의</button>
             </Link>
-          </div>
+          </div> */}
 
       </div>
     </div>

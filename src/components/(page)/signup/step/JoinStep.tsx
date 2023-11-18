@@ -1,89 +1,144 @@
 'use client'
 
-import CreateMeetingBottomNav from '@/components/(navigation)/(bottom)/CreateMeetingBottomNav'
-import BackbuttonHeader from '@/components/(navigation)/(top)/BackbuttonHeader'
 import IdInput from '@/components/(page)/signup/step/IdInput'
-import PhoneCert from '@/components/(page)/signup/step/PhoneCert'
 import PwInput from '@/components/(page)/signup/step/PwInput'
 import { SignupType } from '@/types/SignupType'
 import LinearProgress from '@mui/material/LinearProgress'
 import { Card, CardBody, Progress } from '@nextui-org/react'
-import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import JoinButton from './JoinButton'
-import BackStepHeader from '@/components/(navigation)/(top)/BackStepHeader'
 import FormArea from '../FormArea'
+import { useSearchParams } from 'next/navigation'
+import { toInteger } from 'lodash'
+import Jobverify from './Jobverify'
+import CertVerify from '../after/CertVerify'
 
 function JoinStep() {
 
-
   const [signUpData,setSignUpData]=useState<SignupType>({
-    userId : "", 
-    userPassword : "",
+    loginId : "", 
+    password : "",
     checkPassword :"",
     phoneNumber : "",
-    phoneCert : false,
-    idChecked: false, // 중복 확인 여부를 저장하는 상태 추가
+    name : "",
+    birthdate : "",
+    nickname : "",
+    gender : "M",
+    emailNotificationStatus: false,
+    smsNotificationStatus: false,
+    pushNotificationStatus: false,
+    companyId: "",
+    companyEmail: "",
+    companyName: "",
+    certificateImageUrl: ""
   })
 
-  useEffect(() => {
-  },[signUpData])
+  const [active, setActive] = useState<any>(
+    [
+      { id : 1, status : false },
+      { id : 2, status : false },
+      { id : 3, status : false },
+      { id : 4, status : false },
+      { id : 5, status : false },
+    ]
+  );
 
-  const [active, setActive] = useState<any>(1);
+  const query = useSearchParams();
+  const stepId = toInteger(query?.get('step'));
 
-  const handleIdCheck = (isChecked: boolean) => {
-    // 중복 확인 결과에 따라 필요한 로직을 수행
-    if (!isChecked) {
-      
-    }
-  };
-  
-  let tabs = [
+  const tabs = [
     {
       id: 1,
       label: "아이디 입력",
       progress: 25,
-      content: <IdInput signUpData={signUpData} setSignUpData={setSignUpData} onIdCheck={handleIdCheck}/>
+      content: <IdInput signUpData={signUpData} setSignUpData={setSignUpData} active={active} setActive={setActive} stepId={stepId}/>
     },
     {
       id: 2,
       label: "비밀번호 입력",
       progress: 50,
-      content: <PwInput signUpData={signUpData} setSignUpData={setSignUpData}/>
+      content: <PwInput signUpData={signUpData} setSignUpData={setSignUpData} active={active} setActive={setActive} stepId={stepId}/>
     },
     {
       id: 3,
-      label: "휴대폰 인증",
+      label: "정보 입력",
       progress: 75,
-      content: <PhoneCert signUpData={signUpData} setSignUpData={setSignUpData}/>
+      content: <FormArea signUpData={signUpData} setSignUpData={setSignUpData} active={active} setActive={setActive} stepId={stepId}/>
     },
     {
       id: 4,
-      label: "정보 입력",
+      label: "직장 인증",
       progress: 100,
-      content: <FormArea signUpData={signUpData} setSignUpData={setSignUpData}/>
+      content: <Jobverify signUpData={signUpData} setSignUpData={setSignUpData} active={active} setActive={setActive} stepId={stepId}/>
+    },
+    {
+      id: 5,
+      label: "직장 인증",
+      progress: 100,
+      content: <CertVerify signUpData={signUpData} setSignUpData={setSignUpData} active={active} setActive={setActive} stepId={stepId}/>
     },
   ]
+
+  useEffect(() => {
+    console.log(stepId);
+    console.log(signUpData)
+  }, [stepId]);
+
+
+async function signUpRequest(signUpData: SignupType, endpoint: string) {
+  try {
+    const response = await fetch(`https://moa-backend.duckdns.org/api/v1/user/auth/signup${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(signUpData),
+    });
+
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('Error sending POST request:', error);
+  }
+}
+
+useEffect(() => {
+  if (stepId === 4) {
+    if (signUpData.companyId && signUpData.companyEmail) {
+      signUpRequest(signUpData, '');
+    } else if (signUpData.companyName && signUpData.certificateImageUrl) {
+      signUpRequest(signUpData, '/certificate');
+    }
+  }
+}, [signUpData, stepId]);
+
+const handleJoin = () => {
+  if (stepId === 4) {
+    if (signUpData.companyId && signUpData.companyEmail) {
+      signUpRequest(signUpData, '');
+    } else if (signUpData.companyName && signUpData.certificateImageUrl) {
+      signUpRequest(signUpData, '/certificate');
+    }
+  }
+};
 
   
   return (
     <>
-      <BackStepHeader active={active} setActive={setActive}/>
-      <LinearProgress variant="determinate" value={tabs.find(tab => tab.id === active)?.progress} />
-      <Progress size="sm" aria-label="Loading..." value={tabs.find(tab => tab.id === active)?.progress} className="max-w-md" />
+      <div className='m-auto mt-[100px]'>
+      <LinearProgress variant="determinate" value={tabs.find(tab => tab.id === stepId)?.progress} className='rounded-lg h-1 transition-all'/>
+      </div>
       <div className="flex w-full flex-col bg-white">
         <Card>
           <CardBody>
-            {tabs.find(tab => tab.id === active)?.content}
+            {tabs.find(tab => tab.id === stepId)?.content}
           </CardBody>
         </Card>
         </div>
-{/*           <div className='grid place-items-center mt-3'>
-          <button className='h-[44px] w-full bg-[#4338ca] rounded-2xl grid place-items-center text-white font-semibold'>다음</button>
-          </div> */}
       <JoinButton
         active={active} setActive={setActive}
         signUpData={signUpData} setSignUpData={setSignUpData}
+        stepId={stepId} handleJoin={handleJoin}
       />
     </>
   )
@@ -91,40 +146,89 @@ function JoinStep() {
 
 export default JoinStep
 
-/* 'use client'
+/* 
+  // 회사 이메일 signUp
+async function signUpRequest(signUpData: SignupType) {
+  try {
+    const response = await fetch('https://moa-backend.duckdns.org/api/v1/user/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        loginId: signUpData.loginId,
+        password: signUpData.password,
+        name: signUpData.name,
+        birthdate: signUpData.birthdate,
+        gender: signUpData.gender,
+        phoneNumber: signUpData.phoneNumber,
+        nickname: signUpData.nickname,
+        agreeAdvertiseRequest: {
+          emailNotificationStatus: signUpData.emailNotificationStatus,
+          smsNotificationStatus: signUpData.smsNotificationStatus,
+          pushNotificationStatus: signUpData.pushNotificationStatus,
+        },
+        verifyCompanyEmailRequest: {
+          companyId: signUpData.companyId,
+          companyEmail: signUpData.companyEmail,
+        },
+      }),
+    });
 
-import { usePathname } from 'next/navigation'
-import React from 'react'
-
-function Step(props: { step: number, title: string, description?: string, loginId?: string, name?: string }) {
-
-  const pathname = usePathname();
-
-  const maskSecondCharacter = (str: string) => {
-    return str[0] + '*' + str.slice(2);
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('Error sending POST request:', error);
+  }
 }
 
-  return (
-    <div>
-        <p>{props.title}</p>
-        <p>{props.description}</p>
+  // 회사 이메일 signUp
+  async function signUpcertRequest(signUpData: SignupType) {
+    try {
+      const response = await fetch('https://moa-backend.duckdns.org/api/v1/user/auth/signup/certificate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          loginId: signUpData.loginId,
+          password: signUpData.password,
+          name: signUpData.name,
+          birthdate: signUpData.birthdate,
+          gender: signUpData.gender,
+          phoneNumber: signUpData.phoneNumber,
+          nickname: signUpData.nickname,
+          agreeAdvertiseRequest: {
+            emailNotificationStatus: signUpData.emailNotificationStatus,
+            smsNotificationStatus: signUpData.smsNotificationStatus,
+            pushNotificationStatus: signUpData.pushNotificationStatus,
+          },
+          verifyCompanyCertificateRequest: {
+            companyName: signUpData.companyName,
+            certificateImageUrl: signUpData.certificateImageUrl,
+          },
+        }),
+      });
+  
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error sending POST request:', error);
+    }
+  }
 
-        {pathname === '/join/success'
-          ?
-          <div>
-              <p className="sp_tit1">
-                  <strong className="txt_line0">{props.name && maskSecondCharacter(props.name)}</strong> 님,
-                  <span className="user_underline"> {props.loginId} ID</span>로
-                  <br />모아
-                  <strong className="fw500"> 이메일 회원 가입</strong>이
-                  <br />
-                  완료되었습니다.
-              </p>
-          </div>
-          : null
-        }
-    </div>
-  )
+useEffect(() => {
+  if (stepId === 4 && signUpData.companyId && signUpData.companyEmail) {
+    // companyId와 companyEmail이 존재하면 API 호출
+    signUpRequest(signUpData);
+  } else if (stepId === 4 && signUpData.companyName && signUpData.certificateImageUrl) {signUpcertRequest(signUpData)
+}}, [signUpData, stepId]);
+
+const handleJoin = () => {
+  if (stepId === 4 && signUpData.companyId && signUpData.companyEmail) {
+  signUpRequest(signUpData);
+} else if (stepId === 4 && signUpData.companyName && signUpData.certificateImageUrl) {signUpcertRequest(signUpData)
 }
+}; */
 
-export default Step */
+// ... (이전 코드)

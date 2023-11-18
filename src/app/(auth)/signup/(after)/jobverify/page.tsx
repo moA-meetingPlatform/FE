@@ -1,5 +1,5 @@
 import BackbuttonHeader from '@/components/(navigation)/(top)/BackbuttonHeader'
-import Jobverify from '@/components/(page)/signup/Jobverify'
+import Jobverify from '@/components/(page)/signup/step/Jobverify'
 import React from 'react'
 
 function JobForm() {

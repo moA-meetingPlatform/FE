@@ -29,24 +29,6 @@ function PhoneInput(props: PhoneInputProps) {
 
   const [phoneError, setPhoneError] = useState<string>('');
 
-/*   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-
-    // 11자리 숫자만 허용
-    if (/^[0-9]{0,11}$/.test(inputValue)) {
-      setPhoneInput(inputValue);
-
-          // 휴대폰 번호 유효성 검사
-    const isValidPhone = /^[0-9]{11}$/.test(inputValue);
-
-    if (isValidPhone) {
-      setPhoneInput(inputValue);
-      setPhoneError('');
-    } else {
-      setPhoneError('본인 명의의 번호를 정확히 입력해 주세요.');
-    }
-  };
-} */
 
 const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const inputValue = e.target.value;

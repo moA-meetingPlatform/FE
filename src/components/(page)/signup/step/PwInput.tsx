@@ -3,7 +3,7 @@
 import { SignupType } from '@/types/SignupType'
 import React, { useState } from 'react'
 
-function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<React.SetStateAction<SignupType>>;}) {
+function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<React.SetStateAction<SignupType>>, active: any, setActive: React.Dispatch<React.SetStateAction<any>>, stepId: number}) {
 
   const { signUpData, setSignUpData } = props;
   const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -21,7 +21,7 @@ function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<Re
   }
 
   const handleConfirmPasswordChange = (value: string) => {
-    if (value !== signUpData.userPassword) {
+    if (value !== signUpData.password) {
       setConfirmPasswordError('비밀번호가 일치하지 않습니다.');
     } else {
       setConfirmPasswordError(null);
@@ -42,49 +42,53 @@ function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<Re
       ...signUpData,
       [name]: value,
     });
+
+    if (passwordError || confirmPasswordError) {
+      return;
+    } else {
+      props.setActive({
+        ...props.active,
+        [props.stepId-1]: {
+          id: props.stepId,
+          status: true,
+        },
+      })
+    }
+
   }
   
   return (
-    <>
-    <main className='grid place-items-center mb-40'>
-      <div className='text-xl py-3 font-semibold'>
-        비밀번호를 입력해주세요.
-        <p className='text-sm mt-3 font-medium'>숫자,영어, 특수문자를 포함하여 8~12글자로 작성해주세요.</p>
+    
+    <main className='container mt-10 mb-5'>
+      <div className='flex flex-col justify-center items-center relative'>
+        <div className='flex flex-col justify-start md:w-[80%] w-full transition-all'>
+          <label className='text-[0.8rem] bg-white -mb-3 ml-5 z-50 w-fit px-2'>암호를 설정해주세요.</label>
+          <input
+            className='border-2 border-[#E5E7EB] text-[0.7rem] rounded-full px-5 h-[50px] placeholder:text-[#9CA3AF80] placeholder:text-[0.8rem]'
+            type="password"
+            name="userPassword"
+            onChange={handleOnChange}
+            defaultValue={signUpData.password}
+          />
+          {passwordError && (
+          <p className="text-red-500 text-xs mt-1 mb-3 ml-5 text-left">{passwordError}</p>
+          )}
+        </div>
+        <div className='flex flex-col mt-3 justify-start md:w-[80%] w-full transition-all'>
+          <label className='text-[0.8rem] bg-white -mb-3 ml-5 z-50 w-fit px-2'>한번더 입력해주세요.</label>
+          <input 
+            type="password"
+            name="checkPassword"
+            className='border-2 border-[#E5E7EB] text-[0.8rem] rounded-full px-6 h-[50px] placeholder:text-[#9CA3AF80] placeholder:text-[0.8rem]'
+            onChange={handleOnChange}
+            defaultValue={signUpData.checkPassword}
+          />
+          {confirmPasswordError && (
+            <p className="text-red-500 text-xs mt-1 ml-5 text-left">{confirmPasswordError}</p>
+          )}
+        </div>
       </div>
-      <div>
-        <p>비밀번호</p>
-        <input 
-        type="password"
-        name="userPassword"
-        placeholder='비밀번호를 입력해주세요.' 
-        className='w-[280px] rounded-lg h-10'
-        onChange={(e) => {
-          handleOnChange(e);
-          handlePasswordChange(e.target.value);
-        }}
-        />
-      </div>
-      {passwordError && (
-          <p className="text-red-500 text-sm mt-2">{passwordError}</p>
-        )}
-      <div className='mt-10'>
-        <p>비밀번호 확인</p>
-        <input 
-        type="password"
-        name="checkPassword"
-        placeholder='비밀번호를 한 번 더 입력해주세요.' 
-        className='w-[280px] rounded-lg h-10'
-        onChange={(e) => {
-          handleOnChange(e);
-          handleConfirmPasswordChange(e.target.value);
-        }}
-        />
-      </div>
-      {confirmPasswordError && (
-          <p className="text-red-500 text-sm mt-2">{confirmPasswordError}</p>
-        )}
     </main>
-    </>
   )
 }
 

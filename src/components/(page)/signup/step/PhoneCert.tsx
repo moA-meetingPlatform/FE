@@ -5,11 +5,15 @@ import React, { useState } from 'react'
 import NameInput from '../../login/PhoneInput';
 import PhoneInput from '../../login/PhoneInput';
 
-function PhoneCert(props: {signUpData: SignupType, setSignUpData:React.Dispatch<React.SetStateAction<SignupType>>}) {
+interface IdInputProps {
+  signUpData: SignupType;
+  setSignUpData: React.Dispatch<React.SetStateAction<SignupType>>;
+  active: any;
+  setActive: React.Dispatch<React.SetStateAction<any>>;
+  stepId: number;
+}
 
-  const { signUpData, setSignUpData } = props;
-
-  const [verify, setVerify] = useState<Boolean>(false)
+function PhoneCert({ signUpData, setSignUpData, active, setActive, stepId }: IdInputProps) {
 
   return (
     <>
@@ -22,8 +26,7 @@ function PhoneCert(props: {signUpData: SignupType, setSignUpData:React.Dispatch<
 
       <PhoneInput setRemainingTime={function (value: React.SetStateAction<number>): void {
           throw new Error('Function not implemented.');
-        }
-        }
+        }}
         />
 
     </main>

@@ -1,31 +1,19 @@
-/* 'use client'
+import React from 'react'
+import TossPaymentsButton from './paymentButton'
 
-import React from 'react';
-import { loadTossPayments } from '@tosspayments/payment-sdk';
-
-const TossPaymentsButton: React.FC = () => {
-  const handleClick = async () => {
-    const tossPayments = await loadTossPayments('NEXT_PUBLIC_TOSS_CLIENT_KEY');
-
-    await tossPayments.requestPayment('카드', {
-      amount: 5000,
-      orderId: Math.random().toString(36).slice(2),
-      orderName: '상품명',
-      successUrl: `${window.location.origin}/success`,
-      failUrl: `${window.location.origin}/fail`,
-    });
-  };
-
+function payments() {
   return (
-    <button onClick={handleClick}>
-      결제하기
-    </button>
-  );
-};
+    <>
+    <TossPaymentsButton />
+    </>
+  )
+}
 
-export default TossPaymentsButton; */
+export default payments
 
-'use client'
+
+
+/* 'use client'
 
 import { useEffect, useRef, useState } from "react" 
 import {
@@ -35,8 +23,8 @@ import {
 } from "@tosspayments/payment-widget-sdk" 
 import { useAsync } from "react-use" 
 
-const clientKey = "NEXT_PUBLIC_TOSS_CLIENT_KEY" 
-const customerKey = "PaymentWidget.ANONYMOUS" 
+const clientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY
+const customerKey = "adfjdskl1213"
 
 export default function TossPaymentsButton() {
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null) 
@@ -129,4 +117,20 @@ export default function TossPaymentsButton() {
       </button>
     </main>
   ) 
+} */
+
+
+/* import TossPaymentsButton from '@/components/(ui)/Paymentbutton'
+import React from 'react'
+
+function payment() {
+  return (
+    <>
+    <main>
+      <TossPaymentsButton />
+    </main>
+    </>
+  )
 }
+
+export default payment */

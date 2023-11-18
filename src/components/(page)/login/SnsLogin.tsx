@@ -42,7 +42,7 @@ export default function SnsLogin() {
       <div className='flex justify-center items-center gap-2 my-4'>
         <Link href='/' className='text-xs px-4'>둘러보기</Link>
         <div className='w-[1px] h-5 bg-gray-300'></div>
-        <Link href='/join' className='text-xs px-4'>회원가입</Link>
+        <Link href='/signup?step=1' className='text-xs px-4'>회원가입</Link>
       </div>
       <div className='flex justify-center absolute -bottom-[50px] left-[50%] -translate-x-[50%] opacity-0'
         style = {{
