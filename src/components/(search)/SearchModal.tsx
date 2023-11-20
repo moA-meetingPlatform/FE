@@ -95,7 +95,7 @@ const SearchModal: FC<Props> = ({ renderTrigger }) => {
       setPosts(fetchedPosts)
     }
 
-    getSearchData()
+    // getSearchData()
 
     const postsfilter = posts.filter((_, i) => i < 5);
     const authorsfilter = authors.filter((_, i) => i < 9);
