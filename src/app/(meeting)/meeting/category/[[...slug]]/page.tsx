@@ -14,7 +14,7 @@ import { DEMO_AUTHORS } from "@/data/authors";
 const fetchData = async () => {
   try {
     // 첫 번째 요청
-    const responseOne = await fetch('/api/first-endpoint');
+    const responseOne = await fetch('https://moamoa-backend.duckdns.org/api/v1/');
     const dataOne = await responseOne.json();
 
     // 필요한 데이터 추출
