@@ -64,14 +64,14 @@ export default function Sequence4(props) {
           Object.entries({ ...res.fields, file }).forEach(([key, value]) => {
             formData.append(key, value)
           })
-          let 업로드결과 = await fetch(res.url, {
+          let result = await fetch(res.url, {
             method: 'POST',
             body: formData,
           })
-          console.log(업로드결과)
+          console.log(result)
 
-          if (업로드결과.ok) {
-            setSrc(업로드결과.url + '/' + filename)
+          if (result.ok) {
+            setSrc(result.url + '/' + filename)
           } else {
             console.log('실패')
           }

@@ -9,6 +9,7 @@ import NotifyDropdown from "./NotifyDropdown";
 import MoaLogo from "../Logo/MoaLogo";
 import Link from "next/link";
 import Search from "../(search)/SearchModal"
+import MoaIcon from "../Logo/MoaIcon";
 
 // 헤더 1
 export interface MainNav2LoggedProps { }
@@ -25,7 +26,8 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
         <div className="flex-1 flex justify-center">
           <Link href="/">
 
-            <MoaLogo />
+            {/* <MoaLogo /> */}
+            <MoaIcon />
 
           </Link>
         </div>

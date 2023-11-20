@@ -6,6 +6,7 @@ import SearchModal from "./SearchModal";
 import Button from "../Button/Button";
 import MoaLogo from "../Logo/MoaLogo";
 import Link from "next/link";
+import MoaIcon from "../Logo/MoaIcon";
 
 // 헤더 3
 export interface MainNav1Props { }
@@ -23,7 +24,8 @@ const MainNav1: FC<MainNav1Props> = () => {
           {/* 로고가 항상 중앙에 오도록 조정 */}
           <div className="flex-1 flex justify-center items-center">
             <Link href="/">
-              <MoaLogo />
+              {/* <MoaLogo /> */}
+              <MoaIcon />
             </Link>
           </div>
 
