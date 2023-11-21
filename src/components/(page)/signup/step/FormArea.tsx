@@ -175,7 +175,7 @@ export default function FormArea({ signUpData, setSignUpData, active, setActive,
                 <option value="WOMAN">여자</option>
               </select>
               {error.nickname !== '' && (
-                <p className="text-white text-xs mt-1 ml-5 text-left">''</p>
+                <p className="text-white text-xs mt-1 ml-5 text-left">1</p>
               )}
             </div>
             <div className='flex flex-col mt-3 justify-start w-2/3 transition-all'>

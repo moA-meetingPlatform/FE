@@ -31,7 +31,7 @@ function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<Re
   const handleOnChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
     
     const {name, value}=e.target;
-    console.log(name, value, signUpData);
+    // console.log(name, value, signUpData);
     if (name === 'password') {
       handlePasswordChange(value);
     } else if (name === 'checkPassword') {
@@ -43,7 +43,7 @@ function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<Re
       [name]: value,
     });
 
-    if (passwordError || confirmPasswordError) {
+/*     if (passwordError || confirmPasswordError) {
       return;
     } else {
       props.setActive({
@@ -53,8 +53,9 @@ function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<Re
           status: true,
         },
       })
-    }
+    } */
 
+    
   }
   
   return (
