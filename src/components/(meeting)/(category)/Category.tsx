@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 // import https from 'https';
 import ModalCategories from "@/components/(meeting)/(modal)/ModalCategories";
 import ModalTags from "@/components/(meeting)/(modal)/ModalTags";
-import { PostDataType } from "@/data/types";
+// import { PostDataType } from "@/data/types";
 import { MEETING_CATEGORIES } from "@/data/category";
 import Pagination from "@/components/Pagination/Pagination";
 import ButtonPrimary from "@/components/Button/ButtonPrimary";
@@ -29,11 +29,12 @@ interface MeetingIdList {
 interface Meeting {
   id: number;
   title: string;
-  hostUserUuid: string;
-  hostNickname: string;
-  meetingDatetime: string;
+  hostUserUuid?: string;
+  hostNickname: string; // 호스트 닉네임 필드 추가
+  meetingDatetime: string; // 미팅 날짜 필드 추가
   href: any;
-  meetingHeaderImageUrl: number;
+  meetingHeaderImageUrl: string; // 피처드 이미지 필드 추가 (URL 형식)
+  categories: any; // 카테고리 필드 추가
 }
 
 interface MeetingListResponse {
@@ -42,80 +43,41 @@ interface MeetingListResponse {
   message: string;
 }
 
-const fetchData = async (info: any) => {
-  try {
 
-    // SSL 인증서 검증을 무시하는 HTTPS 에이전트 생성
-    // const httpsAgent = new https.Agent({
-    //   rejectUnauthorized: false, // SSL 인증서 검증 건너뛰기
-    // });
-
-    // 첫 번째 요청
-    const responseOne = await fetch(`https://moamoa-backend.duckdns.org/api/v1/category/meeting?userUuid=${info.userUuid}&age=${info.age}&gender=${info.gender}&categoryId=${info.categoryId}&companies=${info.companies}`,
-      // { agent: httpsAgent });
-    );
-    const dataOne = await responseOne.json() as MeetingIdList;
-
-
-
-    // // 두 번째 요청 (첫 번째 요청의 데이터를 사용)
-    const responseTwo = await fetch('https://moamoa-backend.duckdns.org/api/v1/meeting/list', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ids: dataOne.meetingIdList,
-      }),
-      // agent: httpsAgent
-    });
-    const dataTwo = await responseTwo.json() as MeetingListResponse;
-
-    console.log(dataTwo.result);
-
-    // 백엔드에서 받은 데이터를 Meeting 배열로 변환합니다.
-    const meetings = dataTwo.result.map(meeting => ({
-      ...meeting,
-      href: `/meeting/detail/${meeting.id}`,
-    }));
-
-    // console.log(meetings);
-    return meetings;
-
-  } catch (error) {
-    // 에러 처리
-    console.error('An error occurred:', error);
-  }
-
-};
-
-// const DEMO_POSTS = __posts.map((post, index): PostDataType => {
-//   //  ##########  GET CATEGORY BY CAT ID ######## //
-//   const categories = post.categoriesId.map(
-//     (id) => MEETING_CATEGORIES.filter((taxonomy) => taxonomy.id === id)[0]
-//   );
-
-//   return {
-//     ...post,
-//     id: `DEMO_POSTS_${index + 1}`,
-//     author: DEMO_AUTHORS.filter((user) => user.id === post.authorId)[0],
-//     categories: [categories[0]],
-//   } as PostDataType;
-// });
-
-
-// Tag and category have same data type - we will use one demo data
-// const posts = DEMO_POSTS.filter((_, i) => i < 10);
-
+interface PostDataType {
+  id: string | number;
+  author: any;
+  date: string;
+  href: any;
+  categories: any;
+  title: string;
+  featuredImage: string;
+  desc?: string;
+  like?: {
+    count?: number;
+    isLiked?: boolean;
+  };
+  bookmark?: {
+    count?: number;
+    isBookmarked?: boolean;
+  };
+  commentCount?: number;
+  viewdCount?: number;
+  readingTime?: number;
+  postType?: "standard" | "video" | "gallery" | "audio";
+  videoUrl?: string;
+  audioUrl?: string | string[];
+  galleryImgs?: string[];
+}
 
 
 
 
 const Category: React.FC<CategoryProps> = ({ id }) => {
-  const [meetings, setMeetings] = useState([]);
+  const [meetings, setMeetings] = useState<Meeting[]>([]);
+  const [posts, setPosts] = useState<PostDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
 
   const FILTERS = [
     { name: "Most Recent" },
@@ -131,76 +93,50 @@ const Category: React.FC<CategoryProps> = ({ id }) => {
 
 
   useEffect(() => {
-
     const fetchData = async () => {
       setIsLoading(true);
       setError(null);
 
       try {
-
-        // SSL 인증서 검증을 무시하는 HTTPS 에이전트 생성
-        // const httpsAgent = new https.Agent({
-        //   rejectUnauthorized: false, // SSL 인증서 검증 건너뛰기
-        // });
-
-        // 첫 번째 요청
-        const responseOne = await fetch(`https://moamoa-backend.duckdns.org/api/v1/category/meeting?userUuid=${session.data?.user.userUuid}&age=${session.data?.user.age}&gender=${session.data?.user.gender}&categoryId=${id}&companies=${session.data?.user.companyCategory}`,
-          // { agent: httpsAgent });
-        );
+        const responseOne = await fetch(`https://moamoa-backend.duckdns.org/api/v1/category/meeting?userUuid=${session.data?.user.userUuid}&age=${session.data?.user.age}&gender=${session.data?.user.gender}&categoryId=${id}&companies=${session.data?.user.companyCategory}`);
         const dataOne = await responseOne.json() as MeetingIdList;
 
-        // console.log(dataOne.meetingIdList);
-
-        // 두 번째 요청 (첫 번째 요청의 데이터를 사용)
         const responseTwo = await fetch('https://moamoa-backend.duckdns.org/api/v1/meeting/list', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ids: dataOne.meetingIdList,
-          }),
-          // agent: httpsAgent
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ids: dataOne.meetingIdList })
         });
         const dataTwo = await responseTwo.json() as MeetingListResponse;
 
-        // console.log(dataTwo.result);
-
-        // 백엔드에서 받은 데이터를 Meeting 배열로 변환합니다.
-        const meetings = dataTwo.result.map(meeting => ({
-          ...meeting,
+        const mappedMeetings = dataTwo.result.map(meeting => ({
+          id: meeting.id,
+          title: meeting.title,
+          author: meeting.hostNickname,
+          date: new Date(meeting.meetingDatetime).toLocaleDateString("ko-KR"),
           href: `/meeting/detail/${meeting.id}`,
+          featuredImage: "https://moa-meetingplatform-images.s3.ap-northeast-2.amazonaws.com/moa.png",
+          categories: [id], // 예시에서는 카테고리 ID를 그대로 사용
         }));
 
-        console.log(meetings);
-        // setMeetings(meetings);
-        // return meetings;
+        setPosts(mappedMeetings.slice(0, 10));
+        // setPosts(mappedMeetings.slice(0, 10)); // 첫 10개의 미팅을 posts로 설정
 
       } catch (error) {
-        // 에러 처리
         console.error('An error occurred:', error);
+        // setError(error);
+      } finally {
+        setIsLoading(false);
       }
+    };
 
-
-    }
-
-    fetchData()
-
-  }, [id]);
+    fetchData();
 
 
 
 
-  // const info = {
-  //   userUuid: session?.user.userUuid,
-  //   age: session?.user.age,
-  //   gender: session?.user.gender,
-  //   categoryId: params.slug[1],
-  //   companies: session?.user.companyCategory
-  // }
+  }, [id, session.data]);
 
-  // const meetings = fetchData(info);
-
+  console.log(posts);
   return (
     <>
       <SiteHeader />
@@ -210,26 +146,26 @@ const Category: React.FC<CategoryProps> = ({ id }) => {
             <div className="flex flex-col sm:justify-between sm:flex-row">
               <div className="flex space-x-2.5 rtl:space-x-reverse">
                 <ModalCategories categories={MEETING_CATEGORIES} />
-                {/* <ModalTags id={parseInt(params.slug[0], 10)} /> */}
+                <ModalTags id={parseInt(id, 10)} />
 
               </div>
               <div className="block my-4 border-b w-full border-neutral-300 dark:border-neutral-500 sm:hidden"></div>
               <div className="flex justify-end">
-                <ArchiveFilterListBox lists={FILTERS} />
+                {/* <ArchiveFilterListBox lists={FILTERS} /> */}
               </div>
             </div>
 
             {/* LOOP ITEMS */}
-            {/* <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mt-8 lg:mt-10">
-              {meetings.map((post) => (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mt-8 lg:mt-10">
+              {posts.map((post) => (
                 <Card11 key={post.id} post={post} />
               ))}
-            </div> */}
+            </div>
 
             {/* PAGINATIONS */}
             <div className="flex flex-col mt-12 lg:mt-16 space-y-5 sm:space-y-0 sm:space-x-3 sm:flex-row sm:justify-between sm:items-center">
-              <Pagination />
-              <ButtonPrimary>Show me more</ButtonPrimary>
+              {/* <Pagination />
+              <ButtonPrimary>Show me more</ButtonPrimary> */}
             </div>
           </div>
         </div>
