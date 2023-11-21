@@ -27,9 +27,22 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# dotenv environment variable files
+.env
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# dotenv environment variable files
+.env
+
+/db.json
+
+moa-meetingplatform-27490853e5f6.json
+
+# yarn
+yarn.lock
