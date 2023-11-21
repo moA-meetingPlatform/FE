@@ -21,6 +21,7 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+    domains: ['moa-meetingplatform-images.s3.ap-northeast-2.amazonaws.com'],
   },
 };
 

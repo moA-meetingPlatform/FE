@@ -12,6 +12,7 @@ import Input from "../Input/Input";
 import SearchModal from "./SearchModal";
 import MoaLogo from "../Logo/MoaLogo";
 import Link from "next/link";
+import MoaIcon from "../Logo/MoaIcon";
 
 
 // 헤더 2
@@ -69,7 +70,8 @@ const MainNav2: FC<MainNav2Props> = ({ className = "" }) => {
 
           <div className="flex lg:flex-1 items-center rtl:space-x-reverse space-x-3 sm:space-x-8">
             <Link href="/">
-              <MoaLogo />
+              {/* <MoaLogo /> */}
+              <MoaIcon />
             </Link>
 
             <div className="hidden md:block h-10 border-s border-slate-200 dark:border-slate-700"></div>

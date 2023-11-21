@@ -12,6 +12,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import SwitchDarkMode from "@/components/SwitchDarkMode/SwitchDarkMode";
 import Link from "next/link";
 import MoaLogo from "../Logo/MoaLogo";
+import MoaIcon from "../Logo/MoaIcon";
 
 export interface NavMobileProps {
   data?: NavItemType[];
@@ -167,7 +168,8 @@ const NavMobile: React.FC<NavMobileProps> = ({
     <div className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1 dark:ring-neutral-700 bg-white dark:bg-neutral-900 divide-y-2 divide-neutral-100 dark:divide-neutral-800">
       <div className="py-6 px-5">
         <Link href="/">
-          <MoaLogo />
+          {/* <MoaLogo /> */}
+          <MoaIcon />
         </Link>
         <div className="flex flex-col mt-5 text-slate-600 dark:text-slate-300 text-sm">
           <span>

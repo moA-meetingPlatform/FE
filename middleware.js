@@ -1,5 +1,8 @@
-import { getToken } from 'next-auth/jwt'
+
+
 import { NextResponse } from 'next/server'
+
+
 
 export async function middleware(request) {
   // TODO: 이걸로 url 얻어서 서버로 요청해도 될듯
@@ -9,14 +12,20 @@ export async function middleware(request) {
   // NextResponse.redirect()  //다른페이지 이동
   // NextResponse.rewrite()  //다른페이지 이동
 
+  
 
-  const session = await getToken({req : request})
+
+  const sessionToken = request.cookies.get('next-auth.session-token')?.value;
+
+  const isLoggedIn = sessionToken !== undefined
+  
+
   // logout -> null 출력
-  // console.log(session)
+  // console.log(sessionToken)
 
   // meeting 페이지 접근시 로그인 안되어있으면 로그인 페이지로 이동
-  if ( request.nextUrl.pathname.startsWith('/asdads') )
-    if (session === null){
+  if ( request.nextUrl.pathname.startsWith('/meeting/participate') )
+    if (!isLoggedIn){
       // TODO : host 바꾸기
       return NextResponse.redirect(new URL('http://localhost:3000/login'), request.url)
     }
@@ -40,3 +49,4 @@ export async function middleware(request) {
 
   
 } 
+

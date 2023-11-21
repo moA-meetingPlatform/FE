@@ -17,6 +17,7 @@ import SequenceLast from "./SequenceLast.jsx";
 import CreateMeetingBottomNav from "@/components/(navigation)/(bottom)/CreateMeetingBottomNav";
 import LinearProgress from '@mui/material/LinearProgress';
 import NcModal from "@/components/NcModal/NcModal";
+import { useSession } from "next-auth/react";
 
 
 
@@ -27,6 +28,10 @@ export default function CreateMeeting() {
   const [url, setUrl] = useState(usePathname());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tempUrl, setTempUrl] = useState('');
+
+  const session = useSession();
+
+  // console.log(session);
 
   function updateQueryParams(baseURL: string, url: string, params: Record<string, string>): string {
     // Add base URL if the provided URL is a relative path
