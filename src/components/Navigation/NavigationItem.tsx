@@ -118,18 +118,18 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                             >
                               {post.date}
                             </time>
-                            <Link
+                            <a
                               href={post.category.href as Route}
                               className="relative z-10 rounded-full bg-gray-50 py-1.5 px-3 text-xs font-medium text-gray-600 hover:bg-gray-100"
                             >
                               {post.category.title}
-                            </Link>
+                            </a>
                           </div>
                           <h4 className="mt-2 text-sm font-semibold leading-6 text-gray-900">
-                            <Link href={post.href as Route}>
+                            <a href={post.href as Route}>
                               <span className="absolute inset-0" />
                               {post.title}
-                            </Link>
+                            </a>
                           </h4>
                           <p className="mt-2 text-sm leading-6 text-gray-600">
                             {post.description}

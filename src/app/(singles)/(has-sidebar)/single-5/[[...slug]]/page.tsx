@@ -2,13 +2,13 @@ import SingleHeader from "@/app/(singles)/SingleHeader";
 import NcImage from "@/components/NcImage/NcImage";
 import React from "react";
 
-const PageSingleSidebar = ({}) => {
+const PageSingleSidebar = ({ }) => {
   return (
     <>
       {/* SINGLE HEADER */}
       <header className="container rounded-xl pt-10 lg:pt-16">
         <div className="max-w-screen-md mx-auto">
-          <SingleHeader hiddenDesc />
+          {/* <SingleHeader hiddenDesc /> */}
         </div>
 
         {/* FEATURED IMAGE */}

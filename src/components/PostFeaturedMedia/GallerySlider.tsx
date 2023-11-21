@@ -71,7 +71,7 @@ export default function GallerySlider({
       >
         {/* Main image */}
         <div className={`w-full overflow-hidden ${galleryClass}`}>
-          <Link
+          <a
             href={href || "/"}
             className={`flex items-center justify-center ${ratioClass}`}
           >
@@ -95,7 +95,7 @@ export default function GallerySlider({
                 />
               </motion.div>
             </AnimatePresence>
-          </Link>
+          </a>
         </div>
 
         <>
@@ -128,9 +128,8 @@ export default function GallerySlider({
           <div className="flex items-center justify-center absolute bottom-2 left-1/2 transform -translate-x-1/2 space-x-1.5 rtl:space-x-reverse">
             {images.map((_, i) => (
               <button
-                className={`w-1.5 h-1.5 rounded-full ${
-                  i === index ? "bg-white" : "bg-white/60 "
-                }`}
+                className={`w-1.5 h-1.5 rounded-full ${i === index ? "bg-white" : "bg-white/60 "
+                  }`}
                 onClick={() => changePhotoId(i)}
                 key={i}
               />

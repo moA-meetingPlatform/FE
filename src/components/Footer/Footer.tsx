@@ -5,6 +5,7 @@ import { CustomLink } from "@/data/types";
 import MusicPlayer from "../MusicPlayer/MusicPlayer";
 import MoaLogo from "../Logo/MoaLogo";
 import Link from "next/link";
+import MoaIcon from "../Logo/MoaIcon";
 
 export interface WidgetFooterMenu {
   id: string;
@@ -94,7 +95,8 @@ const Footer: React.FC = () => {
           <div className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
             <div className="col-span-2 md:col-span-1">
               <Link href="/">
-                <MoaLogo />
+                {/* <MoaLogo /> */}
+                <MoaIcon />
               </Link>
             </div>
             <div className="col-span-2 flex items-center md:col-span-3">

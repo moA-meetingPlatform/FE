@@ -2,13 +2,13 @@ import React, { FC } from "react";
 import NcImage from "@/components/NcImage/NcImage";
 import SingleHeader from "@/app/(singles)/SingleHeader";
 
-const PageSingleTemplate2 = ({}) => {
+const PageSingleTemplate2 = ({ }) => {
   return (
     <div className={`pt-8 lg:pt-16`}>
       {/* SINGLE HEADER */}
       <header className="container rounded-xl">
         <div className="max-w-screen-md mx-auto">
-          <SingleHeader hiddenDesc />
+          {/* <SingleHeader hiddenDesc /> */}
         </div>
       </header>
 

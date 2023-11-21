@@ -4,6 +4,7 @@ import { Link } from "@nextui-org/link";
 import { Button } from "@nextui-org/button";
 import Menu from '../../(menu)/Menu';
 import MoaLogo from '@/components/Logo/MoaLogo';
+import MoaIcon from '@/components/Logo/MoaIcon';
 
 
 
@@ -29,7 +30,8 @@ export default function HeaderDefault() {
       <NavbarContent justify="center">
         <NavbarItem>
           <Link href="/">
-            <MoaLogo />
+            {/* <MoaLogo /> */}
+            <MoaIcon />
           </Link>
         </NavbarItem>
       </NavbarContent>

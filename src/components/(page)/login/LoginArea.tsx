@@ -76,11 +76,11 @@ export default function Loginarea() {
       }
     }
   },
-  // []
+    // []
   )
 
   const handleLogin = async () => {
-    
+
     console.log(loginData)
     const result = await signIn('credentials', {
       loginId: loginData.loginId,
@@ -88,7 +88,7 @@ export default function Loginarea() {
       redirect: false,
       callbackUrl: callBackUrl ? callBackUrl : '/'
     })
-    
+
     if (result?.error) {
       Swal.fire({
         text: `아이디 비빌번호를 확인 후 다시 시도해주세요.`,
@@ -104,14 +104,14 @@ export default function Loginarea() {
     }
   };
 
-// TODO 여기 살리기
+  // TODO 여기 살리기
 
 
 
   return (
     <div>
       <div>
-        <PublicModal isOpen={isOpen} onOpenChange={onOpenChange} content={modalContent}/>
+        {/* <PublicModal isOpen={isOpen} onOpenChange={onOpenChange} content={modalContent} /> */}
       </div>
       <p className='mt-4 font-semibold'>아이디</p>
       <div className={styles.input_box}>
@@ -126,9 +126,9 @@ export default function Loginarea() {
 
       <p className='flex justify-between font-semibold'>
         비밀번호
-      <span>
+        <span>
           <Link href="/findIdPw" className='text-[13px] text-blue-600 underline'>아이디·비밀번호 찾기</Link>
-      </span>
+        </span>
       </p>
       <div className={styles.input_box}>
         <input id="password"
@@ -141,7 +141,7 @@ export default function Loginarea() {
         </button>
       </div>
       <div className={`${styles.chk_group_box} ${styles.col2}`}>
-{/*         <div className={styles.chk_box}>
+        {/*         <div className={styles.chk_box}>
           <input id="isAutoId"
             type="checkbox"
             name='isAutoId'
@@ -150,20 +150,20 @@ export default function Loginarea() {
           <label htmlFor="isAutoId">아이디 저장</label>
         </div> */}
         <div className='grid place-items-center'>
-        <div className={styles.chk_box}>
-          <input id="isAutoLogin"
-            type="checkbox"
-            name='isAutoLogin'
-            onChange={handleOnChange} />
-          <label htmlFor="isAutoLogin">로그인 유지</label>
-        </div>
+          <div className={styles.chk_box}>
+            <input id="isAutoLogin"
+              type="checkbox"
+              name='isAutoLogin'
+              onChange={handleOnChange} />
+            <label htmlFor="isAutoLogin">로그인 유지</label>
+          </div>
         </div>
       </div>
       <div className='grid place-items-center mt-3'>
         <button onClick={handleLogin} className='h-[44px] w-[300px] bg-[#4338ca] rounded-2xl grid place-items-center text-white font-semibold'>로그인</button>
       </div>
       <ul className='grid place-items-center'>
-{/*         <li>
+        {/*         <li>
           <Link href="/login/findId" className={styles.btn}>아이디 찾기</Link>
         </li>
         <li>
@@ -171,12 +171,12 @@ export default function Loginarea() {
         </li> */}
 
         <li className='mt-4'>
-        <span>아직 회원이 아니신가요?</span>
-          <Link href="/join" className='text-blue-400 font-semibold underline'>회원가입</Link>
+          <span>아직 회원이 아니신가요?</span>
+          <a href="/join" className='text-blue-400 font-semibold underline'>회원가입</a>
         </li>
       </ul>
 
-      
+
     </div>
 
   )

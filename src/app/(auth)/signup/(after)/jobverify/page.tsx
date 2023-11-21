@@ -5,10 +5,10 @@ import React from 'react'
 function JobForm() {
   return (
     <>
-    <main>
-      <BackbuttonHeader contents='회사인증' />
-      <Jobverify />
-    </main>
+      <main>
+        <BackbuttonHeader contents='회사인증' />
+        {/* <Jobverify /> */}
+      </main>
     </>
   )
 }

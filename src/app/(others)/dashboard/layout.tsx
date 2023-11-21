@@ -64,17 +64,16 @@ const Layout = ({ children }: { children: ReactNode }) => {
             {subPages.map(({ href, pageName, emoij }, index) => {
               return (
                 <li key={index}>
-                  <Link
-                    className={`px-6 py-3 font-medium rounded-full flex items-center ${
-                      pathname === href
+                  <a
+                    className={`px-6 py-3 font-medium rounded-full flex items-center ${pathname === href
                         ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
                         : "hover:text-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
-                    }`}
+                      }`}
                     href={href}
                   >
                     <span className="w-8 me-2 text-lg">{emoij}</span>
                     <span> {pageName}</span>
-                  </Link>
+                  </a>
                 </li>
               );
             })}

@@ -4,7 +4,7 @@ import { StaticImageData } from "next/image";
 //  ######  CustomLink  ######## //
 export interface CustomLink {
   label: string;
-  href: Route;
+  href: any;
   targetBlank?: boolean;
 }
 
@@ -40,27 +40,53 @@ export interface PostAuthorType {
   href: any;
 }
 
+// export interface PostDataType {
+//   id: string | number;
+//   author: PostAuthorType;
+//   date: string;
+//   href: any;
+//   categories: TaxonomyType[];
+//   title: string;
+//   featuredImage: string | StaticImageData;
+//   desc?: string;
+//   like: {
+//     count: number;
+//     isLiked: boolean;
+//   };
+//   bookmark: {
+//     count: number;
+//     isBookmarked: boolean;
+//   };
+//   commentCount: number;
+//   viewdCount: number;
+//   readingTime: number;
+//   postType: "standard" | "video" | "gallery" | "audio";
+//   videoUrl?: string;
+//   audioUrl?: string | string[];
+//   galleryImgs?: string[];
+// }
+
 export interface PostDataType {
   id: string | number;
-  author: PostAuthorType;
+  author?: any;
   date: string;
-  href: any;
-  categories: TaxonomyType[];
+  href: any | string;
+  categories: any;
   title: string;
-  featuredImage: string | StaticImageData;
+  featuredImage: string ;
   desc?: string;
-  like: {
-    count: number;
-    isLiked: boolean;
+  like?: {
+    count?: number;
+    isLiked?: boolean;
   };
-  bookmark: {
-    count: number;
-    isBookmarked: boolean;
+  bookmark?: {
+    count?: number;
+    isBookmarked?: boolean;
   };
-  commentCount: number;
-  viewdCount: number;
-  readingTime: number;
-  postType: "standard" | "video" | "gallery" | "audio";
+  commentCount?: number;
+  viewdCount?: number;
+  readingTime?: number;
+  postType?: "standard" | "video" | "gallery" | "audio";
   videoUrl?: string;
   audioUrl?: string | string[];
   galleryImgs?: string[];

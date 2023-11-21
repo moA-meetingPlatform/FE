@@ -12,7 +12,7 @@ import { Suspense } from "react";
 
 const IMAGES_GALLERY: (string | StaticImageData)[] = imgHigtQualitys;
 
-const PageSg = ({}) => {
+const PageSg = ({ }) => {
   //
   //
   const router = useRouter();
@@ -35,7 +35,7 @@ const PageSg = ({}) => {
       <div className={`pt-8 lg:pt-16`}>
         {/* SINGLE HEADER */}
         <header className="container rounded-xl">
-          <SingleHeader hiddenDesc />
+          {/* <SingleHeader hiddenDesc /> */}
           <div className="relative grid grid-cols-3 sm:grid-cols-4 gap-2 my-10">
             <div
               className="col-span-2 row-span-2 relative rounded-xl overflow-hidden cursor-pointer z-0"
@@ -54,9 +54,8 @@ const PageSg = ({}) => {
               (item, index) => (
                 <div
                   key={index}
-                  className={`relative rounded-xl overflow-hidden z-0 ${
-                    index >= 2 ? "hidden sm:block" : ""
-                  }`}
+                  className={`relative rounded-xl overflow-hidden z-0 ${index >= 2 ? "hidden sm:block" : ""
+                    }`}
                 >
                   <NcImage
                     alt="single"

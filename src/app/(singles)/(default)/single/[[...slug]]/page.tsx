@@ -8,7 +8,7 @@ const PageSingle = () => {
       <div className={`nc-PageSingle pt-8 lg:pt-16`}>
         <header className="container rounded-xl">
           <div className="max-w-screen-md mx-auto">
-            <SingleHeader />
+            {/* <SingleHeader /> */}
           </div>
         </header>
 

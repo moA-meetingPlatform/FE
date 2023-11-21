@@ -30,7 +30,7 @@ const Button: FC<ButtonProps> = ({
   children,
   type,
   loading,
-  onClick = () => {},
+  onClick = () => { },
 }) => {
   let colors =
     "bg-neutral-900 hover:bg-neutral-800 text-white dark:bg-neutral-100 dark:hover:bg-neutral-50 dark:text-black";
@@ -58,10 +58,10 @@ const Button: FC<ButtonProps> = ({
 
   if (!!href) {
     return (
-      <Link href={href} className={`${CLASSES} `} onClick={onClick} type={type}>
+      <a href={href} className={`${CLASSES} `} onClick={onClick} type={type}>
         {loading && <Loading />}
         {children || `This is Link`}
-      </Link>
+      </a>
     );
   }
 

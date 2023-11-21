@@ -2,10 +2,12 @@ import React, { FC } from "react";
 import Logo from "@/components/Logo/Logo";
 import MenuBar from "@/components/MenuBar/MenuBar";
 import SwitchDarkMode from "@/components/SwitchDarkMode/SwitchDarkMode";
-import SearchModal from "./SearchModal";
+
 import Button from "../Button/Button";
 import MoaLogo from "../Logo/MoaLogo";
 import Link from "next/link";
+import MoaIcon from "../Logo/MoaIcon";
+import Search from "../(search)/SearchModal"
 
 // 헤더 3
 export interface MainNav1Props { }
@@ -23,7 +25,8 @@ const MainNav1: FC<MainNav1Props> = () => {
           {/* 로고가 항상 중앙에 오도록 조정 */}
           <div className="flex-1 flex justify-center items-center">
             <Link href="/">
-              <MoaLogo />
+              {/* <MoaLogo /> */}
+              <MoaIcon />
             </Link>
           </div>
 
@@ -31,7 +34,8 @@ const MainNav1: FC<MainNav1Props> = () => {
           <div className="flex-1 flex items-center justify-end text-neutral-700 dark:text-neutral-100 space-x-1 rtl:space-x-reverse">
             {/* lg:hidden 클래스를 제거하여 항상 보이도록 설정 */}
             <SwitchDarkMode />
-            <SearchModal />
+            {/* <SearchModal /> */}
+            <Search />
             <Button
               sizeClass="py-3 px-4 sm:px-6"
               href="/login"

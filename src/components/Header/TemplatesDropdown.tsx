@@ -129,10 +129,10 @@ export default function TemplatesDropdown() {
                                   </a>
                                 </div>
                                 <h4 className="mt-2 text-sm font-semibold leading-6 text-gray-900">
-                                  <Link href={post.href as Route}>
+                                  <a href={post.href as Route}>
                                     <span className="absolute inset-0" />
                                     {post.title}
-                                  </Link>
+                                  </a>
                                 </h4>
                                 <p className="mt-2 text-sm leading-6 text-gray-600">
                                   {post.description}

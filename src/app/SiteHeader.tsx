@@ -2,8 +2,13 @@
 
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
+// 헤더 1
 import HeaderLogged from "@/components/Header/HeaderLogged";
+
+// 헤더 2
 import Header from "@/components/Header/Header";
+
+// 헤더 3
 import Header2 from "@/components/Header/Header2";
 import {
   ShoppingBagIcon as ShoppingCartIcon,
