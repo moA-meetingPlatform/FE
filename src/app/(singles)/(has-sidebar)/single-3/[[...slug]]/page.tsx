@@ -2,13 +2,13 @@ import React from "react";
 import Image from "next/image";
 import SingleHeader from "@/app/(singles)/SingleHeader";
 
-const PageSingleTemplate3 = ({}) => {
+const PageSingleTemplate3 = ({ }) => {
   return (
     <header className="relative pt-16 z-10 md:py-20 lg:py-28 bg-neutral-900 dark:bg-black">
       {/* SINGLE HEADER */}
       <div className="dark container relative z-10">
         <div className="max-w-screen-md">
-          <SingleHeader hiddenDesc />
+          {/* <SingleHeader hiddenDesc /> */}
         </div>
       </div>
 

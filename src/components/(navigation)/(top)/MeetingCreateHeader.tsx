@@ -27,7 +27,7 @@ export default function MeetingCreateHeader() {
           // 'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          tempurl: `/meeting/create/?${searchParams.toString()}`,
+          tempurl: `/meeting/create/?${searchParams?.toString()}`,
         }),
       });
 
@@ -65,7 +65,7 @@ export default function MeetingCreateHeader() {
             <div>Your modal content here</div>
             <button onClick={() => {
 
-              console.log(searchParams.toString())
+              console.log(searchParams?.toString())
               TempSave()
               router.push(`/`)
             }}>예</button>

@@ -5,12 +5,12 @@ import React from 'react'
 function certVerify() {
   return (
     <>
-    <main>
-      <BackbuttonHeader contents='회사인증' />
-      <div>
-        <CertVerify />
-      </div>
-    </main>
+      <main>
+        <BackbuttonHeader contents='회사인증' />
+        <div>
+          {/* <CertVerify /> */}
+        </div>
+      </main>
     </>
   )
 }

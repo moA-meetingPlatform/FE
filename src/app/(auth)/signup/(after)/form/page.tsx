@@ -5,12 +5,12 @@ import React from 'react'
 function Form() {
   return (
     <div>
-{/*       <Step
+      {/*       <Step
         step={2}
         title={'정보입력'}
         description='필수 정보를 정확하게 입력해주세요.'
         /> */}
-        <FormArea />
+      {/* <FormArea /> */}
     </div>
   )
 }

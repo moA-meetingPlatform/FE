@@ -24,9 +24,8 @@ const PostMeta2: FC<PostMeta2Props> = ({
   const { date, author, categories, readingTime } = meta;
   return (
     <div
-      className={`nc-PostMeta2 flex items-center flex-wrap text-neutral-700 text-left dark:text-neutral-200 ${
-        size === "normal" ? "text-xs" : "text-sm"
-      } ${className}`}
+      className={`nc-PostMeta2 flex items-center flex-wrap text-neutral-700 text-left dark:text-neutral-200 ${size === "normal" ? "text-xs" : "text-sm"
+        } ${className}`}
     >
       <Link
         href={author.href}
@@ -54,12 +53,12 @@ const PostMeta2: FC<PostMeta2Props> = ({
               <span className="mx-2 font-semibold">·</span>
               <div className="ms-0">
                 <span className="text-xs">🏷 </span>
-                {categories.map((cat, index) => (
+                {/* {categories.map((cat, index) => (
                   <Link key={cat.id} href={cat.href} className="font-semibold">
                     {cat.name}
                     {index < categories.length - 1 && <span>, </span>}
                   </Link>
-                ))}
+                ))} */}
               </div>
             </>
           )}
