@@ -1,9 +1,11 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, use } from 'react'
 import { usePathname, useSearchParams, useRouter, useParams } from 'next/navigation'
 import Heading from '@/components/Heading/Heading';
 import NcModal from '@/components/NcModal/NcModal';
+import { useSession } from 'next-auth/react';
+
 
 
 
@@ -12,6 +14,7 @@ export default function SequenceLast(props) {
   const router = useRouter();
   const searchParams = useSearchParams()
 
+  const session = useSession();
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", "),
@@ -69,28 +72,29 @@ export default function SequenceLast(props) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${session.data.user.token}`
+          'Authorization': `Bearer ${session.data.user.token}`
         },
         body: JSON.stringify(
           {
             title: toString(createData.title),
-            meetingAddress: toString(createData.meetingAddress),
+
+            hostNickname: toString(session.data.user.nickname),
+            placeAddress: toString(createData.meetingAddress),
             description: toString(createData.description),
             entryFee: toInt(createData.entryFee),
-            refundPolicy: toString(createData.refundPolicy),
-            isFcfs: toBoolean(createData.isFcfs),
-            isOnline: toBoolean(createData.isOnline),
-            maxParticipantNum: toInt(createData.maxParticipantNum),
+            meetingDatetime: toString(createData.meetingDatetime),
+            firstComeFirstServed: toBoolean(createData.isFcfs),
+            onlineStatus: toBoolean(createData.isOnline),
+            maxParticipants: toInt(createData.maxParticipantNum),
             maxAge: toInt(createData.maxAge),
             minAge: toInt(createData.minAge),
-            companyList: toJsonArray(createData.companyList),
-            entryFeeInfoIdList: toJsonArray(createData.entryFeeInfoIdList),
-            entryFeeInfoEtcString: toString(createData.entryFeeInfoEtcString),
-            themeCategoryId: toInt(createData.themeCategoryId),
-            question: toString(createData.question),
+            participateCompanies: toJsonArray(createData.companyList),
+            entryFeeInformations: toJsonArray(createData.entryFeeInfoIdList),
+            entryFeeInfomationEtcString: toString(createData.entryFeeInfoEtcString),
+            participationQuestion: toString(createData.question),
             headerImageUrl: toString(createData.headerImageUrl),
-            joinGender: toString(createData.joinGender),
-            meetingDatetime: toString(createData.meetingDatetime)
+            participateGender: toString(createData.joinGender),
+            themeCategoryId: toInt(createData.themeCategoryId),
           }
         ),
       });
@@ -128,11 +132,11 @@ export default function SequenceLast(props) {
         <p className="text-small text-default-500">날짜: {createData.meetingDatetime}</p>
         <p className="text-small text-default-500">장소: {createData.meetingAddress}</p>
 
-        <button 
-        className='bg-[#4338ca] text-white font-semibold py-2 px-8 rounded-full'
-        onClick={createMeeting}>
+        {/* <button
+          className='bg-[#4338ca] text-white font-semibold py-2 px-8 rounded-full'
+          onClick={createMeeting}>
           fetch
-        </button>
+        </button> */}
 
         <NcModal
           renderTrigger={(openModal) => <button onClick={openModal}>모임 생성 완료</button>}
@@ -140,7 +144,7 @@ export default function SequenceLast(props) {
           className='bg-[#4338ca] text-white font-semibold py-2 px-8 rounded-full'
           renderContent={() => <>
             <div>Your modal content here</div>
-            <button onClick={handleSubmit}>Submit</button>
+            <button onClick={createMeeting}>Submit</button>
           </>}
         />
 

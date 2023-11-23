@@ -40,7 +40,7 @@ export default function Sequence1(props) {
 
   return (
     <>
-{/*       <Heading desc={"모임을 선택하세요"} isCenter={false}>어떤 모임을 하고싶나요?</Heading> */}
+      {/*       <Heading desc={"모임을 선택하세요"} isCenter={false}>어떤 모임을 하고싶나요?</Heading> */}
 
       <div className='tracking-tighter mb-8'>
         <p className='text-lg font-semibold text-center'>어떤 모임을 하고싶나요?</p>
@@ -60,7 +60,7 @@ export default function Sequence1(props) {
           </Listbox>
         </ListboxWrapper>
       </div>
-      <button onClick={handleNext}>Next</button>
+      {/* <button onClick={handleNext}>Next</button> */}
 
     </>
   );

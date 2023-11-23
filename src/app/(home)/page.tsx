@@ -164,9 +164,10 @@ const PageHome = ({ }) => {
 
         <SectionLatestPosts className="pb-16 lg:pb-28" />
       </div> */}
-      <Link href={'/meeting/create'}>
+      {/* <Link href={'/meeting/create'}>
         <CreateBtn />
-      </Link>
+      </Link> */}
+      <BottomNav />
     </div>
   );
 };
