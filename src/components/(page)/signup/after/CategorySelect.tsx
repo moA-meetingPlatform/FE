@@ -1,16 +1,69 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { ActiListData, ArtListData, FoodListData, FriendListData, HobbyListData, InvestListData, LanguageListData, PartyListData, TripListData } from '@/data/interest/interestListData'
 import { InterestListType } from '@/types/InterestListType'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
+import { usePathname } from 'next/navigation'
 
 function CategorySelect() {
 
+  const [selectinterest, setselectinterest] = useState<any>([]);
+  // console.log(selectinterest)
+  const { data: session } = useSession();
+  const pathname = usePathname()
+
+
+    const postData = async () => {
+      try {
+        const response = await fetch('https://moamoa-backend.duckdns.org/api/v1/category/user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_category_id: selectinterest,
+            userUuid: session?.user?.userUuid,
+          }),
+        })
+
+        if (response.ok) {
+          // 성공적으로 처리된 경우의 로직을 작성합니다.
+          console.log('Data sent successfully!');
+        } else {
+          // 오류 처리 로직을 작성합니다.
+          console.error('Failed to send data.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+  const handleCheckboxChange = (e:any) => {
+    const { checked, value } = e.target;
+    // console.log(value)
+    if (checked) {
+      setselectinterest((prevInterests: any) => [...prevInterests, (value)]);
+    } else {
+      setselectinterest((prevInterests: any) =>
+        prevInterests.filter((interest: any) => interest !== value)
+      );
+    }
+  };
+
+  const isButtonEnabled = selectinterest.length >= 3
   return (
     <>
-      <main>
+      <main className='mx-8'>
+
+      <div className='tracking-tighter mb-8'>
+        <p className='text-lg font-semibold text-center'>관심사를 선택해 주세요.</p>
+        <p className="text-xs text-center text-gray-500">관심사로 더 좋은 만남을 제공할 수 있습니다.</p>
+        <p className="text-xs text-center text-gray-500">관심사를 3개 항목 이상 선택해 주세요.</p>
+      </div>
+
 
         <div className='interest_food flex gap-2'>
           <strong className='text-xl'>푸드</strong>
@@ -26,6 +79,8 @@ function CategorySelect() {
                   <input type='checkbox'
                     key={e.key}
                     className='hidden peer'
+                    value={e.category_id}
+                    onChange={handleCheckboxChange}
                   /*        checked={isChecked}
                           onChange={handleCheckboxChange}
                             style={{
@@ -36,7 +91,7 @@ function CategorySelect() {
                             height: '1px',
                           }} */
                   />
-                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff]'>{e.contents}</span>
+                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff] peer-checked:font-semibold'>{e.contents}</span>
                 </label>
               </>
             ))}
@@ -57,8 +112,11 @@ function CategorySelect() {
                   <input type='checkbox'
                     key={e.key}
                     className='hidden peer'
+                    value={e.category_id}
+                    onChange={handleCheckboxChange}
+
                   />
-                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff]'>{e.contents}</span>
+                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff] peer-checked:font-semibold'>{e.contents}</span>
                 </label>
               </>
             ))}
@@ -79,8 +137,11 @@ function CategorySelect() {
                   <input type='checkbox'
                     key={e.key}
                     className='hidden peer'
+                    value={e.category_id}
+                    onChange={handleCheckboxChange}
+
                   />
-                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff]'>{e.contents}</span>
+                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff] peer-checked:font-semibold'>{e.contents}</span>
                 </label>
               </>
             ))}
@@ -101,8 +162,11 @@ function CategorySelect() {
                   <input type='checkbox'
                     key={e.key}
                     className='hidden peer'
+                    value={e.category_id}
+                    onChange={handleCheckboxChange}
+
                   />
-                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff]'>{e.contents}</span>
+                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff] peer-checked:font-semibold'>{e.contents}</span>
                 </label>
               </>
             ))}
@@ -123,8 +187,11 @@ function CategorySelect() {
                   <input type='checkbox'
                     key={e.key}
                     className='hidden peer'
+                    value={e.category_id}
+                    onChange={handleCheckboxChange}
+
                   />
-                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff]'>{e.contents}</span>
+                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff] peer-checked:font-semibold'>{e.contents}</span>
                 </label>
               </>
             ))}
@@ -145,8 +212,11 @@ function CategorySelect() {
                   <input type='checkbox'
                     key={e.key}
                     className='hidden peer'
+                    value={e.category_id}
+                    onChange={handleCheckboxChange}
+
                   />
-                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff]'>{e.contents}</span>
+                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff] peer-checked:font-semibold'>{e.contents}</span>
                 </label>
               </>
             ))}
@@ -167,8 +237,11 @@ function CategorySelect() {
                   <input type='checkbox'
                     key={e.key}
                     className='hidden peer'
+                    value={e.category_id}
+                    onChange={handleCheckboxChange}
+
                   />
-                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff]'>{e.contents}</span>
+                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff] peer-checked:font-semibold'>{e.contents}</span>
                 </label>
               </>
             ))}
@@ -189,8 +262,11 @@ function CategorySelect() {
                   <input type='checkbox'
                     key={e.key}
                     className='hidden peer'
+                    value={e.category_id}
+                    onChange={handleCheckboxChange}
+
                   />
-                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff]'>{e.contents}</span>
+                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff] peer-checked:font-semibold'>{e.contents}</span>
                 </label>
               </>
             ))}
@@ -211,8 +287,11 @@ function CategorySelect() {
                   <input type='checkbox'
                     key={e.key}
                     className='hidden peer'
+                    value={e.category_id}
+                    onChange={handleCheckboxChange}
+
                   />
-                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff]'>{e.contents}</span>
+                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff] peer-checked:font-semibold'>{e.contents}</span>
                 </label>
               </>
             ))}
@@ -233,21 +312,26 @@ function CategorySelect() {
                   <input type='checkbox'
                     key={e.key}
                     className='hidden peer'
+                    value={e.category_id}
+                    onChange={handleCheckboxChange}
                   />
-                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff]'>{e.contents}</span>
+                  <span className='border px-2 py-1 rounded-full mr-1 text-[0.7rem] peer-checked:bg-[#eef2ff] peer-checked:font-semibold'>{e.contents}</span>
                 </label>
               </>
             ))}
         </div>
 
-        <div className='grid place-items-center mt-14'>
-          <a href='/join/jobverify'>
-            <button className='h-[44px] w-[300px] bg-[#4338ca] rounded-2xl grid place-items-center text-white font-semibold'>
+
+        {pathname !== '/editProfile' && (
+        <div className='flex mt-14'>
+            <button className={`h-[44px] w-[300px] bg-[#4338ca] rounded-2xl mx-auto text-white font-semibold ${isButtonEnabled ? '' : 'opacity-70 cursor-not-allowed'}`}
+            onClick={postData}
+            disabled={!isButtonEnabled}
+            >
               다음
             </button>
-          </a>
         </div>
-
+          )}
       </main>
     </>
   )

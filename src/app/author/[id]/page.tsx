@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DEMO_POSTS } from "@/data/posts";
 import { PostDataType } from "@/data/types";
 import Pagination from "@/components/Pagination/Pagination";
@@ -31,8 +31,41 @@ import Link from "next/link";
 import MannerTemparature from "@/components/(ui)/setting/mannerTem";
 import { InterestData } from "@/data/interestData";
 import { InterestTpye } from "@/types/InterestType";
+import { useSession } from 'next-auth/react';
+import { integer } from "aws-sdk/clients/cloudfront";
+import BackbuttonHeader from "@/components/(navigation)/(top)/BackbuttonHeader";
+import ModeIcon from '@mui/icons-material/Mode';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 
+// interface ProfileProps{
+//   userUuid: string;
+// }
+
+interface ProfileData {
+  userUuid: string,
+  nickname: string,
+  userIntroduce: string,
+  profileImageUrl: string,
+  reviewerCount: number,
+  userMannersTemparature: number,
+  sameWithLoggedInUser : boolean
+}
+
+interface ProfileResponse {
+  result: ProfileData[];
+  isSuccess: boolean;
+  message: string;
+}
+
+// async function getData(userUuid:string) {
+// const res = await fetch(`https://moa-backend.duckdns.org/api/v1/user/profile/${userUuid}`)
+//   if (!res.ok) {
+//     throw new Error('Failed to fetch data')
+//   }
+
+// return res.json()
+// }
 const posts: PostDataType[] = DEMO_POSTS.filter((_, i) => i < 12);
 const FILTERS = [
   { name: "Most Recent" },
@@ -43,8 +76,56 @@ const FILTERS = [
 ];
 const TABS = ["좋아요", "참여", "진행"];
 
-const PageAuthor = ({}) => {
+export default function PageAuthor() {
+
+  // const data = await getData(userUuid)
+  //   console.log(data.result.nickname)
+
+  const { data: session } = useSession<any>();
+  // console.log(session)
+  const [userData, setUserData] = useState<any>(null); // 사용자 데이터를 저장할 상태
   const [tabActive, setTabActive] = useState<string>(TABS[0]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string>();
+
+  
+  const userUuid = session?.user?.userUuid;
+  const token = session?.user?.token;
+  // console.log(userUuid)
+
+  // const userUuid = session?.user.userUuid || '';
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+
+        if (!token || !userUuid) {
+          return;
+        }
+
+        const res = await fetch(`https://moamoa-backend.duckdns.org/api/v1/user/profile/${userUuid}`);
+        // const data = await res.json();
+        if (res.ok) {
+          const result: ProfileResponse= await res.json();
+          const userData: ProfileData= result.result[0];
+          setUserData(userData);
+        } else {
+          // 응답이 실패하면 에러 상태 업데이트
+          throw new Error('Failed to fetch data');
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+        // 네트워크 오류 등의 경우 에러 상태 업데이트
+        setError('Failed to fetch data');
+      } finally {
+        // 데이터 로딩이 완료되면 로딩 상태 업데이트
+        setIsLoading(false);
+      }
+    };
+
+    // fetchData 함수 호출
+    fetchData();
+  }, [token, userUuid]);
 
   const handleClickTab = (item: string) => {
     if (item === tabActive) {
@@ -54,7 +135,9 @@ const PageAuthor = ({}) => {
   };
 
   return (
+    
     <div className={`nc-PageAuthor `}>
+      <BackbuttonHeader contents={""} />
       {/* HEADER */}
       <div className="w-full">
         <div className="relative w-full h-40 md:h-60 2xl:h-72">
@@ -74,7 +157,8 @@ const PageAuthor = ({}) => {
               <div className="wil-avatar relative flex-shrink-0 inline-flex items-center justify-center overflow-hidden text-neutral-100 uppercase font-semibold rounded-full w-20 h-20 text-xl lg:text-2xl lg:w-36 lg:h-36 ring-4 ring-white dark:ring-0 shadow-2xl z-0">
                 <Image
                   alt="Avatar"
-                  src={avatarImgs[3]}
+                  // src={userData?.profileImageUrl}
+                  src={userData?.profileImageUrl || "/images/basicProfile.jpg"}
                   fill
                   className="object-cover"
                   priority
@@ -86,16 +170,16 @@ const PageAuthor = ({}) => {
             <div className="pt-5 md:pt-1 lg:ml-6 xl:ml-12 flex-grow">
               <div className="max-w-screen-sm space-y-3.5 ">
                 <h2 className="inline-flex items-center text-2xl sm:text-3xl lg:text-4xl font-semibold">
-                  <span>김모아</span>
+                  <span>{userData?.nickname}</span>
 {/*                   <VerifyIcon
                     className="ml-2"
                     iconClass="w-6 h-6 sm:w-7 sm:h-7 xl:w-8 xl:h-8"
                   /> */}
-                  <MannerTemparature />
+                  <MannerTemparature temparature={userData?.userMannersTemparature.toString()}/>
                 </h2>
                 <div className="h-14">
                 <span className="block text-sm text-neutral-500 dark:text-neutral-400">
-                몰랐던 취미나 관심사를 함께 발굴해 나가봐요!
+                {userData?.userIntroduce}
                 </span>
                 <span>
 {/*                   <NcImage
@@ -142,10 +226,17 @@ const PageAuthor = ({}) => {
                   onClick={() => {}}
                   data={SOCIALS_DATA}
                 /> */}
-                <button> <Link href="/setting" ><CogIcon className="w-8 h-8" /></Link></button>
+                <button className="bg-gray-300 rounded-full text-[18px] h-fit w-fit p-0.5">
+                  <Link href="/setting" ><SettingsIcon className="h-8 w-8"/></Link>
+                  </button>
               </div>
 
-              <AccountActionDropdown containerClassName="h-10 w-10 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700" />
+              <button className="bg-gray-300 rounded-full text-[18px] h-fit w-fit p-0.5">
+              <Link href="/editProfile"><ModeIcon className="h-8 w-8"/></Link>
+              </button>
+
+{/* TODO 타인의 프로필일때 살려야함 */}
+              {/* <AccountActionDropdown containerClassName="h-9 w-9 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700" /> */}
             </div>
           </div>
         </div>
@@ -211,5 +302,3 @@ const PageAuthor = ({}) => {
     </div>
   );
 };
-
-export default PageAuthor;
