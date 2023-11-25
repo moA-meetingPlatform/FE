@@ -1,4 +1,5 @@
 export interface InterestListType {
   key : number,
-  contents : string;
+  contents : string,
+  category_id : number,
 }
