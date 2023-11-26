@@ -125,7 +125,7 @@ export default function Sequence5(props) {
             onChange={(e) => setInputCompanyList(e.target.value)}
           />
         </div>
-        <button onClick={handleNext}>Next</button>
+
       </div>
       {/*       <Heading desc={""}>어떤 멤버를 모집할까요?</Heading>
       <div className="flex flex-col gap-2">

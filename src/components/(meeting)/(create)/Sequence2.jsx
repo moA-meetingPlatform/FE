@@ -97,10 +97,10 @@ export default function Sequence2(props) {
             onChange={(e) => setInputThemeCategoryId(e.target.value)}
           />
         </div>
-        <button onClick={handleNext}>Next</button>
+
       </div>
 
-{/*       <div className="flex flex-col gap-2">
+      {/*       <div className="flex flex-col gap-2">
         <p className="text-small text-default-500">Selected value: {selectedValue}</p>
         <input
           type="text"
@@ -130,18 +130,18 @@ export default function Sequence2(props) {
         </AccordionItem>
       </Accordion>
       <>
-      <Box sx={{ pb: 7 }} ref={ref}>
-      <CssBaseline />
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-        <BottomNavigation showLabels>
-          <BottomNavigationAction key="previous" label="이전" icon={<RestoreIcon />} onClick={() => {handleSave(); handlePrevious();}} />
-          <BottomNavigationAction key="empty1" label="" />
-          <BottomNavigationAction key="empty2" label="" />
-          <BottomNavigationAction key="empty3" label="" />
-          <BottomNavigationAction key="next" label="다음" icon={<ArchiveIcon />} onClick={() => {handleSave(); handleNext();}} />
-        </BottomNavigation>
-      </Paper>
-    </Box>
+        <Box sx={{ pb: 7 }} ref={ref}>
+          <CssBaseline />
+          <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+            <BottomNavigation showLabels>
+              <BottomNavigationAction key="previous" label="이전" icon={<RestoreIcon />} onClick={() => { handleSave(); handlePrevious(); }} />
+              <BottomNavigationAction key="empty1" label="" />
+              <BottomNavigationAction key="empty2" label="" />
+              <BottomNavigationAction key="empty3" label="" />
+              <BottomNavigationAction key="next" label="다음" icon={<ArchiveIcon />} onClick={() => { handleSave(); handleNext(); }} />
+            </BottomNavigation>
+          </Paper>
+        </Box>
       </>
     </>
   );

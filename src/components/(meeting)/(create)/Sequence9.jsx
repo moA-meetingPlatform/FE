@@ -111,7 +111,7 @@ export default function Sequence9(props) {
             onChange={(e) => setInputRefundPolicy(e.target.value)}
           />
         </div>
-        <button onClick={handleNext}>Next</button>
+
       </div>
 
       {/*       <Heading desc={""}>참가비가 있나요?</Heading>

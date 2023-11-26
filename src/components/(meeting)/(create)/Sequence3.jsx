@@ -67,7 +67,7 @@ export default function Sequence3(props) {
             onChange={(e) => setInputTitle(e.target.value)}
           />
         </div>
-        <button onClick={handleNext}>Next</button>
+
       </div>
       {/*       <Heading desc={""}>모임 제목을 입력해주세요</Heading>
       <div className="flex flex-col gap-2">

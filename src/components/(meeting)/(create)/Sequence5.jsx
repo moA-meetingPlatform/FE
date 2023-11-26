@@ -72,7 +72,7 @@ export default function Sequence5(props) {
             onChange={(e) => setInputMeetingDatetime(e.target.value)}
           />
         </div>
-        <button onClick={handleNext}>Next</button>
+
       </div>
 
       {/*       <div className="flex flex-col gap-2">

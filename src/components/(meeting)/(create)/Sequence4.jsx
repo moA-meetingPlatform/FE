@@ -131,7 +131,7 @@ export default function Sequence4(props) {
           {/* 이미지 출력 */}
           <img src={src} />
         </div>
-        <button onClick={handleNext}>Next</button>
+
       </div>
 
 
