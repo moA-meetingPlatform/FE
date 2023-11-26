@@ -1,12 +1,18 @@
 'use client'
 
-import React, { useState, useEffect, use } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { usePathname, useSearchParams, useRouter, useParams } from 'next/navigation'
 import Heading from '@/components/Heading/Heading';
 import NcModal from '@/components/NcModal/NcModal';
 import { useSession } from 'next-auth/react';
 
-
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import RestoreIcon from '@mui/icons-material/Restore';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import Paper from '@mui/material/Paper';
 
 
 export default function SequenceLast(props) {
@@ -24,6 +30,23 @@ export default function SequenceLast(props) {
   const handleSubmit = () => {
     // Handle your submit logic here
     console.log('Button Clicked!');
+  };
+
+  const { url, setUrl, updateQueryParams, active, setActive } = props;
+
+  const ref = useRef()
+  const maxTabs = 10;
+
+  const handlePrevious = () => {
+    if (active > 1) {
+      setActive(active - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (active < maxTabs) {
+      setActive(active + 1);
+    }
   };
 
 
@@ -149,6 +172,19 @@ export default function SequenceLast(props) {
         />
 
       </div>
+
+      <Box sx={{ pb: 7 }} ref={ref}>
+        <CssBaseline />
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+          <BottomNavigation showLabels>
+            <BottomNavigationAction key="previous" label="이전" icon={<RestoreIcon />} onClick={() => { handleSave(); handlePrevious(); }} />
+            <BottomNavigationAction key="empty1" label="" />
+            <BottomNavigationAction key="empty2" label="" />
+            <BottomNavigationAction key="empty3" label="" />
+            <BottomNavigationAction key="empty4" label="" />
+          </BottomNavigation>
+        </Paper>
+      </Box>
     </>
   );
 }
