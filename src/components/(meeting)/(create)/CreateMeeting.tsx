@@ -44,68 +44,68 @@ export default function CreateMeeting() {
     return urlObj.pathname + urlObj.search;
   }
 
-  
+
 
   let tabs = [
     {
       id: 1,
       label: "모임 선택",
       progress: 10,
-      content: <Sequence1 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
+      content: <Sequence1 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} active={active} setActive={setActive} />
     },
     {
       id: 2,
       label: "카테고리 선택",
       progress: 20,
-      content: <Sequence2 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
+      content: <Sequence2 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} active={active} setActive={setActive} />
     },
     {
       id: 3,
       label: "모임 제목",
       progress: 30,
-      content: <Sequence3 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
+      content: <Sequence3 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} active={active} setActive={setActive} />
     },
     {
       id: 4,
       label: "모임 소개",
       progress: 40,
-      content: <Sequence4 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
+      content: <Sequence4 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} active={active} setActive={setActive} />
     },
     {
       id: 5,
       label: "날짜",
       progress: 50,
-      content: <Sequence5 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
+      content: <Sequence5 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} active={active} setActive={setActive} />
     },
     {
       id: 6,
       label: "장소",
       progress: 60,
-      content: <Sequence6 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
+      content: <Sequence6 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} active={active} setActive={setActive} />
     },
     {
       id: 7,
       label: "모집 방법",
       progress: 70,
-      content: <Sequence7 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
+      content: <Sequence7 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} active={active} setActive={setActive} />
     },
     {
       id: 8,
       label: "멤버 조건",
       progress: 80,
-      content: <Sequence8 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
+      content: <Sequence8 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} active={active} setActive={setActive} />
     },
     {
       id: 9,
       label: "참가비",
       progress: 90,
-      content: <Sequence9 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
+      content: <Sequence9 url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} active={active} setActive={setActive} />
     },
     {
       id: 10,
       label: "요약 및 패칭",
       progress: 100,
-      content: <SequenceLast url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} />
+      content: <SequenceLast url={url} setUrl={setUrl} updateQueryParams={updateQueryParams} active={active} setActive={setActive} />
     },
   ];
 
@@ -172,7 +172,7 @@ export default function CreateMeeting() {
           </CardBody>
         </Card>
       </div>
-      <CreateMeetingBottomNav active={active} setActive={setActive} />
+      {/* <CreateMeetingBottomNav active={active} setActive={setActive} /> */}
 
       <NcModal
         isOpenProp={isModalOpen}

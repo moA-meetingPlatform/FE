@@ -72,7 +72,7 @@ const PageHome = ({ }) => {
           {/* <BackgroundSection /> */}
           <SectionSliderNewAuthors
             heading="인기 호스트"
-            subHeading="Say hello to future creator potentials"
+            subHeading=""
             authors={DEMO_AUTHORS.filter((_, i) => i < 10)}
           />
         </div>
