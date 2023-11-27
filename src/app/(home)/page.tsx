@@ -33,13 +33,251 @@ import CreateBtn from "@/components/Button/CreateBtn";
 import Link from "next/link";
 import ButtonPrimary from "@/components/Button/ButtonPrimary";
 
+interface Meeting {
+  id: number;
+  title: string;
+  hostUserUuid?: string;
+  hostNickname: string; // 호스트 닉네임 필드 추가
+  meetingDatetime: string; // 미팅 날짜 필드 추가
+  href: any;
+  meetingHeaderImageUrl: string; // 피처드 이미지 필드 추가 (URL 형식)
+  categories?: any; // 카테고리 필드 추가
+}
+
+interface MeetingListResponse {
+  result: Meeting[];
+  isSuccess: boolean;
+  message: string;
+}
+
 
 //
 const MAGAZINE1_POSTS = DEMO_POSTS.filter((_, i) => i >= 8 && i < 16);
 const MAGAZINE2_POSTS = DEMO_POSTS.filter((_, i) => i >= 0 && i < 7);
 //
 
-const PageHome = ({ }) => {
+async function getMeetingData() {
+  const res = await fetch('https://moamoa-backend.duckdns.org/api/v1/meeting/list', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      ids: [
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        694
+      ]
+    })
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+
+
+
+  return res.json()
+}
+
+
+export default async function PageHome() {
+  const data = await getMeetingData() as MeetingListResponse
+
+
+  const mappedMeetings = data.result.map(meeting => ({
+    id: meeting.id,
+    title: meeting.title,
+    author: meeting.hostNickname,
+    date: new Date(meeting.meetingDatetime).toLocaleDateString("ko-KR"),
+    href: `/meeting/detail/${meeting.id}`,
+    featuredImage: "https://moa-meetingplatform-images.s3.ap-northeast-2.amazonaws.com/moa.png",
+  }));
+
+  console.log(mappedMeetings)
+
   return (
     <div className="nc-PageHome relative">
       <SiteHeader />
@@ -47,9 +285,9 @@ const PageHome = ({ }) => {
       <div className="container relative">
         <SectionLargeSlider
 
-          heading="호스트 추천"
+          heading="추천 모임"
           className="pt-10 pb-16 md:py-16 lg:pb-28 lg:pt-20"
-          posts={DEMO_POSTS?.filter((_, i) => i < 3)}
+          posts={mappedMeetings?.filter((_, i) => i < 3)}
         />
 
         <div className="relative py-16">
@@ -96,7 +334,7 @@ const PageHome = ({ }) => {
         </div> */}
         <div className="relative py-16">
           <BackgroundSection />
-          <SectionMagazine className="py-16 lg:py-28" posts={MAGAZINE1_POSTS} />
+          <SectionMagazine className="py-16 lg:py-28" posts={mappedMeetings} />
         </div>
         {/* <SectionAds /> */}
 
@@ -172,4 +410,4 @@ const PageHome = ({ }) => {
   );
 };
 
-export default PageHome;
+
