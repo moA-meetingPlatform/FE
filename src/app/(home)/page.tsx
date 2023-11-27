@@ -32,17 +32,37 @@ import SectionMagazine from "@/components/Sections/SectionMagazine";
 import CreateBtn from "@/components/Button/CreateBtn";
 import Link from "next/link";
 import ButtonPrimary from "@/components/Button/ButtonPrimary";
+import { getServerSession } from "next-auth";
+import { options } from "../api/auth/[...nextauth]/options";
 
 
 //
 const MAGAZINE1_POSTS = DEMO_POSTS.filter((_, i) => i >= 8 && i < 16);
 const MAGAZINE2_POSTS = DEMO_POSTS.filter((_, i) => i >= 0 && i < 7);
 //
+async function getInterst() {
 
-const PageHome = ({ }) => {
+  const session = await getServerSession(options)
+  if (!session?.user) {
+    return;
+  }
+  
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/category/user?userUuid=${session?.user.userUuid}`, { cache: "no-cache" });
+  const data = await res.json();
+  console.log("inter", data);
+  return data.result;
+}
+
+const PageHome = async ({ }) => {
+
+  const interstData:number[] = await getInterst();
+  if(!interstData || interstData.length === 0)
+  console.log("interstData", interstData)
+
+
   return (
     <div className="nc-PageHome relative">
-      <SiteHeader />
+      <SiteHeader interData = {interstData}/>
 
       <div className="container relative">
         <SectionLargeSlider

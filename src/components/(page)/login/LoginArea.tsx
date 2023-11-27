@@ -13,14 +13,8 @@ import Swal from 'sweetalert2';
 
 
 export default function Loginarea() {
-  const router = useRouter();
   const query = useSearchParams();
   const callBackUrl = query?.get('callbackUrl');
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [modalContent, setModalContent] = useState<string>("");
-
-
-  const isClient = typeof window !== 'undefined';
 
   const [loginData, setLoginData] = useState<LogInFormDataType>({
     loginId: '',
@@ -32,52 +26,16 @@ export default function Loginarea() {
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name === 'isAutoId') {
-      if (e.target.checked) {
-        handleLocalStorage(loginData.loginId);
-      } else {
-        // 체크박스가 해제되면 로컬 스토리지의 값도 삭제
-        localStorage.removeItem('autoLogin');
-      }
-    }
-    if (name === 'isAutoId' || name === 'isAutoLogin') {
 
-      setLoginData({
-        ...loginData,
-        [name]: e.target.checked
-      })
-    } else {
-
-      setLoginData({
-        ...loginData,
-        [name]: value
-      })
-    }
-  }
-
-  const handleLocalStorage = (loginId: String) => {
-    localStorage.setItem('autoLogin', loginId.toString())
+    setLoginData({
+      ...loginData,
+      [name]: value
+    })
   }
 
   const handlePwType = () => {
     setPwType(!pwType)
   }
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const autoLogin = isClient && localStorage.getItem('autoLogin') || '';
-
-      if (autoLogin) {
-        setLoginData({
-          ...loginData,
-          loginId: autoLogin,
-          isAutoId: true
-        })
-      }
-    }
-  },
-    // []
-  )
 
   const handleLogin = async () => {
 
@@ -85,7 +43,7 @@ export default function Loginarea() {
     const result = await signIn('credentials', {
       loginId: loginData.loginId,
       password: loginData.password,
-      redirect: false,
+      redirect: true,
       callbackUrl: callBackUrl ? callBackUrl : '/'
     })
 
@@ -150,7 +108,7 @@ export default function Loginarea() {
 
         <li className='mt-4'>
           <span>아직 회원이 아니신가요?</span>
-          <a href="/join" className='text-blue-400 font-semibold underline'>회원가입</a>
+          <a href="/signup?step=1" className='text-blue-400 font-semibold underline'>회원가입</a>
         </li>
       </ul>
 
