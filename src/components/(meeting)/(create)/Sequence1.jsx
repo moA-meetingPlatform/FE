@@ -78,7 +78,7 @@ export default function Sequence1(props) {
             onSelectionChange={setSelectedKeys}
           >
             <ListboxItem key="meeting">단기 모임</ListboxItem>
-            <ListboxItem key="ready">준비중</ListboxItem>
+            <ListboxItem key="ready" color='danger'>준비중</ListboxItem>
           </Listbox>
         </ListboxWrapper>
       </div>

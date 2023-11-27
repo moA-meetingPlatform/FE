@@ -9,7 +9,7 @@ function MannerTemparature({ temparature = "36.5" }: MannerTemparatureProps) {
     <>
     <main>
       <button className='profile_temperature ml-3'>
-        <div className='bg-[#eef2ff] w-16 h-6 leading-6 rounded-full text-xl text-center text-[#4338ca]'>
+        <div className='bg-[#eef2ff] w-16 py-1 rounded-full text-xl text-center text-[#4338ca]'>
         {temparature}
         </div>
       </button>

@@ -36,8 +36,6 @@ import { integer } from "aws-sdk/clients/cloudfront";
 import BackbuttonHeader from "@/components/(navigation)/(top)/BackbuttonHeader";
 import ModeIcon from '@mui/icons-material/Mode';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { interestGetData } from "@/data/interest/interestGetData";
-import { InterestListType } from "@/types/InterestListType";
 
 
 // interface ProfileProps{
@@ -48,17 +46,17 @@ interface ProfileContentsProps {
 }
 
 interface ProfileData {
-  userUuid?: string,
-  nickname?: string,
-  userIntroduce?: string,
-  profileImageUrl?: string,
-  reviewerCount?: number,
-  userMannersTemparature?: number,
-  sameWithLoggedInUser?: boolean
+  userUuid: string,
+  nickname: string,
+  userIntroduce: string,
+  profileImageUrl: string,
+  reviewerCount: number,
+  userMannersTemparature: number,
+  sameWithLoggedInUser : boolean
 }
 
 interface ProfileResponse {
-  result: ProfileData;
+  result: ProfileData[];
   isSuccess: boolean;
   message: string;
 }
@@ -88,14 +86,13 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
 
   const { data: session } = useSession<any>();
   // console.log(session)
-  const [userData, setUserData] = useState<any>({}); // 사용자 데이터를 저장할 상태
+  const [userData, setUserData] = useState<any>(null); // 사용자 데이터를 저장할 상태
   const [tabActive, setTabActive] = useState<string>(TABS[0]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>();
 
-  const [interests, setInterests] = useState<string[]>([]);
   
-  const userUuid = session?.user?.userUuid.toString();
+  const userUuid = session?.user?.userUuid;
   const token = session?.user?.token;
   // console.log(userUuid)
 
@@ -109,15 +106,12 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
           return;
         }
 
-        const res = await fetch(`https://moa-backend.duckdns.org/api/v1/user/profile/${userUuid}`, {
-        headers:  {
-        Authorization: `Bearer ${token}`,},
-      });
-      
+        const res = await fetch(`https://moamoa-backend.duckdns.org/api/v1//user/profile/{${userUuid}}`, {cache: 'no-cache'})
+        
         // const data = await res.json();
         if (res.ok) {
           const result: ProfileResponse= await res.json();
-          const userData: ProfileData= result.result;
+          const userData: ProfileData= result.result[0];
           setUserData(userData);
         } else {
           // 응답이 실패하면 에러 상태 업데이트
@@ -136,53 +130,6 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
     // fetchData 함수 호출
     getData();
   }, [token, userUuid]);
-
-
-  // useEffect(() => {
-  //   const getInterests = async () => {
-  //     try {
-  //       // 관심사 데이터 받아오기
-  //       const InterestRes = await fetch(`https://moamoa-backend.duckdns.org/api/v1/user/category/user?userUuid=${userUuid}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  
-  //       if (InterestRes.ok) {
-  //         const data = await InterestRes.json();
-  //         const userInterests: number[] = data.result;
-  
-  //         // 로컬의 interestListData와 비교하여 content로 치환
-  //         const mappedInterests: InterestListType[] = userInterests.map((categoryId: number) => {
-  //           const matchingInterest = interestGetData.find((interest) => interest.id === categoryId);
-  
-  //           // 만약 matchingInterest가 없을 경우, 예외처리
-  //           if (!matchingInterest) {
-  //             throw new Error(`Matching interest not found for category ID: ${categoryId}`);
-  //           }
-  
-  //           return matchingInterest.contents || '';
-  //         });
-  
-  //         setInterests(mappedInterests);
-  //       } else {
-  //         throw new Error('Failed to fetch interests data');
-  //       }
-  //     } catch (error) {
-  //       console.error('An error occurred:', error);
-  //       // 네트워크 오류 등의 경우 에러 상태 업데이트
-  //       setError('Failed to fetch data');
-  //     } finally {
-  //       // 데이터 로딩이 완료되면 로딩 상태 업데이트
-  //       setIsLoading(false);
-  //     }
-  //   };
-  
-  //   // fetchData 함수 호출
-  //   getInterests();
-  // }, [token, userUuid]);
-
-
 
   const handleClickTab = (item: string) => {
     if (item === tabActive) {
@@ -217,7 +164,6 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
                   // src={userData?.profileImageUrl}
                   src={userData?.profileImageUrl || "/images/basicProfile.jpg"}
                   fill
-                  sizes="(max-width: 1280px) 100vw, 1536px"
                   className="object-cover"
                   priority
                 />
@@ -233,7 +179,7 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
                     className="ml-2"
                     iconClass="w-6 h-6 sm:w-7 sm:h-7 xl:w-8 xl:h-8"
                   /> */}
-                  <MannerTemparature temparature={userData?.userMannersTemparature}/>
+                  <MannerTemparature temparature={userData?.userMannersTemparature.toString()}/>
                 </h2>
                 <div className="h-14">
                 <span className="block text-sm text-neutral-500 dark:text-neutral-400">
@@ -259,7 +205,7 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
                 </a> */}
                 {/* <SocialsList itemClass="block w-7 h-7" /> */}
                 <div className='profile_bottom_box mt-7'>
-                <ul className='intrest_badge'>
+                  <ul className='intrest_badge'>
                     {InterestData.map((e:InterestTpye)=>(
                       <li key={e.id} className='inline-block mr-2 bg-slate-200 rounded-full h-6 px-3 leading-6 font-semibold text-[13px] text-black'>{e.content}</li>
                     ))
@@ -362,16 +308,3 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
 };
 
 export default PageAuthor
-
-// import ProfileContents from '@/components/(page)/profile/ProfileContents'
-// import React from 'react'
-
-// function page({params}: {params: {uuid: string}}) {
-//   return (
-//     <div>
-//       <ProfileContents uuid={params.uuid} />
-//     </div>
-//   )
-// }
-
-// export default page
