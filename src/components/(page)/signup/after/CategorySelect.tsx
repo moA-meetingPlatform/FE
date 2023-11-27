@@ -1,20 +1,52 @@
 'use client'
 
-import React, { use, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { ActiListData, ArtListData, FoodListData, FriendListData, HobbyListData, InvestListData, LanguageListData, PartyListData, TripListData } from '@/data/interest/interestListData'
 import { InterestListType } from '@/types/InterestListType'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 function CategorySelect() {
 
   const [selectinterest, setselectinterest] = useState<any>([]);
   // console.log(selectinterest)
   const { data: session } = useSession();
-  const pathname = usePathname()
+  console.log(session)
+  const pathname = usePathname();
+  const router = useRouter()
 
+
+  //   const postData = async () => {
+  //     try {
+  //       const response = await fetch('https://moamoa-backend.duckdns.org/api/v1/category/user', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //           user_category_id: selectinterest,
+  //           userUuid: session?.user?.userUuid,
+  //         }),
+  //       })
+
+  //       if (response.ok) {
+  //         console.log('Data sent successfully!');
+  //         router.push('/')
+  //       } else {
+  //         console.error('Failed to send data.');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error:', error);
+  //     }
+  //   };
+
+
+  //   useEffect(() => {
+  //   postData();
+  // }, [selectinterest, session]);
 
     const postData = async () => {
       try {
@@ -24,14 +56,15 @@ function CategorySelect() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            userUuid: session?.user?.userUuid.toString(),
             user_category_id: selectinterest,
-            userUuid: session?.user?.userUuid,
           }),
         })
 
         if (response.ok) {
           // 성공적으로 처리된 경우의 로직을 작성합니다.
-          console.log('Data sent successfully!');
+          console.log('200');
+          router.push('/')
         } else {
           // 오류 처리 로직을 작성합니다.
           console.error('Failed to send data.');
@@ -75,9 +108,9 @@ function CategorySelect() {
           {
             FoodListData.map((e: InterestListType) => (
               <>
-                <label className='my-1'>
+                <label className='my-1' key={e.key}>
                   <input type='checkbox'
-                    key={e.key}
+                    
                     className='hidden peer'
                     value={e.category_id}
                     onChange={handleCheckboxChange}
@@ -108,9 +141,9 @@ function CategorySelect() {
           {
             ArtListData.map((e: InterestListType) => (
               <>
-                <label className='my-1'>
+                <label className='my-1' key={e.key}>
                   <input type='checkbox'
-                    key={e.key}
+                    
                     className='hidden peer'
                     value={e.category_id}
                     onChange={handleCheckboxChange}
@@ -133,9 +166,9 @@ function CategorySelect() {
           {
             ActiListData.map((e: InterestListType) => (
               <>
-                <label className='my-1'>
+                <label className='my-1' key={e.key}>
                   <input type='checkbox'
-                    key={e.key}
+                    
                     className='hidden peer'
                     value={e.category_id}
                     onChange={handleCheckboxChange}
@@ -158,9 +191,9 @@ function CategorySelect() {
           {
             HobbyListData.map((e: InterestListType) => (
               <>
-                <label className='my-1'>
+                <label className='my-1' key={e.key}>
                   <input type='checkbox'
-                    key={e.key}
+                    
                     className='hidden peer'
                     value={e.category_id}
                     onChange={handleCheckboxChange}
@@ -183,9 +216,9 @@ function CategorySelect() {
           {
             PartyListData.map((e: InterestListType) => (
               <>
-                <label className='my-1'>
+                <label className='my-1' key={e.key}>
                   <input type='checkbox'
-                    key={e.key}
+                    
                     className='hidden peer'
                     value={e.category_id}
                     onChange={handleCheckboxChange}
@@ -208,9 +241,9 @@ function CategorySelect() {
           {
             TripListData.map((e: InterestListType) => (
               <>
-                <label className='my-1'>
+                <label className='my-1' key={e.key}>
                   <input type='checkbox'
-                    key={e.key}
+                    
                     className='hidden peer'
                     value={e.category_id}
                     onChange={handleCheckboxChange}
@@ -233,9 +266,9 @@ function CategorySelect() {
           {
             TripListData.map((e: InterestListType) => (
               <>
-                <label className='my-1'>
+                <label className='my-1' key={e.key}>
                   <input type='checkbox'
-                    key={e.key}
+                    
                     className='hidden peer'
                     value={e.category_id}
                     onChange={handleCheckboxChange}
@@ -258,9 +291,9 @@ function CategorySelect() {
           {
             FriendListData.map((e: InterestListType) => (
               <>
-                <label className='my-1'>
+                <label className='my-1' key={e.key}>
                   <input type='checkbox'
-                    key={e.key}
+                    
                     className='hidden peer'
                     value={e.category_id}
                     onChange={handleCheckboxChange}
@@ -283,9 +316,9 @@ function CategorySelect() {
           {
             InvestListData.map((e: InterestListType) => (
               <>
-                <label className='my-1'>
+                <label className='my-1' key={e.key}> 
                   <input type='checkbox'
-                    key={e.key}
+                    
                     className='hidden peer'
                     value={e.category_id}
                     onChange={handleCheckboxChange}
@@ -308,9 +341,9 @@ function CategorySelect() {
           {
             LanguageListData.map((e: InterestListType) => (
               <>
-                <label className='my-1'>
+                <label className='my-1' key={e.key}>
                   <input type='checkbox'
-                    key={e.key}
+                    
                     className='hidden peer'
                     value={e.category_id}
                     onChange={handleCheckboxChange}
@@ -328,7 +361,7 @@ function CategorySelect() {
             onClick={postData}
             disabled={!isButtonEnabled}
             >
-              다음
+              완료
             </button>
         </div>
           )}
