@@ -276,7 +276,7 @@ export default async function PageHome() {
     featuredImage: "https://moa-meetingplatform-images.s3.ap-northeast-2.amazonaws.com/moa.png",
   }));
 
-  console.log(mappedMeetings)
+  // console.log(mappedMeetings)
 
   return (
     <div className="nc-PageHome relative">

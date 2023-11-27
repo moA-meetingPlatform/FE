@@ -115,45 +115,39 @@ export default function CreateMeeting() {
 
 
     const getTempSave = async () => {
-      // if (!token) {
-      //   console.error("Token is not provided.");
-      //   return;
-      // }
+
       try {
-        const response = await fetch(``, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${token}`
-          }
+        const response = await fetch(`https://moamoa-backend.duckdns.org/api/v1/meeting-feature/temp-meeting?userUuid=${session.data?.user.userUuid}`, {
+
         });
 
-        if (!response.ok) {
-          throw new Error(`Fetch failed with status: ${response.status}`);
-        }
+        // if (!response.ok) {
+        //   throw new Error(`Fetch failed with status: ${response.status}`);
+        // }
 
         const data = await response.json();
 
 
-        if (data.isSuccess === true) {
+        if (data.result.tempUrl !== null) {
 
           console.log(data);
-          setTempUrl(data.tempurl);
+          setTempUrl(data.result.tempUrl);
           setIsModalOpen(true);
         }
         else {
-
+          console.log(data);
         }
 
         // 서버 응답이 성공적으로 완료되면 모달 열기
 
 
       } catch (error) {
-        console.error('Error fetching barcode:', error);
+        console.error('Error fetching:', error);
       }
     };
 
-    // getTempSave();
+    getTempSave();
+
 
 
     setUrl(window.location.href);

@@ -177,7 +177,7 @@ export default function SequenceLast(props) {
         <CssBaseline />
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
           <BottomNavigation showLabels>
-            <BottomNavigationAction key="previous" label="이전" icon={<RestoreIcon />} onClick={() => { handleSave(); handlePrevious(); }} />
+            <BottomNavigationAction key="previous" label="이전" icon={<RestoreIcon />} onClick={() => { handlePrevious(); }} />
             <BottomNavigationAction key="empty1" label="" />
             <BottomNavigationAction key="empty2" label="" />
             <BottomNavigationAction key="empty3" label="" />

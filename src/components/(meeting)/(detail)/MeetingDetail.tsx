@@ -7,6 +7,10 @@ import SingleContent from "@/app/(singles)/SingleContent";
 import { Sidebar } from "@/app/(singles)/Sidebar";
 import SingleRelatedPosts from "@/app/(singles)/SingleRelatedPosts";
 import MeetingDetailHeader from "@/components/(navigation)/(top)/MeetingDetailHeader";
+import ButtonPrimary from "@/components/Button/ButtonPrimary";
+
+import { getServerSession } from 'next-auth'
+import { options } from "@/app/api/auth/[...nextauth]/options";
 
 interface MeetingDetailProps {
   id: any;
@@ -24,87 +28,38 @@ async function getData(id: any) {
 
   return res.json()
 }
+
+async function participateMeeting(id: any) {
+
+  const session = await getServerSession(options)
+
+  const res = await fetch(`https://moa-backend.duckdns.org/api/v1/meeting-feature/participant`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        meetingId: id,
+        userUuid: session?.user.userUuid,
+        meetingParticipationAnswer: "YES"
+      })
+    })
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+
+  return res.json()
+}
 const MeetingDetail: React.FC<MeetingDetailProps> = async ({ id }) => {
+
+
 
   const data = await getData(id)
 
-  console.log(data.result.title)
-
-  // const [meetingData, setmeetingData] = useState({
-  //   title: '',
-  //   hostUuid: '',
-  //   hostNickname: '',
-  //   placeAddress: '',
-  //   description: '',
-  //   entryFee: '',
-  //   meetingDatetime: '',
-  //   firstComeFirstServed: '',
-  //   onlineStatus: '',
-  //   maxParticipants: '',
-  //   currentParticipants: '',
-  //   entryFeeInformations: '',
-  //   entryFeeInfomationEtcString: '',
-  //   entryFeeInfoEtcString: '',
-  //   participationQuestion: '',
-  //   headerImageUrl: '',
-  //   meetingStatus: '',
-  //   joinGender: '',
-  // });
-
-  // useEffect(() => {
-
-
-  //   const getMeetingDetail = async () => {
-  //     try {
-  //       const response = await fetch(`https://moa-backend.duckdns.org/api/v1/meeting/?${id}`, {
-  //         method: 'GET',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         }
-  //       });
-
-  //       if (!response.ok) {
-  //         throw new Error(`Fetch failed with status: ${response.status}`);
-  //       }
-
-  //       const data = await response.json();
-  //       if (data.success === true) {
-  //         setmeetingData(prevData => ({
-  //           ...prevData,
-  //           title: data.data.title,
-  //           meetingAddress: data.data.meetingAddress,
-  //           description: data.data.description,
-  //           entryFee: data.data.entryFee,
-  //           meetingDatetime: data.data.meetingDatetime,
-  //           refundPolicy: data.data.refundPolicy,
-  //           isFcfs: data.data.isFcfs,
-  //           isOnline: data.data.isOnline,
-  //           maxParticipantNum: data.data.maxParticipantNum,
-  //           maxAge: data.data.maxAge,
-  //           minAge: data.data.minAge,
-  //           companyList: data.data.companyList,
-  //           entryFeeInfoIdList: data.data.entryFeeInfoIdList,
-  //           entryFeeInfoEtcString: data.data.entryFeeInfoEtcString,
-  //           themeCategoryId: data.data.themeCategoryId,
-  //           question: data.data.question,
-  //           headerImageUrl: data.data.headerImageUrl,
-  //           joinGender: data.data.joinGender,
-  //         }));
-  //       }
-  //       else {
-
-  //       }
-
-  //     } catch (error) {
-  //       console.error('Error fetching barcode:', error);
-  //     }
-  //   };
-
-  //   getMeetingDetail();
-
-
-
-  // }, [])
+  console.log()
 
 
   return (
@@ -132,6 +87,7 @@ const MeetingDetail: React.FC<MeetingDetailProps> = async ({ id }) => {
             /> */}
           </div>
         </header>
+
         <div className="container flex flex-col my-10 lg:flex-row ">
           <div className="w-full lg:w-3/5 xl:w-2/3 xl:pe-20">
             {/* <SingleContent /> */}
@@ -140,10 +96,17 @@ const MeetingDetail: React.FC<MeetingDetailProps> = async ({ id }) => {
           <div className="w-full mt-12 lg:mt-0 lg:w-2/5 lg:ps-10 xl:ps-0 xl:w-1/3">
             <Sidebar />
           </div>
+          <ButtonPrimary className="dark:bg-primary-700 w-full">
+            <a href='/meeting/participate'>
+              모임 참가
+            </a>
+          </ButtonPrimary>
         </div>
 
         {/* RELATED POSTS */}
         {/* <SingleRelatedPosts /> */}
+
+
       </div>
     </>
   );
