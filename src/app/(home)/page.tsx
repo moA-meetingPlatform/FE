@@ -84,33 +84,34 @@ async function getRecommendMeetingData() {
 
 export default async function PageHome() {
 
-  const session = await getServerSession(options)
+  const session = await getServerSession(options);
+  let postsToDisplay;
 
-  console.log(session?.user.userUuid)
-
-  const meetingdata = await getMeetingData() as MeetingListResponse
-  const recommendmeetingdata = await getRecommendMeetingData() as MeetingListResponse
-
-  
-
-
-  const mappedMeetings = meetingdata.result.map(meeting => ({
-    id: meeting.id,
-    title: meeting.title,
-    author: meeting.hostNickname,
-    date: new Date(meeting.meetingDatetime).toLocaleDateString("ko-KR"),
-    href: `/meeting/detail/${meeting.id}`,
-    featuredImage: "https://moa-meetingplatform-images.s3.ap-northeast-2.amazonaws.com/moa.png",
-  }));
-
-  const mappedRecommendMeetings = recommendmeetingdata.result.map(meeting => ({
-    id: meeting.id,
-    title: meeting.title,
-    author: meeting.hostNickname,
-    date: new Date(meeting.meetingDatetime).toLocaleDateString("ko-KR"),
-    href: `/meeting/detail/${meeting.id}`,
-    featuredImage: "https://moa-meetingplatform-images.s3.ap-northeast-2.amazonaws.com/moa.png",
-  }));
+  if (session?.user.userUuid) {
+    // 로그인 상태일 때
+    const recommendmeetingdata = await getRecommendMeetingData() as MeetingListResponse;
+    const mappedRecommendMeetings = recommendmeetingdata.result.map(meeting => ({
+      id: meeting.id,
+      title: meeting.title,
+      author: meeting.hostNickname,
+      date: new Date(meeting.meetingDatetime).toLocaleDateString("ko-KR"),
+      href: `/meeting/detail/${meeting.id}`,
+      featuredImage: "https://moa-meetingplatform-images.s3.ap-northeast-2.amazonaws.com/moa.png",
+    }));
+    postsToDisplay = mappedRecommendMeetings.filter((_, i) => i < 3);
+  } else {
+    // 로그인하지 않은 상태일 때
+    const meetingdata = await getMeetingData() as MeetingListResponse;
+    const mappedMeetings = meetingdata.result.map(meeting => ({
+      id: meeting.id,
+      title: meeting.title,
+      author: meeting.hostNickname,
+      date: new Date(meeting.meetingDatetime).toLocaleDateString("ko-KR"),
+      href: `/meeting/detail/${meeting.id}`,
+      featuredImage: "https://moa-meetingplatform-images.s3.ap-northeast-2.amazonaws.com/moa.png",
+    }));
+    postsToDisplay = mappedMeetings.filter((_, i) => i < 3);
+  }
 
 
   return (
@@ -120,7 +121,7 @@ export default async function PageHome() {
         <SectionLargeSlider
           heading="추천 모임"
           className="pt-10 pb-16 md:py-16 lg:pb-28 lg:pt-20"
-          posts={mappedRecommendMeetings?.filter((_, i) => i < 3)}
+          posts={postsToDisplay?.filter((_, i) => i < 3)}
         />
         <div className="relative py-16">
           <BackgroundSection />
@@ -148,7 +149,7 @@ export default async function PageHome() {
         </div>
         <div className="relative py-16">
           <BackgroundSection />
-          <SectionMagazine className="py-16 lg:py-28" posts={mappedMeetings} />
+          <SectionMagazine className="py-16 lg:py-28" posts={postsToDisplay} />
         </div>
       </div>
       <BottomNav />
