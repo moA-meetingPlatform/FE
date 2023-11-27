@@ -101,7 +101,7 @@ export default function Sequence9(props) {
         </div>
       </div>
 
-      <div className='flex flex-col justify-center items-center relative'>
+      {/* <div className='flex flex-col justify-center items-center relative'>
         <div className='flex flex-col justify-start md:w-[80%] w-full transition-all'>
           <label className='text-[0.75rem] text-gray-500 bg-white -mb-3 ml-5 z-50 w-fit px-2'>환불정책</label>
           <input
@@ -111,8 +111,7 @@ export default function Sequence9(props) {
             onChange={(e) => setInputRefundPolicy(e.target.value)}
           />
         </div>
-
-      </div>
+      </div> */}
 
       {/*       <Heading desc={""}>참가비가 있나요?</Heading>
       <div className="flex flex-col gap-2">

@@ -74,7 +74,7 @@ export default function Sequence4(props) {
         <div className='flex flex-col justify-start md:w-[80%] w-full transition-all'>
 
 
-          <label className='text-[0.75rem] text-gray-500 bg-white -mb-3 ml-5 z-50 w-fit px-2'>모임명</label>
+          <label className='text-[0.75rem] text-gray-500 bg-white -mb-3 ml-5 z-50 w-fit px-2'>모임 설명</label>
           <input
             className='border-2 border-[#E5E7EB] text-[0.8rem] rounded-full px-5 h-[50px] placeholder:text-[#9CA3AF80] placeholder:text-[0.8rem]'
             type="text"
@@ -82,11 +82,12 @@ export default function Sequence4(props) {
             onChange={(e) => setInputDescription(e.target.value)}
           />
 
+          
           <input
             className='border-2 border-[#E5E7EB] text-[0.8rem] rounded-full px-5 h-[50px] placeholder:text-[#9CA3AF80] placeholder:text-[0.8rem] mt-5'
             type="text"
             value={inputHeaderImageUrl}
-            onChange={(e) => setInputHeaderImageUrl(e.target.value)}
+            onChange={(e) => setInputHeaderImageUrl(src)}
           />
         </div>
 
@@ -122,14 +123,14 @@ export default function Sequence4(props) {
               console.log(result)
 
               if (result.ok) {
-                setSrc(result.url + '/' + filename)
+                setInputHeaderImageUrl(result.url + '/' + filename)
               } else {
                 console.log('실패')
               }
             }}
           />
           {/* 이미지 출력 */}
-          <img src={src} />
+          <img src={inputHeaderImageUrl} />
         </div>
 
       </div>

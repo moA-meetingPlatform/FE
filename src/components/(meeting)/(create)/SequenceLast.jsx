@@ -91,16 +91,16 @@ export default function SequenceLast(props) {
 
 
     try {
-      const res = await fetch(`https://moa-backend.duckdns.org/api/v1/meeting`, {
+      const res = await fetch(`https://moamoa-backend.duckdns.org/api/v1/meeting`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.data.user.token}`
+          
         },
         body: JSON.stringify(
           {
             title: toString(createData.title),
-
+            hostUserUuid: toString(session.data.user.userUuid),
             hostNickname: toString(session.data.user.nickname),
             placeAddress: toString(createData.meetingAddress),
             description: toString(createData.description),
@@ -111,8 +111,10 @@ export default function SequenceLast(props) {
             maxParticipants: toInt(createData.maxParticipantNum),
             maxAge: toInt(createData.maxAge),
             minAge: toInt(createData.minAge),
-            participateCompanies: toJsonArray(createData.companyList),
-            entryFeeInformations: toJsonArray(createData.entryFeeInfoIdList),
+            // participateCompanies: toJsonArray(createData.companyList),
+            participateCompanies: ["MAJOR_COMPANY", "MEDIUM_COMPANY"],
+            // entryFeeInformations: toJsonArray(createData.entryFeeInfoIdList),
+            entryFeeInformations: ["CONTENTS", "NO_SHOW"],
             entryFeeInfomationEtcString: toString(createData.entryFeeInfoEtcString),
             participationQuestion: toString(createData.question),
             headerImageUrl: toString(createData.headerImageUrl),
@@ -124,7 +126,7 @@ export default function SequenceLast(props) {
       const data = await res.json();
 
       if (data.isSuccess === true) {
-        // router.push('/');
+        router.push('/');
         console.log(data);
       }
       else {
