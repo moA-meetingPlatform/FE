@@ -4,7 +4,6 @@ import React, { Fragment, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { InterestListType, SubCategoryType } from '@/types/InterestListType'
 import { useSession } from 'next-auth/react'
-import { set } from 'lodash'
 import Swal from 'sweetalert2'
 
 interface CategorySelectProps {
@@ -12,7 +11,7 @@ interface CategorySelectProps {
   name: string;
 }
 
-function CategorySelect() {
+function CategorySelect({onClose}: {onClose: () => void}) {
 
   const [selectinterest, setselectinterest] = useState<CategorySelectProps[]>([] as CategorySelectProps[]);
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
@@ -68,6 +67,19 @@ function CategorySelect() {
       if (response.ok) {
         // 성공적으로 처리된 경우의 로직을 작성합니다.
         console.log('Data sent successfully!');
+        Swal.fire({
+          text: `관심사를 등록하였습니다.`,
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          customClass: {
+            container: "my-swal",
+          },
+        });
+        onClose();
+        
       } else {
         // 오류 처리 로직을 작성합니다.
         console.error('Failed to send data.');
@@ -119,7 +131,7 @@ function CategorySelect() {
 
   useEffect(() => {
     const getCategory = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/category`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/category`, { cache: "no-cache" });
       const data = await res.json();
       console.log(data.result)
       let categoryList = data.result;

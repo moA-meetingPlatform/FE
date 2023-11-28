@@ -21,7 +21,7 @@ export default function InterModal({ isOpen, setIsOpen, content, routePath, toke
                 <>
                 <ModalHeader className="flex flex-col gap-1">관심사를 선택해주세요.</ModalHeader>
                 <ModalBody className="h-[80%] overflow-auto ">
-                    <CategorySelect />
+                    <CategorySelect onClose={onClose}/>
                 </ModalBody>
                 <ModalFooter>
                 <Button color="danger" onPress={onClose} className="text-sm from-neutral-600">
