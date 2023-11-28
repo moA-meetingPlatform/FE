@@ -12,6 +12,8 @@ import ButtonPrimary from "@/components/Button/ButtonPrimary";
 import { getServerSession } from 'next-auth'
 import { options } from "@/app/api/auth/[...nextauth]/options";
 
+import NcModal from "@/components/NcModal/NcModal";
+
 interface MeetingDetailProps {
   id: any;
 }
@@ -96,10 +98,8 @@ const MeetingDetail: React.FC<MeetingDetailProps> = async ({ id }) => {
           <div className="w-full mt-12 lg:mt-0 lg:w-2/5 lg:ps-10 xl:ps-0 xl:w-1/3">
             <Sidebar />
           </div>
-          <ButtonPrimary className="dark:bg-primary-700 w-full">
-            <a href='/meeting/participate'>
+          <ButtonPrimary className="dark:bg-primary-700 w-full" id={id}>
               모임 참가
-            </a>
           </ButtonPrimary>
         </div>
 
