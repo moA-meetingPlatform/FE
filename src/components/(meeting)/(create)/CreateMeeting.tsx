@@ -18,7 +18,7 @@ import CreateMeetingBottomNav from "@/components/(navigation)/(bottom)/CreateMee
 import LinearProgress from '@mui/material/LinearProgress';
 import NcModal from "@/components/NcModal/NcModal";
 import { useSession } from "next-auth/react";
-
+import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 
 
 
@@ -168,7 +168,7 @@ export default function CreateMeeting() {
       </div>
       {/* <CreateMeetingBottomNav active={active} setActive={setActive} /> */}
 
-      <NcModal
+      {/* <NcModal
         isOpenProp={isModalOpen}
         onCloseModal={() => setIsModalOpen(false)}
         modalTitle="임시 저장 내용이 있습니다"
@@ -185,7 +185,33 @@ export default function CreateMeeting() {
             <button onClick={() => { setIsModalOpen(false) }}>아니오</button>
           </>
         )}
-      />
+      /> */}
+
+        <NcModal
+          isOpenProp={isModalOpen}
+          onCloseModal={() => setIsModalOpen(false)}
+          modalTitle="임시 저장한 내용이 있습니다."
+          renderContent={() => (
+            <div className='flex flex-col items-center'>
+
+              <DownloadForOfflineIcon className='text-[70px]' />
+              <div>내용을 불러오시겠습니까?</div>
+
+              <div className='flex justify-between mt-4 gap-10'>
+              <button className='bg-[#4338ca] text-white font-semibold py-2 px-8 rounded-full'
+              onClick={() => {
+              // 타입 강제 회피
+              // @ts-ignore
+              // router.push(`/meeting/create${data.params}`)
+              router.push(tempUrl)
+              setIsModalOpen(false)
+            }}>예</button>
+            <button className='bg-[#eef2ff] font-semibold py-2  rounded-full w-[80px] border border-[#4338ca]' 
+            onClick={() => { setIsModalOpen(false) }}>아니오</button>
+              </div>
+            </div>
+          )}
+        />
     </>
   );
 }

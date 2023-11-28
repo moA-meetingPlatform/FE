@@ -14,6 +14,8 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import Paper from '@mui/material/Paper';
 
+import GroupsIcon from '@mui/icons-material/Groups';
+
 
 export default function SequenceLast(props) {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([""]));
@@ -163,19 +165,11 @@ export default function SequenceLast(props) {
           fetch
         </button> */}
 
-        <NcModal
-          renderTrigger={(openModal) => <button onClick={openModal}>모임 생성 완료</button>}
-          modalTitle="Your Modal Title"
-          className='bg-[#4338ca] text-white font-semibold py-2 px-8 rounded-full'
-          renderContent={() => <>
-            <div>Your modal content here</div>
-            <button onClick={createMeeting}>Submit</button>
-          </>}
-        />
+
 
       </div>
 
-      <Box sx={{ pb: 7 }} ref={ref}>
+      {/* <Box sx={{ pb: 7 }} ref={ref}>
         <CssBaseline />
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
           <BottomNavigation showLabels>
@@ -186,7 +180,29 @@ export default function SequenceLast(props) {
             <BottomNavigationAction key="empty4" label="" />
           </BottomNavigation>
         </Paper>
-      </Box>
+      </Box> */}
+
+        <div className='w-full bg-white p-2 flex justify-between fixed bottom-0 gap-1 text-sm right-[1px]'>
+          <button className='w-[30%] h-[44px] bg-[gray] grid place-items-center text-white font-semibold rounded-xl'
+          onClick={() => { handlePrevious(); }}>
+            이전
+          </button>
+
+          <NcModal
+          renderTrigger={(openModal) => 
+          <button onClick={openModal}
+          className="w-[284px] h-[44px] grid place-items-center text-white font-semibold rounded-xl bg-[#4338ca]">
+            모임 생성 완료
+          </button>}
+          modalTitle="설정을 완료하시겠습니까?"
+          className='bg-[#4338ca] text-white font-semibold py-2 px-8 rounded-full'
+          renderContent={() => 
+          <div  className='flex flex-col items-center'>
+          <GroupsIcon className='text-[90px]' />
+            <button className='bg-[#4338ca] text-white font-semibold py-2 px-8 rounded-full' onClick={createMeeting}>모임 생성</button>
+          </div>}
+        />
+        </div>
     </>
   );
 }
