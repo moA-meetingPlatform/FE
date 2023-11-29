@@ -58,27 +58,31 @@ async function getMeetingData() {
 async function getRecommendMeetingData() {
 
   const session = await getServerSession(options)
-  
-  const data1 = await fetch(`http://35.219.133.202/api/v1/recommendation`,
+  console.log("uuid", session?.user.userUuid)
+  const data1 = await fetch(`https://moamoa-recomendation.duckdns.org/api/v1/recommendation`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user_uuid: session?.user.userUuid })
     });
-  const data2 = await data1.json() as MeetingListResponse;
-
+  const data2 = await data1.json();
+  console.log("data2", data2)
+  if (data2?.isSuccess === false) {
+    return null;
+  }
   const data3 = await fetch('https://moamoa-backend.duckdns.org/api/v1/meeting/list', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ ids: data2.result })
   });
 
-  if (!data3.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
-  }
+  const data4 = await data3.json();
 
-  return data3.json()
+  if(!data3.ok) {
+    return null;
+  }
+  const res = await data4 as MeetingListResponse;
+  return res
 }
 
 async function getInterst() {
@@ -104,18 +108,35 @@ export default async function PageHome() {
   const session = await getServerSession(options);
   let postsToDisplay;
 
-  if (session?.user.userUuid) {
+  if (session?.user.userUuid ) {
     // 로그인 상태일 때
+    console.log("session", session?.user.userUuid)
     const recommendmeetingdata = await getRecommendMeetingData() as MeetingListResponse;
-    const mappedRecommendMeetings = recommendmeetingdata.result.map(meeting => ({
-      id: meeting.id,
-      title: meeting.title,
-      author: meeting.hostNickname,
-      date: new Date(meeting.meetingDatetime).toLocaleDateString("ko-KR"),
-      href: `/meeting/detail/${meeting.id}`,
-      featuredImage: "https://moa-meetingplatform-images.s3.ap-northeast-2.amazonaws.com/moa.png",
-    }));
-    postsToDisplay = mappedRecommendMeetings.filter((_, i) => i < 3);
+    console.log("recommendmeetingdata", recommendmeetingdata)
+    if (recommendmeetingdata === null) {
+      const meetingdata = await getMeetingData() as MeetingListResponse;
+      const mappedMeetings = meetingdata.result.map(meeting => ({
+        id: meeting.id,
+        title: meeting.title,
+        author: meeting.hostNickname,
+        date: new Date(meeting.meetingDatetime).toLocaleDateString("ko-KR"),
+        href: `/meeting/detail/${meeting.id}`,
+        // featuredImage: meeting.meetingHeaderImageUrl,
+        featuredImage: `https://loremflickr.com/640/400?random=${meeting.id}`,
+      }));
+      postsToDisplay = mappedMeetings.filter((_, i) => i < 3);
+    } else {
+      const mappedRecommendMeetings = recommendmeetingdata.result.map(meeting => ({
+        id: meeting.id,
+        title: meeting.title,
+        author: meeting.hostNickname,
+        date: new Date(meeting.meetingDatetime).toLocaleDateString("ko-KR"),
+        href: `/meeting/detail/${meeting.id}`,
+        featuredImage: `https://loremflickr.com/640/400?random=${meeting.id}`,
+        // featuredImage: meeting.meetingHeaderImageUrl,
+      }));
+      postsToDisplay = mappedRecommendMeetings.filter((_, i) => i < 3);
+    }
   } else {
     // 로그인하지 않은 상태일 때
     const meetingdata = await getMeetingData() as MeetingListResponse;
@@ -125,7 +146,8 @@ export default async function PageHome() {
       author: meeting.hostNickname,
       date: new Date(meeting.meetingDatetime).toLocaleDateString("ko-KR"),
       href: `/meeting/detail/${meeting.id}`,
-      featuredImage: "https://moa-meetingplatform-images.s3.ap-northeast-2.amazonaws.com/moa.png",
+      // featuredImage: meeting.meetingHeaderImageUrl,
+      featuredImage: `https://loremflickr.com/640/400?random=${meeting.id}`,
     }));
     postsToDisplay = mappedMeetings.filter((_, i) => i < 3);
   }
@@ -137,7 +159,7 @@ export default async function PageHome() {
 
       <div className="container relative">
         <SectionLargeSlider
-          heading="추천 모임"
+          heading="Recommendation"
           className="pt-10 pb-16 md:py-16 lg:pb-28 lg:pt-20"
           posts={postsToDisplay?.filter((_, i) => i < 3)}
         />
@@ -161,14 +183,14 @@ export default async function PageHome() {
         <div className="relative py-16">
           {/* <BackgroundSection /> */}
           <SectionSliderNewAuthors
-            heading="인기 호스트"
+            heading="Popular Hosts"
             subHeading=""
             authors={DEMO_AUTHORS.filter((_, i) => i < 10)}
           />
         </div>
-        <div className="relative py-16">
+        <div className="relative py-6 mb-10">
           <BackgroundSection />
-          <SectionMagazine className="py-16 lg:py-28" posts={postsToDisplay} />
+          <SectionMagazine className="py-6" posts={postsToDisplay} />
         </div>
       </div>
       <BottomNav />

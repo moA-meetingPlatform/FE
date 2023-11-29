@@ -9,7 +9,7 @@ export default function InterModal({ isOpen, setIsOpen, content, routePath, toke
     const onClose = () => setIsOpen(false);
 
     return (
-        <div className="fixed w-full h-screen overflow-hidden">
+        <div className="fixed w-full h-screen overflow-hidden backdrop-blur-md">
             <Modal 
                 isOpen={isOpen} 
                 onClose={onClose} 

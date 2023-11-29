@@ -9,7 +9,7 @@ import SwitchDarkMode2 from "@/components/SwitchDarkMode/SwitchDarkMode2";
 import MainNav from "@/components/Header/MainNav";
 import InterModal from "@/components/(widget)/modal/InterModal";
 
-const SiteHeader = ({interData}:{interData:number[]}) => {
+const SiteHeader = ({interData}:{interData?:number[]}) => {
 
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   console.log(interData)
