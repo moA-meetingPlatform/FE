@@ -63,7 +63,7 @@ export default function Sequence5(props) {
 
       <div className='flex flex-col justify-center items-center relative'>
         <div className='flex flex-col justify-start md:w-[80%] w-full transition-all'>
-          <label className='text-[0.75rem] text-gray-500 bg-white -mb-3 ml-5 z-50 w-fit px-2'>fcfs</label>
+          <label className='text-[0.75rem] text-gray-500 bg-white -mb-3 ml-5 z-50 w-fit px-2'>선착순</label>
           <input
             className='border-2 border-[#E5E7EB] text-[0.8rem] rounded-full px-5 h-[50px] placeholder:text-[#9CA3AF80] placeholder:text-[0.8rem]'
             type="text"
@@ -101,7 +101,7 @@ export default function Sequence5(props) {
         <button onClick={handleNext}>Next</button>
       </div> */}
 
-      <Box sx={{ pb: 7 }} ref={ref}>
+      {/* <Box sx={{ pb: 7 }} ref={ref}>
         <CssBaseline />
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
           <BottomNavigation showLabels>
@@ -112,7 +112,18 @@ export default function Sequence5(props) {
             <BottomNavigationAction key="next" label="다음" icon={<ArchiveIcon />} onClick={() => { handleSave(); handleNext(); }} />
           </BottomNavigation>
         </Paper>
-      </Box>
+      </Box> */}
+        <div className='w-full bg-white p-2 flex justify-between fixed bottom-0 gap-1 text-sm right-[1px]'>
+          <button className='w-[30%] h-[44px] bg-[gray] grid place-items-center text-white font-semibold rounded-xl'
+          onClick={() => { handleSave(); handlePrevious(); }}>
+            이전
+          </button>
+
+          <button className="w-full h-[44px] grid place-items-center text-white font-semibold rounded-xl bg-[#4338ca]"
+          onClick={() => { handleSave(); handleNext(); }}>
+            다음
+          </button>
+        </div>
     </>
   );
 }

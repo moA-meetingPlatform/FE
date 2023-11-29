@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { DEMO_POSTS } from "@/data/posts";
-import { PostDataType } from "@/data/types";
+import { PostDataType, TaxonomyType } from "@/data/types";
 import Pagination from "@/components/Pagination/Pagination";
 import ButtonPrimary from "@/components/Button/ButtonPrimary";
 import { DEMO_AUTHORS } from "@/data/authors";
@@ -32,20 +32,14 @@ import MannerTemparature from "@/components/(ui)/setting/mannerTem";
 import { InterestData } from "@/data/interestData";
 import { InterestTpye } from "@/types/InterestType";
 import { useSession } from 'next-auth/react';
-import { integer } from "aws-sdk/clients/cloudfront";
 import BackbuttonHeader from "@/components/(navigation)/(top)/BackbuttonHeader";
 import ModeIcon from '@mui/icons-material/Mode';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { interestGetData } from "@/data/interest/interestGetData";
-import { InterestListType } from "@/types/InterestListType";
-
+import __categoryData from "../../../data/jsons/__categoryData.json";
 
 // interface ProfileProps{
 //   userUuid: string;
 // }
-interface ProfileContentsProps {
-  uuid: any;
-}
 
 interface ProfileData {
   userUuid?: string,
@@ -61,6 +55,20 @@ interface ProfileResponse {
   result: ProfileData;
   isSuccess: boolean;
   message: string;
+}
+
+interface CategoryData {
+  tag: {
+    id: number;
+    name: string;
+    // 추가적인 필요한 항목이 있다면 여기에 추가
+  }[];
+}
+
+interface SessionUser {
+  userUuid: string;
+  token: string;
+  // 필요한 다른 속성들...
 }
 
 // async function getData(userUuid:string) {
@@ -81,23 +89,23 @@ const FILTERS = [
 ];
 const TABS = ["좋아요", "참여", "진행"];
 
-const PageAuthor: React.FC<ProfileContentsProps> = () => {
+const PageAuthor = () => {
 
   // const data = await getData(id)
   //   console.log(data.result.nickname)
 
-  const { data: session } = useSession<any>();
-  // console.log(session)
+  const { data: session } = useSession();
+  // const session = useSession();
+  // const userUUID = session.data?.user.userUuid
+  // console.log("userUUID",userUUID)
   const [userData, setUserData] = useState<any>({}); // 사용자 데이터를 저장할 상태
   const [tabActive, setTabActive] = useState<string>(TABS[0]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>();
-
-  const [interests, setInterests] = useState<string[]>([]);
   
   const userUuid = session?.user?.userUuid.toString();
   const token = session?.user?.token;
-  // console.log(userUuid)
+  console.log(userUuid)
 
   // const userUuid = session?.user.userUuid || '';
 
@@ -138,58 +146,92 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
   }, [token, userUuid]);
 
 
+  // const [userInterestName, setUserInterestName] = useState<string | null>(null);
   // useEffect(() => {
-  //   const getInterests = async () => {
+  //   const getUserCategory = async () => {
   //     try {
-  //       // 관심사 데이터 받아오기
-  //       const InterestRes = await fetch(`https://moamoa-backend.duckdns.org/api/v1/user/category/user?userUuid=${userUuid}`, {
+  //       if (!token || !userUuid) {
+  //         return null;
+  //       }
+  
+  //       const restwo = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/category/user?userUuid=${userUuid}`, {
   //         headers: {
   //           Authorization: `Bearer ${token}`,
   //         },
   //       });
   
-  //       if (InterestRes.ok) {
-  //         const data = await InterestRes.json();
-  //         const userInterests: number[] = data.result;
-  
-  //         // 로컬의 interestListData와 비교하여 content로 치환
-  //         const mappedInterests: InterestListType[] = userInterests.map((categoryId: number) => {
-  //           const matchingInterest = interestGetData.find((interest) => interest.id === categoryId);
-  
-  //           // 만약 matchingInterest가 없을 경우, 예외처리
-  //           if (!matchingInterest) {
-  //             throw new Error(`Matching interest not found for category ID: ${categoryId}`);
-  //           }
-  
-  //           return matchingInterest.contents || '';
-  //         });
-  
-  //         setInterests(mappedInterests);
-  //       } else {
-  //         throw new Error('Failed to fetch interests data');
+  //       if (!restwo.ok) {
+  //         throw new Error('Failed to fetch userCategory');
   //       }
-  //     } catch (error) {
-  //       console.error('An error occurred:', error);
-  //       // 네트워크 오류 등의 경우 에러 상태 업데이트
-  //       setError('Failed to fetch data');
-  //     } finally {
-  //       // 데이터 로딩이 완료되면 로딩 상태 업데이트
-  //       setIsLoading(false);
-  //     }
-  //   };
   
-  //   // fetchData 함수 호출
-  //   getInterests();
-  // }, [token, userUuid]);
+  //       const data = await restwo.json();
+  
+  //       // JSON 파일에서 관심사와 category_id를 가져와서 userCategory와 비교
+  //       const interestsFromJson: TaxonomyType[] = __categoryData?.tag?.map((item: { id: any; name: any; }) => ({
+  //         id: item.id,
+  //         name: item.name,
+  //         // 추가적인 필요한 항목이 있다면 여기에 추가
+  //       }));
+  
+  //       const userCategory = data.result;
+  
+  //       // userCategory와 관련된 관심사 필터링
+  //       const userInterest = interestsFromJson.find((interest) => interest.id === userCategory);
+  
+  //     // userInterest가 있을 때 state에 설정
+  //     if (userInterest) {
+  //       setUserInterestName(userInterest.name);
+  //     } else {
+  //       setUserInterestName(null);
+  //     }
+  //   } catch (error:any) {
+  //     console.error(`Failed to get userCategory: ${error.message}`);
+  //     setUserInterestName(null);
+  //   }
+  // };
 
+  
+  //   // 여기서 userInterest 변수를 이용하여 필요한 작업을 수행할 수 있습니다.
+  // }, [token, userUuid, __categoryData.tag]);
 
+// // 모든 관심사와 그에 해당하는 category_id를 가져오는 함수
+// async function getInterests() {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/category`);
+//   if (!res.ok) {
+//     throw new Error('Failed to fetch interests');
+//   }
+//   const data = await res.json();
+//   const interests = data.result.flatMap((category: { subCategories: any; }) => category.subCategories);
+//   return data.result; // 이 부분은 실제 API 응답에 따라 변경이 필요할 수 있습니다.
+// }
 
-  const handleClickTab = (item: string) => {
-    if (item === tabActive) {
-      return;
-    }
-    setTabActive(item);
-  };
+// // 사용자의 category_id를 가져오는 함수
+// async function getUserCategory() {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/category/user?userUuid=${userUuid}`);
+//   if (!res.ok) {
+//     throw new Error('Failed to fetch userCategory');
+//   }
+//   const data = await res.json();
+//   return data.result; // 이 부분은 실제 API 응답에 따라 변경이 필요할 수 있습니다.
+// }
+
+// useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       const allInterests = await getInterests();
+//       const userCategory = await getUserCategory();
+//       const userInterests = allInterests.filter((interest: { id: any; }) => userCategory.includes(interest.id));
+//       setInterests(userInterests);
+//     } catch (error) {
+//       console.error('An error occurred:', error);
+//       setError('Failed to fetch data');
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+  
+//   fetchData();
+// }, [userUuid]);
 
   return (
     
@@ -215,7 +257,7 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
                 <Image
                   alt="Avatar"
                   // src={userData?.profileImageUrl}
-                  src={userData?.profileImageUrl || "/images/basicProfile.jpg"}
+                  src={userData.profileImageUrl ||"/images/basicProfile.jpg"}
                   fill
                   sizes="(max-width: 1280px) 100vw, 1536px"
                   className="object-cover"
@@ -226,8 +268,8 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
 
             {/*  */}
             <div className="pt-5 md:pt-1 lg:ml-6 xl:ml-12 flex-grow">
-              <div className="max-w-screen-sm space-y-3.5 ">
-                <h2 className="inline-flex items-center text-2xl sm:text-3xl lg:text-4xl font-semibold">
+              <div className="max-w-screen-sm space-y-5 ">
+                <h2 className="inline-flex items-center text-2xl sm:text-xl lg:text-4xl font-semibold">
                   <span>{userData?.nickname}</span>
 {/*                   <VerifyIcon
                     className="ml-2"
@@ -237,7 +279,7 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
                 </h2>
                 <div className="h-14">
                 <span className="block text-sm text-neutral-500 dark:text-neutral-400">
-                {userData?.userIntroduce}
+                {userData?.userIntroduce || "특별함 보다 소소한 행복을 추구해요."}
                 </span>
                 <span>
 {/*                   <NcImage
@@ -266,6 +308,9 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
                     }
                   </ul>
                 </div>
+
+
+                  
               </div>
             </div>
 
@@ -310,7 +355,7 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
                 <NavItem
                   key={index}
                   isActive={tabActive === item}
-                  onClick={() => handleClickTab(item)}
+                  // onClick={() => handleClickTab(item)}
                 >
                   {item}
                 </NavItem>

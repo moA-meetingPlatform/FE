@@ -68,33 +68,38 @@ export default function Sequence1(props) {
         <p className='text-lg font-semibold text-center'>어떤 모임을 하고싶나요?</p>
         <p className="text-xs text-center text-gray-500">모임을 선택하세요</p>
       </div>
-      <div className="flex flex-col gap-2 mx-auto">
+      <div className="flex flex-col items-center mr-24">
         <ListboxWrapper>
+
           <Listbox
             aria-label="Single selection example"
-            variant="bordered"
+            variant="solid"
             selectionMode="single"
+            className='flex bg-[#eef2ff] py-10 rounded-lg w-[350px]'
             selectedKeys={selectedKeys}
             onSelectionChange={setSelectedKeys}
           >
-            <ListboxItem key="meeting">단기 모임</ListboxItem>
-            <ListboxItem key="ready" color='danger'>준비중</ListboxItem>
+            <ListboxItem key="meeting" className='border-2 font-semibold'>단기 모임</ListboxItem>
+            <ListboxItem key="ready" className='border-2 mt-5'><p className='text-red-400 font-semibold'>준비중...</p></ListboxItem>
           </Listbox>
+
         </ListboxWrapper>
       </div>
       {/* <button onClick={handleNext}>Next</button> */}
-      <Box sx={{ pb: 7 }} ref={ref}>
+      {/* <Box sx={{ pb: 7 }} ref={ref}>
         <CssBaseline />
-        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+        <Paper sx={{ position: 'fixed', bottom: 0, left:0, right: 0 }} elevation={1} styleOverrides="w-full">
           <BottomNavigation showLabels>
-            <BottomNavigationAction key="empty0" label="" />
-            <BottomNavigationAction key="empty1" label="" />
-            <BottomNavigationAction key="empty2" label="" />
-            <BottomNavigationAction key="empty3" label="" />
-            <BottomNavigationAction key="next" label="다음" icon={<ArchiveIcon />} onClick={handleNext} />
+            <BottomNavigationAction key="next" label="다음" className='w-full h-[55px] text-white font-semibold rounded-xl bg-[#4338ca]'
+            onClick={handleNext}/>
           </BottomNavigation>
         </Paper>
-      </Box>
+      </Box> */}
+      <div className='w-full p-2 bg-white flex fixed bottom-0 right-[1px] text-sm'>
+      <button className="w-full h-[44px] text-white font-semibold rounded-xl bg-[#4338ca]" onClick={handleNext}>
+        다음
+      </button>
+      </div>
     </>
   );
 }

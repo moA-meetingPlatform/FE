@@ -110,7 +110,7 @@ export default function Sequence2(props) {
         />
         <button onClick={handleNext}>Next</button>
       </div> */}
-      <Accordion variant="splitted">
+      {/* <Accordion variant="splitted">
         <AccordionItem key="1" aria-label="Accordion 1" title="Accordion 1">
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -128,9 +128,9 @@ export default function Sequence2(props) {
         <AccordionItem key="3" aria-label="Accordion 3" title="Accordion 3">
           {defaultContent}
         </AccordionItem>
-      </Accordion>
+      </Accordion> */}
       <>
-        <Box sx={{ pb: 7 }} ref={ref}>
+        {/* <Box sx={{ pb: 7 }} ref={ref}>
           <CssBaseline />
           <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
             <BottomNavigation showLabels>
@@ -141,7 +141,18 @@ export default function Sequence2(props) {
               <BottomNavigationAction key="next" label="다음" icon={<ArchiveIcon />} onClick={() => { handleSave(); handleNext(); }} />
             </BottomNavigation>
           </Paper>
-        </Box>
+        </Box> */}
+        <div className='w-full bg-white p-2 flex justify-between fixed bottom-0 gap-1 text-sm right-[1px]'>
+          <button className='w-[30%] h-[44px] bg-[gray] grid place-items-center text-white font-semibold rounded-xl'
+          onClick={() => { handleSave(); handlePrevious(); }}>
+            이전
+          </button>
+
+          <button className="w-full h-[44px] grid place-items-center text-white font-semibold rounded-xl bg-[#4338ca]"
+          onClick={() => { handleSave(); handleNext(); }}>
+            다음
+          </button>
+        </div>
       </>
     </>
   );

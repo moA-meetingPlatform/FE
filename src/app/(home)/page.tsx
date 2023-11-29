@@ -81,8 +81,25 @@ async function getRecommendMeetingData() {
   return data3.json()
 }
 
+async function getInterst() {
+
+  const session = await getServerSession(options)
+  if (!session?.user) {
+    return;
+  }
+  
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/category/user?userUuid=${session?.user.userUuid}`, { cache: "no-cache" });
+  const data = await res.json();
+  console.log("inter", data);
+  return data.result;
+}
+
 
 export default async function PageHome() {
+
+  const interstData:number[] = await getInterst();
+  if(!interstData || interstData.length === 0)
+  console.log("interstData", interstData)
 
   const session = await getServerSession(options);
   let postsToDisplay;
@@ -116,13 +133,15 @@ export default async function PageHome() {
 
   return (
     <div className="nc-PageHome relative">
-      <SiteHeader />
+      <SiteHeader interData = {interstData}/>
+
       <div className="container relative">
         <SectionLargeSlider
           heading="추천 모임"
           className="pt-10 pb-16 md:py-16 lg:pb-28 lg:pt-20"
           posts={postsToDisplay?.filter((_, i) => i < 3)}
         />
+
         <div className="relative py-16">
           <BackgroundSection />
           <SectionGridCategoryBox
@@ -156,5 +175,3 @@ export default async function PageHome() {
     </div>
   );
 };
-
-

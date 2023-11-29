@@ -115,7 +115,7 @@ function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<Re
           <label className='text-[0.75rem] text-gray-500 bg-white -mb-3 ml-5 z-50 w-fit px-2'>암호를 입력해주세요.</label>
           <input
             className='border-2 border-[#E5E7EB] text-[0.8rem] rounded-full px-5 h-[50px] placeholder:text-[#9CA3AF80] placeholder:text-[0.8rem]'
-            // type="password"
+            type="password"
             name="password"
             onChange={handleOnChange}
             defaultValue={signUpData.password}
@@ -128,7 +128,7 @@ function PwInput(props: {signUpData: SignupType, setSignUpData:React.Dispatch<Re
         <div className='flex flex-col mt-3 justify-start md:w-[80%] w-full transition-all'>
           <label className='text-[0.75rem] text-gray-500 bg-white -mb-3 ml-5 z-50 w-fit px-2'>한번더 입력해주세요.</label>
           <input 
-            // type="password"
+            type="password"
             name="checkPassword"
             className='border-2 border-[#E5E7EB] text-[0.8rem] rounded-full px-6 h-[50px] placeholder:text-[#9CA3AF80] placeholder:text-[0.8rem]'
             onChange={handleOnChange}
