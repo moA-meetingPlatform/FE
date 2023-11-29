@@ -105,7 +105,7 @@ const PageAuthor = () => {
   
   const userUuid = session?.user?.userUuid.toString();
   const token = session?.user?.token;
-  console.log(userUuid)
+  // console.log(userUuid)
 
   // const userUuid = session?.user.userUuid || '';
 
@@ -146,92 +146,56 @@ const PageAuthor = () => {
   }, [token, userUuid]);
 
 
-  // const [userInterestName, setUserInterestName] = useState<string | null>(null);
-  // useEffect(() => {
-  //   const getUserCategory = async () => {
-  //     try {
-  //       if (!token || !userUuid) {
-  //         return null;
-  //       }
-  
-  //       const restwo = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/category/user?userUuid=${userUuid}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  
-  //       if (!restwo.ok) {
-  //         throw new Error('Failed to fetch userCategory');
-  //       }
-  
-  //       const data = await restwo.json();
-  
-  //       // JSON 파일에서 관심사와 category_id를 가져와서 userCategory와 비교
-  //       const interestsFromJson: TaxonomyType[] = __categoryData?.tag?.map((item: { id: any; name: any; }) => ({
-  //         id: item.id,
-  //         name: item.name,
-  //         // 추가적인 필요한 항목이 있다면 여기에 추가
-  //       }));
-  
-  //       const userCategory = data.result;
-  
-  //       // userCategory와 관련된 관심사 필터링
-  //       const userInterest = interestsFromJson.find((interest) => interest.id === userCategory);
-  
-  //     // userInterest가 있을 때 state에 설정
-  //     if (userInterest) {
-  //       setUserInterestName(userInterest.name);
-  //     } else {
-  //       setUserInterestName(null);
-  //     }
-  //   } catch (error:any) {
-  //     console.error(`Failed to get userCategory: ${error.message}`);
-  //     setUserInterestName(null);
-  //   }
-  // };
 
-  
-  //   // 여기서 userInterest 변수를 이용하여 필요한 작업을 수행할 수 있습니다.
-  // }, [token, userUuid, __categoryData.tag]);
+  const [userInterestNames, setUserInterestNames] = useState<string[]>([]);
 
-// // 모든 관심사와 그에 해당하는 category_id를 가져오는 함수
-// async function getInterests() {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/category`);
-//   if (!res.ok) {
-//     throw new Error('Failed to fetch interests');
-//   }
-//   const data = await res.json();
-//   const interests = data.result.flatMap((category: { subCategories: any; }) => category.subCategories);
-//   return data.result; // 이 부분은 실제 API 응답에 따라 변경이 필요할 수 있습니다.
-// }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // 전체 카테고리 목록 가져오기
+        const categoryRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/category`);
+        const categoryData = await categoryRes.json();
+        const categoryList = categoryData.result;
 
-// // 사용자의 category_id를 가져오는 함수
-// async function getUserCategory() {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/category/user?userUuid=${userUuid}`);
-//   if (!res.ok) {
-//     throw new Error('Failed to fetch userCategory');
-//   }
-//   const data = await res.json();
-//   return data.result; // 이 부분은 실제 API 응답에 따라 변경이 필요할 수 있습니다.
-// }
+        // 선택된 관심사 ID 가져오기
+        if (session) {
+        const interestRes = await fetch(`https://moamoa-backend.duckdns.org/api/v1/category/user?userUuid=${userUuid}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const interestData = await interestRes.json();
+        const selectedInterestIds = interestData.result;
 
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       const allInterests = await getInterests();
-//       const userCategory = await getUserCategory();
-//       const userInterests = allInterests.filter((interest: { id: any; }) => userCategory.includes(interest.id));
-//       setInterests(userInterests);
-//     } catch (error) {
-//       console.error('An error occurred:', error);
-//       setError('Failed to fetch data');
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-  
-//   fetchData();
-// }, [userUuid]);
+
+        // 선택된 관심사의 이름을 가져오는 함수
+        const getInterestNames = (selectedInterestIds: string | any[], categoryList: any[]) => {
+          const interestNames: any[] = [];
+
+          categoryList.forEach((category) => {
+            category.subCategories.forEach((subCategory: { id: string; name: any; }) => {
+              if (selectedInterestIds.includes(subCategory.id)) {
+                interestNames.push(subCategory.name);
+              }
+            });
+          });
+
+          return interestNames;
+          console.log(interestNames)
+        };
+
+        // 선택된 관심사의 이름 가져오기
+        const names = getInterestNames(selectedInterestIds, categoryList);
+        setUserInterestNames(names);
+      }
+    } catch (error) {
+        console.error('An error occurred while fetching data:', error);
+        // 오류 처리 로직
+      }
+    };
+
+    fetchData();
+  }, [session]);
 
   return (
     
@@ -301,12 +265,20 @@ const PageAuthor = () => {
                 </a> */}
                 {/* <SocialsList itemClass="block w-7 h-7" /> */}
                 <div className='profile_bottom_box mt-7'>
-                <ul className='intrest_badge'>
+                {/* <ul className='intrest_badge'>
                     {InterestData.map((e:InterestTpye)=>(
                       <li key={e.id} className='inline-block mr-2 bg-slate-200 rounded-full h-6 px-3 leading-6 font-semibold text-[13px] text-black'>{e.content}</li>
                     ))
                     }
-                  </ul>
+                  </ul> */}
+                <ul>
+                  {userInterestNames.map((name, index) => (
+                  <li key={index} className='inline-block mr-2 bg-slate-200 rounded-full h-6 px-3 leading-6 font-semibold text-[13px] text-black mb-1'>
+                  {name}
+                  </li>
+                  ))}
+                </ul>
+
                 </div>
 
 
@@ -329,9 +301,9 @@ const PageAuthor = () => {
                   onClick={() => {}}
                   data={SOCIALS_DATA}
                 /> */}
-                <button className="bg-gray-300 rounded-full text-[18px] h-fit w-fit p-0.5">
+                {/* <button className="bg-gray-300 rounded-full text-[18px] h-fit w-fit p-0.5">
                   <Link href="/setting" ><SettingsIcon className="h-8 w-8"/></Link>
-                  </button>
+                  </button> */}
               </div>
 
               <button className="bg-gray-300 rounded-full text-[18px] h-fit w-fit p-0.5">

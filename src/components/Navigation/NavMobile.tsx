@@ -194,14 +194,8 @@ const NavMobile: React.FC<NavMobileProps> = ({
         {data.map(_renderItem)}
       </ul>
       <div className="flex items-center justify-between py-6 px-5 space-x-2 rtl:space-x-reverse">
-        <ButtonPrimary className="!px-10 relative">
-          Buy this template
-          <a
-            href="https://themeforest.net/item/ncmaz-blog-news-magazine-nextjs-template/44412092"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute inset-0"
-          ></a>
+        <ButtonPrimary className="!px-10 relative hidden">
+        버튼
         </ButtonPrimary>
       </div>
     </div>
