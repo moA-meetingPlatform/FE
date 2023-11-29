@@ -40,9 +40,6 @@ import __categoryData from "../../../data/jsons/__categoryData.json";
 // interface ProfileProps{
 //   userUuid: string;
 // }
-interface ProfileContentsProps {
-  uuid: any;
-}
 
 interface ProfileData {
   userUuid?: string,
@@ -68,6 +65,12 @@ interface CategoryData {
   }[];
 }
 
+interface SessionUser {
+  userUuid: string;
+  token: string;
+  // 필요한 다른 속성들...
+}
+
 // async function getData(userUuid:string) {
 // const res = await fetch(`https://moa-backend.duckdns.org/api/v1/user/profile/${userUuid}`)
 //   if (!res.ok) {
@@ -86,13 +89,15 @@ const FILTERS = [
 ];
 const TABS = ["좋아요", "참여", "진행"];
 
-const PageAuthor: React.FC<ProfileContentsProps> = () => {
+const PageAuthor = () => {
 
   // const data = await getData(id)
-    // console.log(data.result.nickname)
+  //   console.log(data.result.nickname)
 
-  const { data: session } = useSession<any>();
-  console.log(session)
+  const { data: session } = useSession();
+  // const session = useSession();
+  // const userUUID = session.data?.user.userUuid
+  // console.log("userUUID",userUUID)
   const [userData, setUserData] = useState<any>({}); // 사용자 데이터를 저장할 상태
   const [tabActive, setTabActive] = useState<string>(TABS[0]);
   const [isLoading, setIsLoading] = useState(false);
@@ -100,7 +105,7 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
   
   const userUuid = session?.user?.userUuid.toString();
   const token = session?.user?.token;
-  // console.log(userUuid)
+  console.log(userUuid)
 
   // const userUuid = session?.user.userUuid || '';
 
@@ -264,7 +269,7 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
             {/*  */}
             <div className="pt-5 md:pt-1 lg:ml-6 xl:ml-12 flex-grow">
               <div className="max-w-screen-sm space-y-5 ">
-                <h2 className="inline-flex items-center text-4xl sm:text-3xl lg:text-4xl font-semibold">
+                <h2 className="inline-flex items-center text-2xl sm:text-xl lg:text-4xl font-semibold">
                   <span>{userData?.nickname}</span>
 {/*                   <VerifyIcon
                     className="ml-2"
@@ -295,14 +300,14 @@ const PageAuthor: React.FC<ProfileContentsProps> = () => {
                   </span>
                 </a> */}
                 {/* <SocialsList itemClass="block w-7 h-7" /> */}
-                {/* <div className='profile_bottom_box mt-7'>
+                <div className='profile_bottom_box mt-7'>
                 <ul className='intrest_badge'>
                     {InterestData.map((e:InterestTpye)=>(
                       <li key={e.id} className='inline-block mr-2 bg-slate-200 rounded-full h-6 px-3 leading-6 font-semibold text-[13px] text-black'>{e.content}</li>
                     ))
                     }
                   </ul>
-                </div> */}
+                </div>
 
 
                   

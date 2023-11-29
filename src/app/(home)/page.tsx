@@ -2,34 +2,12 @@ import React from "react";
 import SectionLargeSlider from "@/app/(home)/SectionLargeSlider";
 import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";
 import SectionSliderNewAuthors from "@/components/SectionSliderNewAthors/SectionSliderNewAuthors";
-import {
-  DEMO_POSTS,
-  DEMO_POSTS_AUDIO,
-  DEMO_POSTS_GALLERY,
-  DEMO_POSTS_VIDEO,
-} from "@/data/posts";
 import { MEETING_CATEGORIES } from "@/data/category";
 import { DEMO_AUTHORS } from "@/data/authors";
-import SectionSliderNewCategories from "@/components/SectionSliderNewCategories/SectionSliderNewCategories";
-import SectionSliderPosts from "@/components/Sections/SectionSliderPosts";
-import SectionMagazine1 from "@/components/Sections/SectionMagazine1";
-import SectionAds from "@/components/Sections/SectionAds";
-import SectionMagazine7 from "@/components/Sections/SectionMagazine7";
-import SectionGridPosts from "@/components/Sections/SectionGridPosts";
-import SectionMagazine8 from "@/components/Sections/SectionMagazine8";
-import SectionMagazine9 from "@/components/Sections/SectionMagazine9";
-import SectionGridAuthorBox from "@/components/SectionGridAuthorBox/SectionGridAuthorBox";
-import SectionBecomeAnAuthor from "@/components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
-import SectionSubscribe2 from "@/components/SectionSubscribe2/SectionSubscribe2";
-import SectionVideos from "@/components/Sections/SectionVideos";
-import SectionLatestPosts from "@/components/Sections/SectionLatestPosts";
-import SectionMagazine2 from "@/components/Sections/SectionMagazine2";
 import SectionGridCategoryBox from "@/components/SectionGridCategoryBox/SectionGridCategoryBox";
 import BottomNav from "@/components/(navigation)/(bottom)/BottomNav";
-import Header from "@/components/(navigation)/(top)/Header";
 import SiteHeader from "../SiteHeader";
 import SectionMagazine from "@/components/Sections/SectionMagazine";
-import CreateBtn from "@/components/Button/CreateBtn";
 import Link from "next/link";
 import ButtonPrimary from "@/components/Button/ButtonPrimary";
 import { getServerSession } from "next-auth";
@@ -77,19 +55,6 @@ async function getMeetingData() {
 }
 
 
-async function getInterst() {
-
-  const session = await getServerSession(options)
-  if (!session?.user) {
-    return;
-  }
-  
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/category/user?userUuid=${session?.user.userUuid}`, { cache: "no-cache" });
-  const data = await res.json();
-  console.log("inter", data);
-  return data.result;
-}
-
 async function getRecommendMeetingData() {
 
   const session = await getServerSession(options)
@@ -114,6 +79,19 @@ async function getRecommendMeetingData() {
   }
 
   return data3.json()
+}
+
+async function getInterst() {
+
+  const session = await getServerSession(options)
+  if (!session?.user) {
+    return;
+  }
+  
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/category/user?userUuid=${session?.user.userUuid}`, { cache: "no-cache" });
+  const data = await res.json();
+  console.log("inter", data);
+  return data.result;
 }
 
 
@@ -156,12 +134,14 @@ export default async function PageHome() {
   return (
     <div className="nc-PageHome relative">
       <SiteHeader interData = {interstData}/>
+
       <div className="container relative">
         <SectionLargeSlider
           heading="추천 모임"
           className="pt-10 pb-16 md:py-16 lg:pb-28 lg:pt-20"
           posts={postsToDisplay?.filter((_, i) => i < 3)}
         />
+
         <div className="relative py-16">
           <BackgroundSection />
           <SectionGridCategoryBox
@@ -195,4 +175,3 @@ export default async function PageHome() {
     </div>
   );
 };
-

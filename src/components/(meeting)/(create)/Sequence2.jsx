@@ -110,7 +110,7 @@ export default function Sequence2(props) {
         />
         <button onClick={handleNext}>Next</button>
       </div> */}
-      <Accordion variant="splitted">
+      {/* <Accordion variant="splitted">
         <AccordionItem key="1" aria-label="Accordion 1" title="Accordion 1">
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -128,7 +128,7 @@ export default function Sequence2(props) {
         <AccordionItem key="3" aria-label="Accordion 3" title="Accordion 3">
           {defaultContent}
         </AccordionItem>
-      </Accordion>
+      </Accordion> */}
       <>
         {/* <Box sx={{ pb: 7 }} ref={ref}>
           <CssBaseline />

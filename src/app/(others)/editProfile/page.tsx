@@ -1,12 +1,8 @@
 'use client'
 
 import BackbuttonHeader from '@/components/(navigation)/(top)/BackbuttonHeader';
-import CategorySelect from '@/components/(page)/signup/after/CategorySelect';
-import { Link } from '@mui/material';
 import AWS from 'aws-sdk';
 import { useSession } from 'next-auth/react';
-import Image from 'next/image'
-import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import ModeIcon from '@mui/icons-material/Mode';
@@ -28,14 +24,29 @@ interface ProfileResponse {
 }
 
 function ProfileModify(props:any) {
+
+  const { data: session } = useSession<any>();
+// console.log(session)
+const [userData, setUserData] = useState<any>({}); // 사용자 데이터를 저장할 상태
+const [isLoading, setIsLoading] = useState(false);
+
+const [nickname, setNickname] = useState('');
+const [introduce, setIntroduce] = useState('');
+
+const userUuid = session?.user?.userUuid.toString();
+const token = session?.user?.token;
+// console.log(userUuid)
+
   const router = useRouter()
   const [loding, setLoding] = useState<boolean>(false);
   const [myFile, setMyFile] = useState<File | null>(null);
   const [error, setError] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('');
   const [form, setForm] = useState({
+    userUuid: userUuid || '',
     nickname: '',
     introduce: '',
+    profileImageUrl: '',
   });
 
   AWS.config.update({
@@ -45,6 +56,8 @@ function ProfileModify(props:any) {
     signatureVersion: 'v4',
 })
 
+
+
 const handleCertImgFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
   setMyFile(null);
   const files = (e.target as HTMLInputElement).files;
@@ -53,6 +66,7 @@ const handleCertImgFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = files[0];
       setMyFile(file);
       setLoding(true);
+      // console.log(process.env.BUCKET_NAME, process.env.ACCESS_KEY, process.env.SECRET_KEY, process.env.AWS_REGION)
 
       try {
           const upload = new AWS.S3.ManagedUpload({
@@ -64,11 +78,17 @@ const handleCertImgFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
           },
           });
           const promise = upload.promise();
-          // console.log("promise", (await promise).Location);
+          console.log("promise", (await promise).Location);
           const myUrl = (await promise).Location;
 
       // 이미지 URL 상태 업데이트
       setImageUrl(myUrl);
+
+      // form 상태 업데이트
+        setForm(prevForm => ({
+          ...prevForm,
+          profileImageUrl: myUrl,
+        }));
 
           setLoding(false);
       } catch (error) {
@@ -79,12 +99,13 @@ const handleCertImgFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
   }
 }
 
-// 상태 업데이트 함수 정의
+// 닉네임이나 소개글을 입력할 때마다 form의 nickname과 introduce 상태를 업데이트합니다.
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  setForm({
-    ...form,
+  console.log(form)
+  setForm(prevForm => ({
+    ...prevForm,
     [e.target.name]: e.target.value,
-  });
+  }));
 };
 
 const handleProfileUpdate = async () => {
@@ -96,6 +117,7 @@ const handleProfileUpdate = async () => {
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(form),
@@ -113,17 +135,7 @@ const handleProfileUpdate = async () => {
   }
 };
 
-const { data: session } = useSession<any>();
-// console.log(session)
-const [userData, setUserData] = useState<any>({}); // 사용자 데이터를 저장할 상태
-const [isLoading, setIsLoading] = useState(false);
 
-const [nickname, setNickname] = useState('');
-const [introduce, setIntroduce] = useState('');
-
-const userUuid = session?.user?.userUuid.toString();
-const token = session?.user?.token;
-console.log(userUuid)
 
 // const userUuid = session?.user.userUuid || '';
 

@@ -148,7 +148,7 @@ export default function SequenceLast(props) {
         <p className="text-xs text-center text-gray-500">모임이 생성된 후에는 설정을 변경하실 수 없으니 신중하게 생성해주세요</p>
       </div>
       <div className="flex flex-col gap-2 bg-gray-100 p-4 rounded-2xl font-semibold">
-        <p className="text-small text-default-500">호스트: {selectedValue}</p>
+        <p className="text-small text-default-500">호스트: {session.data.user.nickname}</p>
         <p className="text-small text-default-500">모임 제목: {createData.title}</p>
         <p className="text-small text-default-500">모임 내용: {createData.description}</p>
         <p className="text-small text-default-500">인원수: {createData.maxParticipantNum}</p>
